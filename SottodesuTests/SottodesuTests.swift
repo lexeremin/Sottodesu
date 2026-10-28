@@ -64,6 +64,10 @@ final class SottodesuTests: XCTestCase {
         XCTAssertEqual(FileCategory.of(extension: "cert"), .secrets)
         XCTAssertEqual(FileCategory.of(extension: "env"), .secrets)
         XCTAssertEqual(FileCategory.of(extension: "mobileconfig"), .config)
+        for ext in ["xml", "json", "rc", "jsonc", "yaml", "plist", "properties", "XML"] {
+            XCTAssertEqual(FileCategory.of(extension: ext), .config, ext)
+        }
+        XCTAssertEqual(FileCategory.of(fileName: "settings.xml"), .config)
         XCTAssertEqual(FileCategory.of(extension: "py"), .code)
         XCTAssertEqual(FileCategory.of(extension: "ttf"), .fonts)
         XCTAssertEqual(FileCategory.of(extension: "psd"), .design)
@@ -782,5 +786,47 @@ final class SottodesuTests: XCTestCase {
         try store.save(schedule)
         try store.setSetting("schedulesPaused", "1")
         XCTAssertTrue(ScheduleRunner.runDue(store: store).isEmpty)
+    }
+
+    // MARK: - Updates
+
+    func testVersionsCompareNumerically() {
+        XCTAssertTrue(AppVersion("1.10.0")! > AppVersion("1.9.9")!)
+        XCTAssertTrue(AppVersion("v1.4.0")! > AppVersion("1.3.0")!)
+        XCTAssertEqual(AppVersion("1.3")!, AppVersion("1.3.0")!)
+        XCTAssertFalse(AppVersion("1.3.0")! > AppVersion("1.3.0")!)
+        XCTAssertNil(AppVersion("latest"))
+        XCTAssertNil(AppVersion(""))
+    }
+
+    func testReleaseIsReadFromGitHubJSON() {
+        let json = """
+        {"tag_name":"v1.4.0","html_url":"https://github.com/lexeremin/Sottodesu/releases/tag/v1.4.0",
+         "body":"Notes","draft":false,"prerelease":false,
+         "assets":[{"name":"Sottodesu-1.4.0.dmg","browser_download_url":"https://github.com/lexeremin/Sottodesu/releases/download/v1.4.0/Sottodesu-1.4.0.dmg"},
+                   {"name":"Sottodesu-1.4.0.dmg.sha256","browser_download_url":"https://github.com/lexeremin/Sottodesu/releases/download/v1.4.0/Sottodesu-1.4.0.dmg.sha256"}]}
+        """
+        let release = ReleaseInfo.parse(Data(json.utf8))
+        XCTAssertEqual(release?.tag, "v1.4.0")
+        XCTAssertEqual(release?.version, AppVersion("1.4.0"))
+        XCTAssertEqual(release?.dmgURL?.lastPathComponent, "Sottodesu-1.4.0.dmg")
+        XCTAssertEqual(release?.checksumURL?.lastPathComponent, "Sottodesu-1.4.0.dmg.sha256")
+    }
+
+    func testPrereleasesAndForeignDownloadsAreIgnored() {
+        let pre = #"{"tag_name":"v2.0.0","html_url":"https://github.com/x/y","prerelease":true,"assets":[]}"#
+        XCTAssertNil(ReleaseInfo.parse(Data(pre.utf8)))
+        let foreign = """
+        {"tag_name":"v2.0.0","html_url":"https://github.com/x/y","assets":
+         [{"name":"a.dmg","browser_download_url":"https://evil.example.com/a.dmg"}]}
+        """
+        XCTAssertNil(ReleaseInfo.parse(Data(foreign.utf8))?.dmgURL)
+        XCTAssertNil(ReleaseInfo.parse(Data("not json".utf8)))
+    }
+
+    func testChecksumFileIsParsed() {
+        let hash = String(repeating: "ab", count: 32)
+        XCTAssertEqual(ReleaseInfo.checksum(fromFile: "\(hash.uppercased())  Sottodesu-1.4.0.dmg\n"), hash)
+        XCTAssertNil(ReleaseInfo.checksum(fromFile: "oops"))
     }
 }

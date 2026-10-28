@@ -32,7 +32,8 @@ Sottodesu sorts the mess in your **Downloads**, your **Desktop**, your **home fo
 - 🎯 **You choose.** Sort your Downloads, your Desktop, your home folder (safely limited) or any folder you pick — and only the kinds of files you tick, such as just your photos.
 - ↩️ **Always undoable.** Every sort is saved in a history. Undo any of them later.
 - 🔐 **Careful with secrets.** Keys, certificates and `.env` files go into their own private folder.
-- 🔒 **Private.** Works entirely on your Mac. No account, no internet, no tracking — and it never opens your files, only looks at their names.
+- 🔒 **Private.** Works entirely on your Mac. No account, no tracking — and it never opens your files, only looks at their names. The only thing it ever asks the internet is "is there a newer version?" (you can switch that off).
+- 🔄 **Stays up to date.** Sottodesu tells you when a new version is out, and one button — *Update and Relaunch* — installs it and reopens the app.
 - 🌍 **Speaks your language.** English, Русский, 简体中文, 한국어, 日本語 and Français — even the folders it creates are named in your language.
 - 👀 **Look first.** *Preview* shows exactly what would move before anything does, and *Search history* finds where any file went.
 - ⏰ **Automatic if you like.** Schedule a daily, weekly or monthly tidy-up. Every automatic sort can be undone too.
@@ -183,7 +184,7 @@ These are the folders Sottodesu sorts into in Downloads, on your Desktop and in 
 | **Installers** | dmg, pkg, iso |
 | **3D Models** | stl, 3mf, obj, step, gcode, blend, fbx, glb… |
 | **Databases** | sqlite, db, mdb, accdb, SQL dumps, Anki decks (apkg)… |
-| **Config & VPN** | ovpn, conf, mobileconfig, json, yaml, toml, plist… and **hidden "dot" files** like `.gitignore`, `.zshrc` |
+| **Config & VPN** | ovpn, conf, mobileconfig, json, xml, rc, yaml, toml, ini, cfg, plist, properties… and **hidden "dot" files** like `.gitignore`, `.zshrc` |
 | **Keys & Secrets** | `.env` and `.env.*`, certificates and keys (cert, pem, crt, cer, p12, pfx, SSH keys), `.npmrc`, `.netrc`, password databases… |
 | **Code** | py, js, ts, swift, c, cpp, rs, go, sh, ipynb… |
 | **Fonts** | ttf, otf, woff, woff2 |
@@ -224,7 +225,8 @@ Want another language? See [Translating](docs/DEVELOPING.md#adding-or-fixing-a-t
 
 ## Privacy
 
-- Sottodesu **never connects to the internet.** There is no account, no analytics and no update check.
+- There is no account and no analytics. The **only** network request Sottodesu makes is an update check: about once a day it asks GitHub (`api.github.com`) for the number of the latest release. Nothing about you, your Mac or your files is sent. Turn it off any time in **Sottodesu ▸ Settings… (⌘,)**; **Check for Updates…** in the app menu still works when you ask for it.
+- Installing an update downloads the release from GitHub, checks it against the published SHA-256 checksum and only then replaces the app. The download is deleted afterwards.
 - It only looks at **file names** inside the folder you choose and moves files. It **never opens or reads what's inside them.**
 - The only thing it stores is its history, your last choices and your schedules — in one small file at `~/Library/Application Support/Sottodesu/history.sqlite`. Nothing runs in the background except Sottodesu itself, and only if you choose to keep it in the menu bar.
 

@@ -17,6 +17,7 @@ struct SottodesuApp: App {
         .restorationBehavior(.disabled)
         .commands {
             CommandGroup(after: .appInfo) {
+                Button("Check for Updates…") { model.checkForUpdates(userInitiated: true) }
                 Divider()
                 Button("Uninstall Sottodesu…") { Uninstaller.confirmAndRun() }
             }
@@ -33,6 +34,11 @@ struct SottodesuApp: App {
                 Button("Rescan") { model.rescan() }
                     .keyboardShortcut("r")
             }
+        }
+
+        Settings {
+            UpdateSettingsView()
+                .environment(model)
         }
 
         // Optional: a small icon in the menu bar (switched on in the Schedule tab).
@@ -63,6 +69,14 @@ private struct MenuBarContent: View {
             NSApp.setActivationPolicy(.regular)
             NSApp.activate(ignoringOtherApps: true)
             openWindow(id: "main")
+        }
+        if let release = model.foundRelease {
+            Button("Update to \(release.tag)…") {
+                NSApp.setActivationPolicy(.regular)
+                NSApp.activate(ignoringOtherApps: true)
+                openWindow(id: "main")
+                model.installUpdate()
+            }
         }
         if !model.schedules.isEmpty {
             Toggle("Pause schedules", isOn: Binding(get: { model.schedulesPaused },

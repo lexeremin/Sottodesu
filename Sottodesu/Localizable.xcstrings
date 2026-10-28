@@ -1,7 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {},
+    "%@" : {
+
+    },
     "%@ is empty" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -37,7 +39,9 @@
         }
       }
     },
-    "%@ items skipped (still downloading or just added)." : {},
+    "%@ items skipped (still downloading or just added)." : {
+
+    },
     "%@ of items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -73,7 +77,9 @@
         }
       }
     },
-    "%@ sorts" : {},
+    "%@ sorts" : {
+
+    },
     "%lld items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -784,6 +790,40 @@
         }
       }
     },
+    "About once a day Sottodesu asks GitHub for the number of the latest release. Nothing about you or your files is sent." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Environ une fois par jour, Sottodesu demande à GitHub le numéro de la dernière version. Aucune information sur vous ou vos fichiers n’est envoyée."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu は約1日に1回、GitHub に最新バージョン番号を問い合わせます。あなたやファイルに関する情報は送信されません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu는 하루에 한 번쯤 GitHub에 최신 릴리스 번호를 물어봅니다. 사용자나 파일에 대한 정보는 전송되지 않습니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Примерно раз в сутки Sottodesu спрашивает у GitHub номер последней версии. Никаких данных о вас и ваших файлах не отправляется."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu 大约每天向 GitHub 查询一次最新版本号，不会发送任何关于您或您的文件的信息。"
+          }
+        }
+      }
+    },
     "Add one to keep Downloads or your Desktop tidy without thinking about it." : {
       "localizations" : {
         "fr" : {
@@ -958,7 +998,9 @@
         }
       }
     },
-    "and %@ more" : {},
+    "and %@ more" : {
+
+    },
     "and %lld more" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1447,6 +1489,75 @@
         }
       }
     },
+    "Check for updates automatically" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher automatiquement les mises à jour"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートを自動で確認"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "업데이트 자동 확인"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверять обновления автоматически"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动检查更新"
+          }
+        }
+      }
+    },
+    "Check for Updates…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher des mises à jour…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートを確認…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "업데이트 확인…"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверить обновления…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "检查更新…"
+          }
+        }
+      }
+    },
     "Check Now" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1478,6 +1589,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "立即检查"
+          }
+        }
+      }
+    },
+    "Checking…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérification…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認中…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인 중…"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверка…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在检查…"
           }
         }
       }
@@ -1827,6 +1972,111 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "拷贝路径"
+          }
+        }
+      }
+    },
+    "Couldn’t check for updates: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de rechercher les mises à jour : %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートを確認できませんでした: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "업데이트를 확인할 수 없습니다: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось проверить обновления: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法检查更新：%@"
+          }
+        }
+      }
+    },
+    "Couldn’t check for updates." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de rechercher les mises à jour."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートを確認できませんでした。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "업데이트를 확인할 수 없습니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось проверить обновления."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法检查更新。"
+          }
+        }
+      }
+    },
+    "Couldn’t install the update: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’installer la mise à jour : %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートをインストールできませんでした: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "업데이트를 설치할 수 없습니다: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось установить обновление: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法安装更新：%@"
           }
         }
       }
@@ -2388,6 +2638,75 @@
         }
       }
     },
+    "Download Page" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Page de téléchargement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ダウンロードページ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다운로드 페이지"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Страница загрузки"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下载页面"
+          }
+        }
+      }
+    },
+    "Downloading and installing…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Téléchargement et installation…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ダウンロードしてインストール中…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다운로드 및 설치 중…"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загрузка и установка…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在下载并安装…"
+          }
+        }
+      }
+    },
     "Downloads" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2766,6 +3085,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "全部内容，按类型整理"
+          }
+        }
+      }
+    },
+    "Exact minute" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minute exacte"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分を細かく指定"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정확한 분"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Точная минута"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "精确分钟"
           }
         }
       }
@@ -3191,6 +3544,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "个人文件夹有意受到限制：只会移动零散的媒体文件和文档——照片放入“图片”，视频放入“影片”，音乐放入“音乐”，其余放入“文稿”。隐藏文件、文件夹、App、设置、密钥、代码和数据库绝不会被触碰。"
+          }
+        }
+      }
+    },
+    "Hour" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heure"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Час"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小时"
           }
         }
       }
@@ -3893,6 +4280,41 @@
         }
       }
     },
+    "Later" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus tard"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "後で"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나중에"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Позже"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍后"
+          }
+        }
+      }
+    },
     "Location" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4167,6 +4589,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在计算“%@”的大小…"
+          }
+        }
+      }
+    },
+    "Minute" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minute"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "분"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Минута"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分钟"
           }
         }
       }
@@ -4585,6 +5041,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "还没有历史记录"
+          }
+        }
+      }
+    },
+    "No release information was found." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune information de version trouvée."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リリース情報が見つかりませんでした。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "릴리스 정보를 찾을 수 없습니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сведения о версии не найдены."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未找到版本信息。"
           }
         }
       }
@@ -5736,6 +6227,41 @@
         }
       }
     },
+    "Release Notes" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes de version"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リリースノート"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "릴리스 노트"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "О версии"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本说明"
+          }
+        }
+      }
+    },
     "Repeat" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6820,6 +7346,41 @@
         }
       }
     },
+    "Skip This Version" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer cette version"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このバージョンをスキップ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 버전 건너뛰기"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пропустить эту версию"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跳过此版本"
+          }
+        }
+      }
+    },
     "Sort" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6889,7 +7450,9 @@
         }
       }
     },
-    "Sort %@ items" : {},
+    "Sort %@ items" : {
+
+    },
     "Sort %@ Now" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7240,6 +7803,110 @@
         }
       }
     },
+    "Sottodesu %@ is available" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ est disponible"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ が利用できます"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ 사용 가능"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступна Sottodesu %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ 现已推出"
+          }
+        }
+      }
+    },
+    "Sottodesu %@ is available. Open Sottodesu to update." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ est disponible. Ouvrez Sottodesu pour mettre à jour."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ が利用できます。Sottodesu を開いて更新してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ 사용 가능. Sottodesu를 열어 업데이트하세요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доступна Sottodesu %@. Откройте Sottodesu, чтобы обновить."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ 现已推出。打开 Sottodesu 进行更新。"
+          }
+        }
+      }
+    },
+    "Sottodesu %@ is the latest version." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ est la dernière version."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ が最新バージョンです。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@이(가) 최신 버전입니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ — последняя версия."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu %@ 是最新版本。"
+          }
+        }
+      }
+    },
     "Sottodesu can’t access this folder. Allow it in System Settings › Privacy & Security › Files & Folders." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7271,6 +7938,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sottodesu 无法访问此文件夹。请在“系统设置”›“隐私与安全性”›“文件和文件夹”中允许访问。"
+          }
+        }
+      }
+    },
+    "Sottodesu can’t replace itself in this folder." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu ne peut pas se remplacer dans ce dossier."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu はこのフォルダ内で自身を置き換えられません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 이 폴더에서 스스로를 교체할 수 없습니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu не может заменить себя в этой папке."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu 无法在此文件夹中替换自身。"
           }
         }
       }
@@ -7554,6 +8256,76 @@
         }
       }
     },
+    "The download didn’t match its checksum, so it was thrown away." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le téléchargement ne correspond pas à sa somme de contrôle ; il a été supprimé."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ダウンロードがチェックサムと一致しないため破棄しました。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다운로드가 체크섬과 일치하지 않아 삭제했습니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загрузка не совпала с контрольной суммой и была удалена."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下载内容与校验和不符，已丢弃。"
+          }
+        }
+      }
+    },
+    "The downloaded app isn’t the expected one." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’app téléchargée n’est pas celle attendue."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ダウンロードしたアプリが想定したものではありません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다운로드한 앱이 예상과 다릅니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загруженное приложение не соответствует ожидаемому."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下载的应用不是预期的应用。"
+          }
+        }
+      }
+    },
     "The folder you chose is no longer available, so Sottodesu switched back to Downloads." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7655,6 +8427,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这看起来像是项目文件夹"
+          }
+        }
+      }
+    },
+    "This release has no installer that can be checked, so it can’t be installed automatically." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette version n’a pas d’installeur vérifiable, elle ne peut donc pas être installée automatiquement."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このリリースには検証できるインストーラがないため、自動インストールできません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 릴리스에는 확인할 수 있는 설치 파일이 없어 자동으로 설치할 수 없습니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В этой версии нет проверяемого установщика, поэтому автоматическая установка невозможна."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此版本没有可校验的安装包，因此无法自动安装。"
           }
         }
       }
@@ -8394,6 +9201,110 @@
         }
       }
     },
+    "Up to date · checked %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À jour · vérifié %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最新です · %@ に確認"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최신 버전 · %@에 확인함"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Установлена последняя версия · проверено %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已是最新版本 · 检查于 %@"
+          }
+        }
+      }
+    },
+    "Update and Relaunch" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour et relancer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートして再起動"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "업데이트 후 다시 시작"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновить и перезапустить"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新并重新启动"
+          }
+        }
+      }
+    },
+    "Update to %@…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre à jour vers %@…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ に更新…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@(으)로 업데이트…"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновить до %@…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新到 %@…"
+          }
+        }
+      }
+    },
     "Use the arrow to show a file in Finder" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -8425,6 +9336,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "点击箭头可在 Finder 中显示文件"
+          }
+        }
+      }
+    },
+    "Version %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버전 %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Версия %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本 %@"
           }
         }
       }
@@ -8846,104 +9791,71 @@
         }
       }
     },
-    "Hour" : {
+    "You have %@. Sottodesu will restart to finish the update." : {
       "localizations" : {
-        "ru" : {
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Час"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "小时"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "시"
+            "value" : "Vous avez la version %@. Sottodesu redémarrera pour terminer la mise à jour."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "時"
+            "value" : "現在のバージョンは %@ です。更新を完了するため Sottodesu が再起動します。"
           }
         },
-        "fr" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Heure"
+            "value" : "현재 버전은 %@입니다. 업데이트를 마치려면 Sottodesu가 다시 시작됩니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "У вас %@. Для завершения обновления Sottodesu перезапустится."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当前版本为 %@。Sottodesu 将重新启动以完成更新。"
           }
         }
       }
     },
-    "Minute" : {
+    "You’re up to date." : {
+      "extractionState" : "stale",
       "localizations" : {
-        "ru" : {
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Минута"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分钟"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "분"
+            "value" : "Vous êtes à jour."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "分"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Minute"
-          }
-        }
-      }
-    },
-    "Exact minute" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Точная минута"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "精确分钟"
+            "value" : "最新バージョンです。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "정확한 분"
+            "value" : "최신 버전입니다."
           }
         },
-        "ja" : {
+        "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "分を細かく指定"
+            "value" : "У вас последняя версия."
           }
         },
-        "fr" : {
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Minute exacte"
+            "value" : "已是最新版本。"
           }
         }
       }

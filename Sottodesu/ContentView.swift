@@ -17,6 +17,7 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 760, minHeight: 560)
+        .safeAreaInset(edge: .top, spacing: 0) { UpdateBanner() }
         // Don't start with the cursor in the history search box.
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

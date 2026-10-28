@@ -46,7 +46,8 @@ enum FileCategory: String, CaseIterable {
         case .databases:
             return ["db", "db3", "sqlite", "sqlite3", "sqlitedb", "mdb", "accdb", "sql", "dump", "apkg", "colpkg"]
         case .config:
-            return ["ovpn", "conf", "mobileconfig", "json", "yaml", "yml", "toml", "ini", "cfg", "plist"]
+            return ["ovpn", "conf", "mobileconfig", "json", "jsonc", "json5", "yaml", "yml", "toml", "ini", "cfg", "plist",
+                    "xml", "rc", "properties", "cnf", "config", "xcconfig", "reg"]
         case .secrets:
             return ["env", "pem", "crt", "cer", "cert", "csr", "p12", "pfx", "p8", "ppk", "jks", "keystore",
                     "kdbx", "gpg"]

@@ -103,3 +103,11 @@ To remove every trace by hand, including the small files macOS may add and the p
 4. Files newer than ten minutes are skipped on purpose.
 5. For Desktop or Documents, macOS must have allowed Sottodesu to access the folder (**Privacy & Security ▸ Files & Folders**).
 6. If you turned on **Open at login** and macOS asks for approval, switch Sottodesu on under **System Settings ▸ General ▸ Login Items & Extensions**.
+
+## Updates
+
+**Turn update notifications off:** Sottodesu ▸ Settings… (⌘,) ▸ untick *Check for updates automatically*. You can still use *Check for Updates…* in the app menu whenever you like.
+
+**"Update and Relaunch" says it can't replace itself.** Sottodesu must be in a folder you can write to, normally `/Applications`. Use *Download Page* to get the new DMG, or run the install one-liner from the README.
+
+**macOS asks for folder access again after an update.** Sottodesu is not signed with an Apple Developer certificate, so macOS treats each new version as a new app. Switch the folder on again under **Privacy & Security ▸ Files & Folders**.

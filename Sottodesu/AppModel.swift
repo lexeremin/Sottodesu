@@ -19,6 +19,12 @@ enum AppTab: String, CaseIterable, Identifiable {
     }
 }
 
+/// Where the update check stands.
+enum UpdateState: Equatable {
+    case idle, checking, installing
+    case failed(String)
+}
+
 /// Mirrors the "show in menu bar" choice for the app delegate, which has no access to the model.
 enum MenuBarPreference {
     static var isEnabled = false
@@ -91,6 +97,14 @@ final class AppModel {
     private var scheduleTimer: Timer?
     /// Keeps macOS from napping the app when it only lives in the menu bar, which would delay schedules.
     private var napBlocker: NSObjectProtocol?
+
+    // Updates
+    private(set) var updateChecksEnabled = true
+    private(set) var updateState: UpdateState = .idle
+    private(set) var foundRelease: ReleaseInfo?
+    private(set) var lastUpdateCheck: Date?
+    private(set) var updateBannerHidden = false
+    private var skippedVersion: String?
 
     // What to sort, and where.
     private(set) var location: LocationKind = .downloads
@@ -276,6 +290,10 @@ final class AppModel {
         schedulesPaused = store.setting("schedulesPaused") == "1"
         showsMenuBarIcon = store.setting("menuBar") == "1"
         MenuBarPreference.isEnabled = showsMenuBarIcon
+
+        updateChecksEnabled = store.setting("updateChecks") != "0"
+        skippedVersion = store.setting("skippedVersion")
+        lastUpdateCheck = store.setting("lastUpdateCheck").flatMap(Double.init).map { Date(timeIntervalSince1970: $0) }
 
         let allowed = allowedCategories
         isSelective = store.setting("scope") == "selective"
@@ -501,6 +519,83 @@ final class AppModel {
         opensAtLogin = loginItemStatus == .enabled
     }
 
+    // MARK: - Updates
+
+    func setUpdateChecks(_ enabled: Bool) {
+        updateChecksEnabled = enabled
+        try? store?.setSetting("updateChecks", enabled ? nil : "0")
+        if enabled { checkForUpdatesIfDue() }
+    }
+
+    /// Runs from the once-a-minute timer; only really checks if it is on and the last check was a day ago.
+    func checkForUpdatesIfDue(now: Date = Date()) {
+        guard updateChecksEnabled, rootOverride == nil else { return }
+        if let last = lastUpdateCheck, now.timeIntervalSince(last) < 24 * 3600 { return }
+        checkForUpdates(userInitiated: false)
+    }
+
+    /// `userInitiated` checks always run (and answer with an alert); automatic ones are silent unless
+    /// there is something new.
+    func checkForUpdates(userInitiated: Bool) {
+        guard rootOverride == nil, updateState != .checking, updateState != .installing else { return }
+        updateState = .checking
+        Task {
+            do {
+                let release = try await UpdateService.fetchLatest()
+                let now = Date()
+                lastUpdateCheck = now
+                try? store?.setSetting("lastUpdateCheck", String(Int(now.timeIntervalSince1970)))
+                updateState = .idle
+                guard let current = UpdateService.currentVersion, release.version > current else {
+                    foundRelease = nil
+                    if userInitiated { Self.showAlert(String(localized: "You’re up to date."),
+                                                      String(localized: "Sottodesu \(UpdateService.currentVersion?.description ?? "") is the latest version.")) }
+                    return
+                }
+                if !userInitiated && skippedVersion == release.tag { return }
+                let isNew = foundRelease?.tag != release.tag
+                foundRelease = release
+                updateBannerHidden = false
+                if !userInitiated && isNew && !NSApp.isActive { UpdateNotifier.post(version: release.tag) }
+            } catch {
+                updateState = .idle
+                if userInitiated {
+                    updateState = .failed(String(localized: "Couldn’t check for updates: \(error.localizedDescription)"))
+                    Self.showAlert(String(localized: "Couldn’t check for updates."), error.localizedDescription)
+                }
+            }
+        }
+    }
+
+    func installUpdate() {
+        guard let release = foundRelease, updateState != .installing else { return }
+        updateState = .installing
+        Task {
+            do {
+                let staged = try await UpdateInstaller.stage(release)
+                UpdateInstaller.relaunch(staged)
+            } catch {
+                updateState = .failed(String(localized: "Couldn’t install the update: \(error.localizedDescription)"))
+            }
+        }
+    }
+
+    func hideUpdateBanner() { updateBannerHidden = true }
+
+    func skipFoundRelease() {
+        guard let release = foundRelease else { return }
+        skippedVersion = release.tag
+        try? store?.setSetting("skippedVersion", release.tag)
+        foundRelease = nil
+    }
+
+    private static func showAlert(_ title: String, _ text: String) {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        alert.runModal()
+    }
+
     // MARK: - Running schedules (while the app is open or in the menu bar)
 
     /// Looks for due schedules every minute, and right after the Mac wakes up.
@@ -511,7 +606,10 @@ final class AppModel {
         napBlocker = ProcessInfo.processInfo.beginActivity(
             options: .userInitiatedAllowingIdleSystemSleep, reason: "Checking for scheduled tidy-ups")
         let timer = Timer(timeInterval: 60, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.checkSchedules() }
+            Task { @MainActor in
+                self?.checkSchedules()
+                self?.checkForUpdatesIfDue()
+            }
         }
         timer.tolerance = 5
         RunLoop.main.add(timer, forMode: .common)
@@ -528,6 +626,8 @@ final class AppModel {
         Task {
             try? await Task.sleep(for: .seconds(3))
             checkSchedules()
+            try? await Task.sleep(for: .seconds(5))
+            checkForUpdatesIfDue()
         }
     }
 

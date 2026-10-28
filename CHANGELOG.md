@@ -2,6 +2,11 @@
 
 All notable changes to Sottodesu are listed here.
 
+## 1.4.0 — 2026-10-28
+
+- **Updates.** Sottodesu checks GitHub about once a day for a newer release and shows a banner (and a notification if it is in the menu bar). **Update and Relaunch** downloads the release, verifies its checksum, swaps the app and reopens it. You can skip a version, postpone it, or switch automatic checks off in **Sottodesu ▸ Settings…** (⌘,). **Check for Updates…** is in the app menu.
+- **More config files.** `xml`, `rc`, `json`, `jsonc`, `json5`, `properties`, `cnf`, `config`, `xcconfig` and `reg` now go to **Config & VPN** along with the formats that were already there.
+
 ## 1.3.0 — 2026-10-28
 
 - **Schedules now run inside the app.** macOS blocks background items from apps without an Apple Developer signature, so Sottodesu checks for due schedules itself every minute (and after waking from sleep) while it is open or kept in the menu bar. New switches on the Schedule tab: **Keep running in the menu bar** and **Open at login**.
