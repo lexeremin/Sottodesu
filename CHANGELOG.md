@@ -2,6 +2,11 @@
 
 All notable changes to Sottodesu are listed here.
 
+## 1.1.0 — 2026-10-28
+
+- Easy install: open the disk image and Sottodesu offers to move itself to Applications, then ejects the installer and moves the downloaded `.dmg` to the Trash. Drag-to-install still works.
+- Screenshots and an updated guide in the README.
+
 ## 1.0.0 — 2026-10-28
 
 First public version.
@@ -13,4 +18,4 @@ First public version.
 - Report tab: sort statistics, a breakdown by category, and a chart of what takes space in Downloads.
 - Largest Files tab: the biggest files in Downloads; double-click to show one in Finder.
 - English, Russian, Simplified Chinese, Korean, Japanese and French; the folders it creates are named in your language.
-- Easy install: open the disk image and Sottodesu offers to move itself to Applications, then ejects the installer and moves the downloaded `.dmg` to the Trash. Drag-to-install still works. Built automatically for every release.
+- Drag-to-install disk image, built automatically for every release.
