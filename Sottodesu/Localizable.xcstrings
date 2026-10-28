@@ -1,7 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {},
+    "%@" : {
+
+    },
     "%@ is empty" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -72,7 +74,9 @@
         }
       }
     },
-    "%@ sorts" : {},
+    "%@ sorts" : {
+
+    },
     "%lld items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -853,7 +857,9 @@
         }
       }
     },
-    "and %@ more" : {},
+    "and %@ more" : {
+
+    },
     "and %lld more" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2920,6 +2926,76 @@
         }
       }
     },
+    "Move Sottodesu to Applications?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déplacer Sottodesu dans Applications ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu を「アプリケーション」に移動しますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu를 응용 프로그램 폴더로 옮길까요?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переместить Sottodesu в «Программы»?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将 Sottodesu 移到“应用程序”？"
+          }
+        }
+      }
+    },
+    "Move to Applications" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déplacer dans Applications"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「アプリケーション」に移動"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "응용 프로그램으로 이동"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переместить в «Программы»"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移到“应用程序”"
+          }
+        }
+      }
+    },
     "Name" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3020,6 +3096,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "还没有历史记录"
+          }
+        }
+      }
+    },
+    "Not Now" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus tard"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今はしない"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나중에"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не сейчас"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以后再说"
           }
         }
       }
@@ -4495,6 +4606,76 @@
         }
       }
     },
+    "Sottodesu couldn’t be copied to Applications." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de copier Sottodesu dans Applications."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu を「アプリケーション」にコピーできませんでした。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu를 응용 프로그램 폴더로 복사하지 못했어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось скопировать Sottodesu в «Программы»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法将 Sottodesu 复制到“应用程序”。"
+          }
+        }
+      }
+    },
+    "Sottodesu will copy itself to your Applications folder and reopen from there. Then it ejects the installer and moves the downloaded disk image to the Trash." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu se copiera dans votre dossier Applications et se rouvrira depuis celui-ci. Il éjectera ensuite l’installeur et placera l’image disque téléchargée dans la Corbeille."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu は自分を「アプリケーション」フォルダにコピーし、そこから開き直します。その後、インストーラを取り出し、ダウンロードしたディスクイメージをゴミ箱に入れます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 응용 프로그램 폴더로 자신을 복사한 뒤 그곳에서 다시 열려요. 그런 다음 설치 디스크를 추출하고 내려받은 디스크 이미지를 휴지통으로 옮겨요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu скопирует себя в папку «Программы» и откроется оттуда. Затем он извлечёт установщик и переместит скачанный образ диска в Корзину."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu 会把自己复制到“应用程序”文件夹并从那里重新打开，然后推出安装器，并将下载的磁盘映像移到废纸篓。"
+          }
+        }
+      }
+    },
     "Sottodesu won’t sort system folders, your Library, apps or hidden folders. To tidy your home folder, use Home." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -5370,6 +5551,41 @@
         }
       }
     },
+    "You can drag it onto the Applications folder yourself." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez le glisser vous-même dans le dossier Applications."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自分で「アプリケーション」フォルダにドラッグしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "직접 응용 프로그램 폴더로 끌어다 놓을 수 있어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вы можете перетащить его в папку «Программы» самостоятельно."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你可以自己把它拖到“应用程序”文件夹。"
+          }
+        }
+      }
+    },
     "You can drag Sottodesu to the Trash yourself." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -5401,210 +5617,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你可以手动将 Sottodesu 拖到废纸篓。"
-          }
-        }
-      }
-    },
-    "Move Sottodesu to Applications?" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Переместить Sottodesu в «Программы»?"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "将 Sottodesu 移到“应用程序”？"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu를 응용 프로그램 폴더로 옮길까요?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu を「アプリケーション」に移動しますか？"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Déplacer Sottodesu dans Applications ?"
-          }
-        }
-      }
-    },
-    "Sottodesu will copy itself to your Applications folder and reopen from there. Then it ejects the installer and moves the downloaded disk image to the Trash." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu скопирует себя в папку «Программы» и откроется оттуда. Затем он извлечёт установщик и переместит скачанный образ диска в Корзину."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu 会把自己复制到“应用程序”文件夹并从那里重新打开，然后推出安装器，并将下载的磁盘映像移到废纸篓。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu가 응용 프로그램 폴더로 자신을 복사한 뒤 그곳에서 다시 열려요. 그런 다음 설치 디스크를 추출하고 내려받은 디스크 이미지를 휴지통으로 옮겨요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu は自分を「アプリケーション」フォルダにコピーし、そこから開き直します。その後、インストーラを取り出し、ダウンロードしたディスクイメージをゴミ箱に入れます。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu se copiera dans votre dossier Applications et se rouvrira depuis celui-ci. Il éjectera ensuite l’installeur et placera l’image disque téléchargée dans la Corbeille."
-          }
-        }
-      }
-    },
-    "Move to Applications" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Переместить в «Программы»"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "移到“应用程序”"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "응용 프로그램으로 이동"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "「アプリケーション」に移動"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Déplacer dans Applications"
-          }
-        }
-      }
-    },
-    "Not Now" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не сейчас"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "以后再说"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "나중에"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今はしない"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plus tard"
-          }
-        }
-      }
-    },
-    "Sottodesu couldn’t be copied to Applications." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось скопировать Sottodesu в «Программы»."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法将 Sottodesu 复制到“应用程序”。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu를 응용 프로그램 폴더로 복사하지 못했어요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu を「アプリケーション」にコピーできませんでした。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impossible de copier Sottodesu dans Applications."
-          }
-        }
-      }
-    },
-    "You can drag it onto the Applications folder yourself." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вы можете перетащить его в папку «Программы» самостоятельно."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "你可以自己把它拖到“应用程序”文件夹。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "직접 응용 프로그램 폴더로 끌어다 놓을 수 있어요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自分で「アプリケーション」フォルダにドラッグしてください。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous pouvez le glisser vous-même dans le dossier Applications."
           }
         }
       }

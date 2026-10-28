@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lexeremin/Sottodesu/releases/latest"><img alt="Download" src="https://img.shields.io/github/v/release/lexeremin/Sottodesu?label=download&color=D8431F"></a>
+  <a href="https://github.com/lexeremin/Sottodesu/releases/latest"><img alt="Download the latest release" src="https://img.shields.io/badge/download-latest%20release-D8431F"></a>
   <a href="https://github.com/lexeremin/Sottodesu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/lexeremin/Sottodesu/actions/workflows/ci.yml/badge.svg"></a>
   <img alt="macOS 15 or later" src="https://img.shields.io/badge/macOS-15%2B-1f1f1f">
   <img alt="6 languages" src="https://img.shields.io/badge/languages-6-1f1f1f">
@@ -38,6 +38,14 @@ Free and open source. Requires **macOS 15 or later** (Apple silicon or Intel).
 1. **[Download the latest release](https://github.com/lexeremin/Sottodesu/releases/latest)** — get the file ending in `.dmg` from the *Assets* list.
 2. **Open the downloaded file** and double-click **Sottodesu**. It offers to **move itself to Applications**; say yes and it reopens from there, ejects the installer and moves the downloaded `.dmg` to the Trash. *(Prefer to do it yourself? Drag **Sottodesu** onto the **Applications** folder instead.)*
 3. Next time, open Sottodesu from your Applications folder (or Launchpad).
+
+### The quickest way: one command
+
+Open **Terminal** (⌘ Space, type *Terminal*), paste this line and press Return. It downloads the latest release and installs it, and **macOS doesn't show any warning**:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/lexeremin/Sottodesu/main/Scripts/install.sh)"
+```
 
 ### Opening it for the first time
 
