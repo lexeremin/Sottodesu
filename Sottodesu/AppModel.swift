@@ -84,9 +84,13 @@ final class AppModel {
     private(set) var showsMenuBarIcon = false
     /// When the app last looked for schedules that are due (it looks every minute while it is running).
     private(set) var lastScheduleCheck: Date?
+    /// What the last check found, in words: "Nothing is due yet. Next: Downloads, 19:00."
+    private(set) var scheduleCheckNote: String?
     private(set) var opensAtLogin = false
     private(set) var loginItemStatus: SMAppService.Status = .notRegistered
     private var scheduleTimer: Timer?
+    /// Keeps macOS from napping the app when it only lives in the menu bar, which would delay schedules.
+    private var napBlocker: NSObjectProtocol?
 
     // What to sort, and where.
     private(set) var location: LocationKind = .downloads
@@ -504,9 +508,14 @@ final class AppModel {
         guard rootOverride == nil else { return }
         LegacyAgent.remove()
 
-        scheduleTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+        napBlocker = ProcessInfo.processInfo.beginActivity(
+            options: .userInitiatedAllowingIdleSystemSleep, reason: "Checking for scheduled tidy-ups")
+        let timer = Timer(timeInterval: 60, repeats: true) { [weak self] _ in
             Task { @MainActor in self?.checkSchedules() }
         }
+        timer.tolerance = 5
+        RunLoop.main.add(timer, forMode: .common)
+        scheduleTimer = timer
         NSWorkspace.shared.notificationCenter.addObserver(
             forName: NSWorkspace.didWakeNotification, object: nil, queue: .main
         ) { [weak self] _ in
@@ -523,9 +532,20 @@ final class AppModel {
     }
 
     func checkSchedules() {
-        guard let store, rootOverride == nil, !isWorking else { return }
+        guard let store, rootOverride == nil else { return }
         lastScheduleCheck = Date()
-        guard schedules.contains(where: \.isEnabled) else { return }
+        guard !isWorking else {
+            scheduleCheckNote = String(localized: "Busy with another sort. Checking again in a minute.")
+            return
+        }
+        guard schedules.contains(where: \.isEnabled) else {
+            scheduleCheckNote = String(localized: "No schedule is switched on.")
+            return
+        }
+        guard !schedulesPaused else {
+            scheduleCheckNote = String(localized: "Schedules are paused.")
+            return
+        }
 
         Task {
             let outcomes = await Task.detached(priority: .utility) { () -> [ScheduleRunner.Outcome] in
@@ -533,12 +553,29 @@ final class AppModel {
                 ScheduleNotifier.post(outcomes)
                 return outcomes
             }.value
-            if !outcomes.isEmpty {
+            if outcomes.isEmpty {
+                scheduleCheckNote = nothingDueNote()
+            } else {
+                let total = outcomes.reduce(0) { $0 + $1.moved }
+                if let failure = outcomes.compactMap(\.error).first {
+                    scheduleCheckNote = String(localized: "A schedule couldn’t run: \(failure)")
+                } else {
+                    scheduleCheckNote = String(localized: "Tidied up \(total) items in the last check.")
+                }
                 changeCount += 1
                 scanIsStale = true
                 reload()
             }
         }
+    }
+
+    private func nothingDueNote() -> String {
+        let upcoming = schedules.filter(\.isEnabled).compactMap { schedule -> (Schedule, Date)? in
+            guard let next = schedule.nextRun(after: schedule.lastRunAt ?? schedule.createdAt) else { return nil }
+            return (schedule, next)
+        }.min { $0.1 < $1.1 }
+        guard let (schedule, date) = upcoming else { return String(localized: "No schedule is switched on.") }
+        return String(localized: "Nothing is due yet. Next: \(schedule.folderName), \(date.formatted(date: .abbreviated, time: .shortened)).")
     }
 
     // MARK: - Measuring the folder

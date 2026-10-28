@@ -994,6 +994,40 @@
         }
       }
     },
+    "At" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時刻"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시각"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "于"
+          }
+        }
+      }
+    },
     "Audio" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1025,6 +1059,146 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "音频"
+          }
+        }
+      }
+    },
+    "Background item is on. Last check: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan est actif. Dernière vérification : %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目はオンです。最終確認：%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 켜져 있어요. 마지막 확인: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект включён. Последняя проверка: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目已开启。上次检查：%@"
+          }
+        }
+      }
+    },
+    "Background item is on. Waiting for its first check." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan est actif. En attente de la première vérification."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目はオンです。最初の確認を待っています。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 켜져 있어요. 첫 확인을 기다리는 중이에요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект включён. Ждём первой проверки."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目已开启。等待首次检查。"
+          }
+        }
+      }
+    },
+    "Background item is waiting for your OK in Login Items." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan attend votre accord dans Ouverture."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目は「ログイン項目」での許可を待っています。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 로그인 항목에서 허용되기를 기다리고 있어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект ждёт вашего разрешения в «Объектах входа»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目正在等待你在“登录项”中允许。"
+          }
+        }
+      }
+    },
+    "Background item isn’t set up yet. Switch a schedule off and on, with Sottodesu in your Applications folder." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan n’est pas encore configuré. Placez Sottodesu dans Applications, puis désactivez et réactivez une planification."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目はまだ設定されていません。Sottodesu を「アプリケーション」フォルダに置き、スケジュールをオフにしてからオンにしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 아직 설정되지 않았어요. Sottodesu를 응용 프로그램 폴더에 두고 예약을 껐다가 다시 켜 주세요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект ещё не настроен. Выключите и снова включите расписание; Sottodesu должен лежать в папке «Программы»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目尚未设置。请把 Sottodesu 放在“应用程序”文件夹中，然后关闭再打开某个计划。"
           }
         }
       }
@@ -1202,6 +1376,41 @@
         }
       }
     },
+    "Check Now" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifier maintenant"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今すぐ確認"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금 확인"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверить сейчас"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即检查"
+          }
+        }
+      }
+    },
     "Choose" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1342,7 +1551,42 @@
         }
       }
     },
+    "Closing the window leaves Sottodesu in the menu bar, so schedules keep running. It also gets a Sort Now shortcut." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer la fenêtre laisse Sottodesu dans la barre des menus, et les planifications continuent. Un raccourci « Trier maintenant » s’y ajoute."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウインドウを閉じても Sottodesu はメニューバーに残り、スケジュールが続行されます。「今すぐ整理」も使えます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "창을 닫아도 Sottodesu가 메뉴 막대에 남아 예약이 계속 실행되고, ‘지금 정리’ 바로가기도 쓸 수 있어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После закрытия окна Sottodesu остаётся в строке меню, и расписания продолжают работать. Там же есть быстрая кнопка «Разобрать сейчас»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭窗口后，Sottodesu 会留在菜单栏中，计划继续运行，并提供“立即整理”快捷方式。"
+          }
+        }
+      }
+    },
     "Closing the window then keeps Sottodesu in the menu bar, with a Sort Now shortcut." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1795,6 +2039,40 @@
         }
       }
     },
+    "Days 29–31 aren’t offered, so every month has the day." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les jours 29 à 31 ne sont pas proposés, pour que chaque mois ait ce jour."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "29〜31日は選べません。すべての月にある日だけを選べます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "29~31일은 제공하지 않아요. 모든 달에 있는 날짜만 고를 수 있어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "29–31 числа не предлагаются, чтобы этот день был в каждом месяце."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不提供 29–31 日，以确保每个月都有该日期。"
+          }
+        }
+      }
+    },
     "Delete" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2074,6 +2352,41 @@
         }
       }
     },
+    "Due now. It runs at the next check, within a minute." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À exécuter maintenant. Elle s’exécutera à la prochaine vérification, dans la minute."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "実行の時刻です。次の確認（1分以内）で実行されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "실행할 시간이에요. 다음 확인 때, 1분 안에 실행돼요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пора запускать. Запустится при следующей проверке, в течение минуты."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已到时间。将在下次检查时运行，不超过一分钟。"
+          }
+        }
+      }
+    },
     "Each sort shows up here so you can look back at it or undo it." : {
       "localizations" : {
         "fr" : {
@@ -2174,6 +2487,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已启用"
+          }
+        }
+      }
+    },
+    "Evening" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soir"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "夕方"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저녁"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вечер"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "傍晚"
           }
         }
       }
@@ -2422,6 +2770,7 @@
       }
     },
     "Files newer than ten minutes are left alone, so something you just downloaded isn’t moved. Your Mac catches up on a missed run when it wakes." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2451,6 +2800,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新于十分钟的文件不会被移动，因此刚下载的内容不会被动。如果 Mac 在设定时间处于睡眠，唤醒后会补上错过的运行。"
+          }
+        }
+      }
+    },
+    "Files newer than ten minutes are left alone. Sottodesu has to be running, or kept in the menu bar, for a schedule to run." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les fichiers de moins de dix minutes sont laissés tels quels. Sottodesu doit être ouvert, ou dans la barre des menus, pour qu’une planification s’exécute."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10分以内のファイルは移動しません。スケジュールを実行するには、Sottodesu が起動中か、メニューバーにある必要があります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10분 이내의 파일은 건드리지 않아요. 예약이 실행되려면 Sottodesu가 실행 중이거나 메뉴 막대에 있어야 해요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Файлы моложе десяти минут не трогаются. Чтобы расписание работало, Sottodesu должен быть запущен или находиться в строке меню."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新于十分钟的文件不会被移动。计划运行时，Sottodesu 必须在运行，或保留在菜单栏中。"
           }
         }
       }
@@ -3091,6 +3474,40 @@
         }
       }
     },
+    "Keep running in the menu bar" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rester dans la barre des menus"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メニューバーで実行し続ける"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메뉴 막대에서 계속 실행"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оставаться в строке меню"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留在菜单栏中运行"
+          }
+        }
+      }
+    },
     "Keys & Secrets" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3545,7 +3962,42 @@
         }
       }
     },
+    "macOS needs your OK before Sottodesu can open at login. Switch it on under Login Items." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS doit autoriser Sottodesu à s’ouvrir à la connexion. Activez-le dans Ouverture."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu をログイン時に開くには macOS の許可が必要です。「ログイン項目」でオンにしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 로그인 시 열리려면 macOS의 허용이 필요해요. 로그인 항목에서 켜 주세요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS должна разрешить Sottodesu открываться при входе. Включите его в разделе «Объекты входа»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS 需要你的许可，Sottodesu 才能在登录时打开。请在“登录项”中打开它。"
+          }
+        }
+      }
+    },
     "macOS needs your OK before Sottodesu can run in the background. Switch it on under Login Items." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3753,6 +4205,41 @@
         }
       }
     },
+    "Morning" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matin"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "朝"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아침"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Утро"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "早晨"
+          }
+        }
+      }
+    },
     "Most sorted" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3894,7 +4381,6 @@
       }
     },
     "Next run: %@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3924,6 +4410,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "下次运行：%@"
+          }
+        }
+      }
+    },
+    "Night" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuit"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "夜"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "밤"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ночь"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "夜晚"
           }
         }
       }
@@ -4061,6 +4582,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "还没有整理记录"
+          }
+        }
+      }
+    },
+    "Noon" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Midi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昼"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정오"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Полдень"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中午"
           }
         }
       }
@@ -4549,6 +5105,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "打开"
+          }
+        }
+      }
+    },
+    "Open at login" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir à la connexion"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログイン時に開く"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인 시 열기"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открывать при входе"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时打开"
           }
         }
       }
@@ -5495,6 +6085,111 @@
         }
       }
     },
+    "Schedules only run while Sottodesu is open. Switch on “Keep running in the menu bar” below to keep them going after you close the window." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les planifications ne s’exécutent que lorsque Sottodesu est ouvert. Activez « Rester dans la barre des menus » ci-dessous pour qu’elles continuent après la fermeture de la fenêtre."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールは Sottodesu が開いている間だけ実行されます。ウインドウを閉じても続けるには、下の「メニューバーで実行し続ける」をオンにしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약은 Sottodesu가 열려 있는 동안에만 실행돼요. 창을 닫은 뒤에도 실행하려면 아래의 ‘메뉴 막대에서 계속 실행’을 켜세요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписания работают, только пока Sottodesu открыт. Включите ниже «Оставаться в строке меню», чтобы они работали и после закрытия окна."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计划只在 Sottodesu 打开时运行。请打开下方的“保留在菜单栏中运行”，这样关闭窗口后计划仍会运行。"
+          }
+        }
+      }
+    },
+    "Schedules run while Sottodesu is open or in the menu bar. Last check: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les planifications s’exécutent tant que Sottodesu est ouvert ou dans la barre des menus. Dernière vérification : %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールは Sottodesu が開いている間、またはメニューバーにある間に実行されます。最終確認：%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약은 Sottodesu가 열려 있거나 메뉴 막대에 있는 동안 실행돼요. 마지막 확인: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписания работают, пока Sottodesu открыт или находится в строке меню. Последняя проверка: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计划会在 Sottodesu 打开或位于菜单栏时运行。上次检查：%@"
+          }
+        }
+      }
+    },
+    "Schedules run while Sottodesu is open or in the menu bar. Waiting for the first check." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les planifications s’exécutent tant que Sottodesu est ouvert ou dans la barre des menus. En attente de la première vérification."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールは Sottodesu が開いている間、またはメニューバーにある間に実行されます。最初の確認を待っています。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약은 Sottodesu가 열려 있거나 메뉴 막대에 있는 동안 실행돼요. 첫 확인을 기다리는 중이에요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписания работают, пока Sottodesu открыт или находится в строке меню. Ждём первой проверки."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计划会在 Sottodesu 打开或位于菜单栏时运行。等待首次检查。"
+          }
+        }
+      }
+    },
     "Search files" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -5775,6 +6470,7 @@
       }
     },
     "Show in the menu bar" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -6508,6 +7204,40 @@
         }
       }
     },
+    "Starts Sottodesu quietly in the menu bar when you log in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lance Sottodesu discrètement dans la barre des menus à la connexion."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログイン時に Sottodesu をメニューバーで静かに起動します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인하면 Sottodesu가 메뉴 막대에서 조용히 시작돼요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запускает Sottodesu тихо в строке меню при входе в систему."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时在菜单栏中静默启动 Sottodesu。"
+          }
+        }
+      }
+    },
     "Stopped: %@" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6609,6 +7339,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "该文件夹不可用。"
+          }
+        }
+      }
+    },
+    "The background item couldn’t be set up: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de configurer l’élément d’arrière-plan : %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目を設定できませんでした：%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목을 설정하지 못했어요: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось настроить фоновый объект: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法设置后台项目：%@"
           }
         }
       }
@@ -6823,7 +7588,42 @@
         }
       }
     },
+    "Tidy up a folder automatically while Sottodesu stays in the menu bar. Every automatic sort goes into your history, so you can undo it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rangez un dossier automatiquement tant que Sottodesu reste dans la barre des menus. Chaque tri automatique est ajouté à l’historique, vous pouvez donc l’annuler."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu がメニューバーにある間、フォルダを自動で整理します。自動整理もすべて履歴に残るので、取り消せます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 메뉴 막대에 있는 동안 폴더를 자동으로 정리해요. 자동 정리도 모두 기록에 남아 되돌릴 수 있어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Наводите порядок в папке автоматически, пока Sottodesu работает в строке меню. Каждая автоматическая сортировка попадает в историю, так что её можно отменить."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 Sottodesu 留在菜单栏期间自动整理文件夹。每次自动整理都会记入历史记录，因此可以撤销。"
+          }
+        }
+      }
+    },
     "Tidy up a folder automatically, even when Sottodesu is closed. Every automatic sort goes into your history, so you can undo it." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -7663,6 +8463,40 @@
         }
       }
     },
+    "When" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quand"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いつ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "언제"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Когда"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "时间"
+          }
+        }
+      }
+    },
     "Where the space goes" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7802,478 +8636,206 @@
         }
       }
     },
-    "The background item couldn’t be set up: %@" : {
+    "Busy with another sort. Checking again in a minute." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Не удалось настроить фоновый объект: %@"
+            "value" : "Идёт другая сортировка. Проверю снова через минуту."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无法设置后台项目：%@"
+            "value" : "正在进行另一项整理。一分钟后再次检查。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "백그라운드 항목을 설정하지 못했어요: %@"
+            "value" : "다른 정리가 진행 중이에요. 1분 뒤에 다시 확인해요."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "バックグラウンド項目を設定できませんでした：%@"
+            "value" : "別の整理を実行中です。1分後に再確認します。"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Impossible de configurer l’élément d’arrière-plan : %@"
+            "value" : "Un autre tri est en cours. Nouvelle vérification dans une minute."
           }
         }
       }
     },
-    "Background item is on. Last check: %@" : {
+    "No schedule is switched on." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фоновый объект включён. Последняя проверка: %@"
+            "value" : "Ни одно расписание не включено."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "后台项目已开启。上次检查：%@"
+            "value" : "没有已开启的计划。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "백그라운드 항목이 켜져 있어요. 마지막 확인: %@"
+            "value" : "켜져 있는 예약이 없어요."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "バックグラウンド項目はオンです。最終確認：%@"
+            "value" : "オンのスケジュールはありません。"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L’élément d’arrière-plan est actif. Dernière vérification : %@"
+            "value" : "Aucune planification n’est activée."
           }
         }
       }
     },
-    "Background item is on. Waiting for its first check." : {
+    "Schedules are paused." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фоновый объект включён. Ждём первой проверки."
+            "value" : "Расписания приостановлены."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "后台项目已开启。等待首次检查。"
+            "value" : "计划已暂停。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "백그라운드 항목이 켜져 있어요. 첫 확인을 기다리는 중이에요."
+            "value" : "예약이 일시 중지되었어요."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "バックグラウンド項目はオンです。最初の確認を待っています。"
+            "value" : "スケジュールは一時停止中です。"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L’élément d’arrière-plan est actif. En attente de la première vérification."
+            "value" : "Les planifications sont suspendues."
           }
         }
       }
     },
-    "Background item is waiting for your OK in Login Items." : {
+    "Nothing is due yet. Next: %@, %@." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фоновый объект ждёт вашего разрешения в «Объектах входа»."
+            "value" : "Пока ничего не нужно запускать. Следующее: %@, %@."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "后台项目正在等待你在“登录项”中允许。"
+            "value" : "暂时没有到期的计划。下一个：%@，%@。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "백그라운드 항목이 로그인 항목에서 허용되기를 기다리고 있어요."
+            "value" : "아직 실행할 예약이 없어요. 다음: %@, %@."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "バックグラウンド項目は「ログイン項目」での許可を待っています。"
+            "value" : "まだ実行するものはありません。次回：%@、%@。"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L’élément d’arrière-plan attend votre accord dans Ouverture."
+            "value" : "Rien à faire pour l’instant. Prochaine : %@, %@."
           }
         }
       }
     },
-    "Background item isn’t set up yet. Switch a schedule off and on, with Sottodesu in your Applications folder." : {
+    "Tidied up %lld items in the last check." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фоновый объект ещё не настроен. Выключите и снова включите расписание; Sottodesu должен лежать в папке «Программы»."
+            "value" : "При последней проверке наведён порядок: элементов — %lld."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "后台项目尚未设置。请把 Sottodesu 放在“应用程序”文件夹中，然后关闭再打开某个计划。"
+            "value" : "上次检查已整理 %lld 个项目。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "백그라운드 항목이 아직 설정되지 않았어요. Sottodesu를 응용 프로그램 폴더에 두고 예약을 껐다가 다시 켜 주세요."
+            "value" : "마지막 확인에서 %lld개 항목을 정리했어요."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "バックグラウンド項目はまだ設定されていません。Sottodesu を「アプリケーション」フォルダに置き、スケジュールをオフにしてからオンにしてください。"
+            "value" : "前回の確認で %lld 件を整理しました。"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L’élément d’arrière-plan n’est pas encore configuré. Placez Sottodesu dans Applications, puis désactivez et réactivez une planification."
+            "value" : "%lld éléments rangés lors de la dernière vérification."
           }
         }
       }
     },
-    "Schedules only run while Sottodesu is open. Switch on “Keep running in the menu bar” below to keep them going after you close the window." : {
+    "A schedule couldn’t run: %@" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Расписания работают, только пока Sottodesu открыт. Включите ниже «Оставаться в строке меню», чтобы они работали и после закрытия окна."
+            "value" : "Расписание не удалось выполнить: %@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "计划只在 Sottodesu 打开时运行。请打开下方的“保留在菜单栏中运行”，这样关闭窗口后计划仍会运行。"
+            "value" : "有计划无法运行：%@"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "예약은 Sottodesu가 열려 있는 동안에만 실행돼요. 창을 닫은 뒤에도 실행하려면 아래의 ‘메뉴 막대에서 계속 실행’을 켜세요."
+            "value" : "예약을 실행하지 못했어요: %@"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "スケジュールは Sottodesu が開いている間だけ実行されます。ウインドウを閉じても続けるには、下の「メニューバーで実行し続ける」をオンにしてください。"
+            "value" : "スケジュールを実行できませんでした：%@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les planifications ne s’exécutent que lorsque Sottodesu est ouvert. Activez « Rester dans la barre des menus » ci-dessous pour qu’elles continuent après la fermeture de la fenêtre."
-          }
-        }
-      }
-    },
-    "Schedules run while Sottodesu is open or in the menu bar. Last check: %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Расписания работают, пока Sottodesu открыт или находится в строке меню. Последняя проверка: %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "计划会在 Sottodesu 打开或位于菜单栏时运行。上次检查：%@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "예약은 Sottodesu가 열려 있거나 메뉴 막대에 있는 동안 실행돼요. 마지막 확인: %@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スケジュールは Sottodesu が開いている間、またはメニューバーにある間に実行されます。最終確認：%@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les planifications s’exécutent tant que Sottodesu est ouvert ou dans la barre des menus. Dernière vérification : %@"
-          }
-        }
-      }
-    },
-    "Schedules run while Sottodesu is open or in the menu bar. Waiting for the first check." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Расписания работают, пока Sottodesu открыт или находится в строке меню. Ждём первой проверки."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "计划会在 Sottodesu 打开或位于菜单栏时运行。等待首次检查。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "예약은 Sottodesu가 열려 있거나 메뉴 막대에 있는 동안 실행돼요. 첫 확인을 기다리는 중이에요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スケジュールは Sottodesu が開いている間、またはメニューバーにある間に実行されます。最初の確認を待っています。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les planifications s’exécutent tant que Sottodesu est ouvert ou dans la barre des menus. En attente de la première vérification."
-          }
-        }
-      }
-    },
-    "Keep running in the menu bar" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Оставаться в строке меню"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保留在菜单栏中运行"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "메뉴 막대에서 계속 실행"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "メニューバーで実行し続ける"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rester dans la barre des menus"
-          }
-        }
-      }
-    },
-    "Closing the window leaves Sottodesu in the menu bar, so schedules keep running. It also gets a Sort Now shortcut." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "После закрытия окна Sottodesu остаётся в строке меню, и расписания продолжают работать. Там же есть быстрая кнопка «Разобрать сейчас»."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "关闭窗口后，Sottodesu 会留在菜单栏中，计划继续运行，并提供“立即整理”快捷方式。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "창을 닫아도 Sottodesu가 메뉴 막대에 남아 예약이 계속 실행되고, ‘지금 정리’ 바로가기도 쓸 수 있어요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ウインドウを閉じても Sottodesu はメニューバーに残り、スケジュールが続行されます。「今すぐ整理」も使えます。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fermer la fenêtre laisse Sottodesu dans la barre des menus, et les planifications continuent. Un raccourci « Trier maintenant » s’y ajoute."
-          }
-        }
-      }
-    },
-    "Open at login" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Открывать при входе"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登录时打开"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "로그인 시 열기"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ログイン時に開く"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ouvrir à la connexion"
-          }
-        }
-      }
-    },
-    "Starts Sottodesu quietly in the menu bar when you log in." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запускает Sottodesu тихо в строке меню при входе в систему."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登录时在菜单栏中静默启动 Sottodesu。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "로그인하면 Sottodesu가 메뉴 막대에서 조용히 시작돼요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ログイン時に Sottodesu をメニューバーで静かに起動します。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lance Sottodesu discrètement dans la barre des menus à la connexion."
-          }
-        }
-      }
-    },
-    "Tidy up a folder automatically while Sottodesu stays in the menu bar. Every automatic sort goes into your history, so you can undo it." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Наводите порядок в папке автоматически, пока Sottodesu работает в строке меню. Каждая автоматическая сортировка попадает в историю, так что её можно отменить."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在 Sottodesu 留在菜单栏期间自动整理文件夹。每次自动整理都会记入历史记录，因此可以撤销。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu가 메뉴 막대에 있는 동안 폴더를 자동으로 정리해요. 자동 정리도 모두 기록에 남아 되돌릴 수 있어요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu がメニューバーにある間、フォルダを自動で整理します。自動整理もすべて履歴に残るので、取り消せます。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rangez un dossier automatiquement tant que Sottodesu reste dans la barre des menus. Chaque tri automatique est ajouté à l’historique, vous pouvez donc l’annuler."
-          }
-        }
-      }
-    },
-    "macOS needs your OK before Sottodesu can open at login. Switch it on under Login Items." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS должна разрешить Sottodesu открываться при входе. Включите его в разделе «Объекты входа»."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS 需要你的许可，Sottodesu 才能在登录时打开。请在“登录项”中打开它。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu가 로그인 시 열리려면 macOS의 허용이 필요해요. 로그인 항목에서 켜 주세요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu をログイン時に開くには macOS の許可が必要です。「ログイン項目」でオンにしてください。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS doit autoriser Sottodesu à s’ouvrir à la connexion. Activez-le dans Ouverture."
+            "value" : "Une planification n’a pas pu s’exécuter : %@"
           }
         }
       }

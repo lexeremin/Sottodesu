@@ -36,10 +36,11 @@ struct SottodesuApp: App {
         }
 
         // Optional: a small icon in the menu bar (switched on in the Schedule tab).
-        MenuBarExtra("Sottodesu", systemImage: "tray.full",
-                     isInserted: Binding(get: { model.showsMenuBarIcon }, set: { model.setMenuBar($0) })) {
+        MenuBarExtra(isInserted: Binding(get: { model.showsMenuBarIcon }, set: { model.setMenuBar($0) })) {
             MenuBarContent()
                 .environment(model)
+        } label: {
+            Image(nsImage: MenuBarIcon.image)
         }
     }
 }
