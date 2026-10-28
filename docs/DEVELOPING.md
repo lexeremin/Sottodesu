@@ -25,6 +25,8 @@ The project signs ad hoc, which is fine for running locally. macOS may ask for D
 | File | Role |
 |---|---|
 | `Sorter.swift` | Categories (extensions, localized folder names) and the move logic |
+| `SortLocation.swift` | Locations, per-location rules (`SortPolicy`) and `FolderGuard` |
+| `LocationPicker.swift` | The location cards and file-type chips |
 | `HistoryStore.swift`, `HistoryReport.swift` | SQLite history and the report queries |
 | `Reverter.swift` | Undo |
 | `DownloadsScanner.swift` | Measures Downloads for the size report and Largest Files |
@@ -37,23 +39,24 @@ The project signs ad hoc, which is fine for running locally. macOS may ask for D
 | `Localizable.xcstrings`, `InfoPlist.xcstrings` | All translations |
 | `Tools/make_icon.py` | Draws the app icon set (needs Pillow) |
 | `Scripts/build-dmg.sh` | Builds the installer disk image |
-| `Scripts/take-screenshots.sh` | Takes the README screenshots in demo mode |
 
 ### Design rules worth keeping
+
+- **The home folder stays restricted.** `SortPolicy.home()` allows only loose media and documents (images, videos, audio, documents, books, archives, installers, 3D models, design files), never hidden files, folders, code, config, secrets or databases, and redirects them to Pictures/Movies/Music/Documents (the rest into folders inside Documents). Don't loosen it. Custom folders go through `FolderGuard`.
 
 - **Footprint:** the app writes one file (the history database) and nothing else — no preferences, no saved window state, no caches. Keep it that way; `AppPaths.swift` lists every location.
 - **Never overwrite, never delete.** Sorting and undo only move files, and they skip rather than clobber.
 - **The database stores stable English category identifiers** (`FileCategory.rawValue`, e.g. `"Images"`), never translated names, so changing language never breaks the history. Translate only for display (`Localized.string(id)`) and for folder names on disk.
 
-## Screenshots
+## Demo mode (for screenshots)
 
-The images in `docs/screenshots/` are generated, not hand-made, so they can be refreshed whenever the UI changes:
+Launch the app with `--demo` to fill it with invented data kept in a temporary folder. Your real folders and history are never touched, so it is safe to screenshot. Pick the tab with `--tab sort|report|largest`:
 
 ```sh
-Scripts/take-screenshots.sh
+/path/to/Sottodesu.app/Contents/MacOS/Sottodesu --demo --tab report
 ```
 
-It builds the app, launches it in **demo mode** (`Sottodesu --demo --tab sort|report|largest`, which uses invented data in a temporary folder and never touches your real Downloads or history) in light and dark appearance and in every language, and saves the window with `screencapture`. The first run asks for Screen Recording permission for your terminal. Don't touch the keyboard or mouse while it runs. Commit the updated PNGs.
+(In Xcode, add `--demo` and `--tab report` under *Edit Scheme ▸ Run ▸ Arguments Passed On Launch*.) To capture the window, press ⌘⇧4, then Space, then click the window. The README expects `docs/screenshots/sort.png`, `report.png` and `largest.png`.
 
 ## Languages
 

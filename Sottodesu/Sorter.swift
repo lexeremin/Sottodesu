@@ -13,7 +13,7 @@ enum FileCategory: String, CaseIterable {
     case archives = "Archives"
     case installers = "Installers"
     case models3D = "3D Models"
-    case anki = "Anki"
+    case databases = "Databases"
     case config = "Config & VPN"
     case secrets = "Keys & Secrets"
     case code = "Code"
@@ -43,8 +43,8 @@ enum FileCategory: String, CaseIterable {
         case .models3D:
             return ["stl", "obj", "fbx", "blend", "3mf", "step", "stp", "gcode", "dae", "glb", "gltf",
                     "usdz", "ply", "f3d", "scad", "3ds"]
-        case .anki:
-            return ["apkg", "colpkg"]
+        case .databases:
+            return ["db", "db3", "sqlite", "sqlite3", "sqlitedb", "mdb", "accdb", "sql", "dump", "apkg", "colpkg"]
         case .config:
             return ["ovpn", "conf", "mobileconfig", "json", "yaml", "yml", "toml", "ini", "cfg", "plist"]
         case .secrets:
@@ -52,7 +52,7 @@ enum FileCategory: String, CaseIterable {
                     "kdbx", "gpg"]
         case .code:
             return ["py", "js", "ts", "tsx", "jsx", "swift", "c", "h", "cpp", "hpp", "rs", "go", "java",
-                    "rb", "php", "lua", "sh", "ipynb", "sql"]
+                    "rb", "php", "lua", "sh", "ipynb"]
         case .fonts:
             return ["ttf", "otf", "woff", "woff2", "ttc"]
         case .design:
@@ -73,7 +73,7 @@ enum FileCategory: String, CaseIterable {
         case .archives: return "archivebox"
         case .installers: return "shippingbox"
         case .models3D: return "cube"
-        case .anki: return "rectangle.stack"
+        case .databases: return "cylinder.split.1x2"
         case .config: return "gearshape"
         case .secrets: return "key.fill"
         case .code: return "chevron.left.forwardslash.chevron.right"
@@ -167,6 +167,9 @@ enum FileCategory: String, CaseIterable {
                 result[name] = category
             }
         }
+        // Earlier versions had a separate "Anki" folder. It is still recognised (so it is never mistaken
+        // for a loose project), though new files no longer go there.
+        result[normalize("Anki")] = .databases
         return result
     }()
 }
@@ -228,6 +231,10 @@ struct Sorter {
     let root: URL
     /// Items modified more recently than this (in seconds) are left alone, in case they are still downloading.
     var minimumAge: TimeInterval = 5
+    /// What this location allows (hidden files, folders, which categories, where files go).
+    var policy = SortPolicy.downloads
+    /// The categories the person ticked; nil means everything the location allows.
+    var selection: Set<FileCategory>?
 
     /// Hidden files that macOS and apps create on their own. They are never moved.
     static func isSystemHiddenName(_ name: String) -> Bool {
@@ -250,6 +257,7 @@ struct Sorter {
                                       .contentModificationDateKey, .fileSizeKey]
         let items = try fm.contentsOfDirectory(at: root, includingPropertiesForKeys: keys, options: [])
         var summary = SortSummary()
+        let effective = policy.allowedCategories.intersection(selection ?? policy.allowedCategories)
 
         for item in items.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
             let values = try item.resourceValues(forKeys: Set(keys))
@@ -259,18 +267,22 @@ struct Sorter {
             let name = item.lastPathComponent
             // Hidden files are sorted like any other file, but hidden folders and the hidden
             // clutter macOS creates (.DS_Store, .localized, ._*) are left alone.
-            if name.hasPrefix("."), isFolder || Sorter.isSystemHiddenName(name) { continue }
+            if name.hasPrefix("."), !policy.includesHiddenFiles || isFolder || Sorter.isSystemHiddenName(name) { continue }
 
             let category: FileCategory
             if isFolder {
                 // Our own folders (in any language) and app bundles stay put; everything else is a loose project.
-                if values.isPackage == true || FileCategory.isCategoryFolderName(item.lastPathComponent) { continue }
+                if values.isPackage == true || !policy.includesFolders
+                    || FileCategory.isCategoryFolderName(item.lastPathComponent) { continue }
                 category = .projects
             } else if values.isRegularFile == true {
                 category = FileCategory.of(fileName: name)
             } else {
                 continue
             }
+
+            // Partial sorting: anything the person didn't tick (or the location doesn't allow) stays put.
+            guard effective.contains(category) else { continue }
 
             if Sorter.partialExtensions.contains(item.pathExtension.lowercased()) {
                 summary.skipped += 1
@@ -309,6 +321,14 @@ struct Sorter {
     private func destinationFolder(for category: FileCategory) throws -> (url: URL, created: Bool) {
         let fm = FileManager.default
         var isDirectory: ObjCBool = false
+
+        if let redirect = policy.redirects[category] {
+            if fm.fileExists(atPath: redirect.path, isDirectory: &isDirectory), isDirectory.boolValue {
+                return (redirect, false)
+            }
+            try fm.createDirectory(at: redirect, withIntermediateDirectories: true)
+            return (redirect, true)
+        }
 
         for name in category.knownFolderNames {
             let url = root.appendingPathComponent(name, isDirectory: true)

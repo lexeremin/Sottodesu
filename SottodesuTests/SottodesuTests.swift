@@ -6,6 +6,10 @@ final class SottodesuTests: XCTestCase {
     private var root: URL!
     private var dbDir: URL!
     private var store: HistoryStore!
+    /// What the home folder is allowed to sort.
+    private let homeCategories: Set<FileCategory> = [
+        .images, .videos, .audio, .documents, .books, .archives, .installers, .models3D, .design,
+    ]
 
     override func setUpWithError() throws {
         let id = UUID().uuidString
@@ -52,7 +56,9 @@ final class SottodesuTests: XCTestCase {
         XCTAssertEqual(FileCategory.of(extension: "dmg"), .installers)
         XCTAssertEqual(FileCategory.of(extension: "stl"), .models3D)
         XCTAssertEqual(FileCategory.of(extension: "3mf"), .models3D)
-        XCTAssertEqual(FileCategory.of(extension: "apkg"), .anki)
+        XCTAssertEqual(FileCategory.of(extension: "apkg"), .databases)
+        XCTAssertEqual(FileCategory.of(extension: "sqlite"), .databases)
+        XCTAssertEqual(FileCategory.of(extension: "sql"), .databases)
         XCTAssertEqual(FileCategory.of(extension: "ovpn"), .config)
         XCTAssertEqual(FileCategory.of(extension: "pem"), .secrets)
         XCTAssertEqual(FileCategory.of(extension: "cert"), .secrets)
@@ -409,5 +415,204 @@ final class SottodesuTests: XCTestCase {
 
         let attributes = try fm.attributesOfItem(atPath: root.appendingPathComponent(dir(.secrets)).path)
         XCTAssertEqual((attributes[.posixPermissions] as? NSNumber)?.intValue, 0o700)
+    }
+
+    // MARK: - Locations and partial sorting
+
+    @discardableResult
+    private func sortWith(policy: SortPolicy = .downloads,
+                          selection: Set<FileCategory>? = nil) throws -> (summary: SortSummary, runID: Int64) {
+        let runID = try store.beginRun()
+        let summary = try Sorter(root: root, minimumAge: 0, policy: policy, selection: selection)
+            .sort { try self.store.record($0, runID: runID) }
+        return (summary, runID)
+    }
+
+    func testPartialSortingMovesOnlyTheChosenTypes() throws {
+        touch("photo.jpg")
+        touch("report.pdf")
+        touch("song.mp3")
+
+        let result = try sortWith(selection: [.images])
+
+        XCTAssertEqual(result.summary.moved, 1)
+        XCTAssertTrue(exists("\(dir(.images))/photo.jpg"))
+        XCTAssertTrue(exists("report.pdf"))
+        XCTAssertTrue(exists("song.mp3"))
+    }
+
+    func testPartialSelectionAlsoAppliesToFoldersAndHiddenFiles() throws {
+        try fm.createDirectory(at: root.appendingPathComponent("my-project"), withIntermediateDirectories: true)
+        touch(".env")
+        touch("a.pdf")
+
+        let result = try sortWith(selection: [.documents])
+
+        XCTAssertEqual(result.summary.moved, 1)
+        XCTAssertTrue(exists("my-project"))
+        XCTAssertTrue(exists(".env"))
+        XCTAssertTrue(exists("\(dir(.documents))/a.pdf"))
+    }
+
+    func testCarefulPolicyLeavesHiddenFilesAlone() throws {
+        touch(".gitignore")
+        touch("a.pdf")
+
+        let result = try sortWith(policy: .careful)
+
+        XCTAssertEqual(result.summary.moved, 1)
+        XCTAssertTrue(exists(".gitignore"))
+    }
+
+    func testHomeStylePolicyUsesExistingFoldersAndSkipsEverythingElse() throws {
+        for name in ["Pictures", "Documents", "Library"] {
+            try fm.createDirectory(at: root.appendingPathComponent(name), withIntermediateDirectories: true)
+        }
+        touch("a.jpg")
+        touch("b.pdf")
+        touch("c.mp3")
+        touch("d.py")
+        touch(".zshrc")
+        let policy = SortPolicy(
+            includesHiddenFiles: false,
+            includesFolders: false,
+            allowedCategories: [.images, .documents],
+            redirects: [.images: root.appendingPathComponent("Pictures"),
+                        .documents: root.appendingPathComponent("Documents")]
+        )
+
+        let result = try sortWith(policy: policy)
+
+        XCTAssertEqual(result.summary.moved, 2)
+        XCTAssertTrue(exists("Pictures/a.jpg"))
+        XCTAssertTrue(exists("Documents/b.pdf"))
+        for untouched in ["c.mp3", "d.py", ".zshrc", "Library"] {
+            XCTAssertTrue(exists(untouched), "\(untouched) should stay where it is")
+        }
+        XCTAssertFalse(exists(dir(.images)), "No new Images folder should be created")
+
+        _ = try Reverter.revert(moves: try store.moves(forRun: result.runID), store: store)
+        XCTAssertTrue(exists("a.jpg"))
+        XCTAssertTrue(exists("Pictures"), "An existing folder must survive an undo")
+    }
+
+    func testHomePolicyIsRestricted() {
+        let policy = SortPolicy.home()
+        XCTAssertEqual(policy.allowedCategories, homeCategories)
+        XCTAssertFalse(policy.includesFolders)
+        XCTAssertFalse(policy.includesHiddenFiles)
+        XCTAssertEqual(policy.redirects.count, homeCategories.count)
+        for refused in [FileCategory.code, .config, .secrets, .databases, .projects, .other, .fonts] {
+            XCTAssertFalse(policy.allowedCategories.contains(refused), "\(refused) must never be sorted in Home")
+        }
+    }
+
+    func testFolderGuardRefusesRiskyFolders() {
+        let home = URL(fileURLWithPath: "/Users/alex")
+        func allowed(_ path: String) -> Bool {
+            FolderGuard.isAllowedCustomFolder(URL(fileURLWithPath: path), home: home)
+        }
+        XCTAssertTrue(allowed("/Users/alex/Documents/Inbox"))
+        XCTAssertTrue(allowed("/Volumes/Backup/Photos"))
+        for refused in ["/", "/System/Library", "/Applications", "/Users", "/Users/alex", "/Users/alex/Library/Mail",
+                        "/Users/alex/.ssh", "/Users/alex/Projects/.git", "/Volumes", "/Volumes/Backup",
+                        "/Users/alex/Downloads/Thing.app/Contents"] {
+            XCTAssertFalse(allowed(refused), refused)
+        }
+    }
+
+    func testFolderGuardRecognisesProjects() throws {
+        XCTAssertFalse(FolderGuard.looksLikeProject(root))
+        touch("Package.swift")
+        XCTAssertTrue(FolderGuard.looksLikeProject(root))
+    }
+
+    func testRunRemembersWhereItHappened() throws {
+        touch("a.pdf")
+        let runID = try store.beginRun(location: root.path)
+        _ = try Sorter(root: root, minimumAge: 0).sort { try self.store.record($0, runID: runID) }
+
+        XCTAssertEqual(try store.runs()[0].location, root.path)
+    }
+
+    func testSettingsAreRemembered() throws {
+        XCTAssertNil(store.setting("location"))
+        try store.setSetting("location", "desktop")
+        XCTAssertEqual(store.setting("location"), "desktop")
+        try store.setSetting("location", "home")
+        XCTAssertEqual(store.setting("location"), "home")
+        try store.setSetting("location", nil)
+        XCTAssertNil(store.setting("location"))
+    }
+
+    @MainActor
+    func testSelectiveModeLetsYouPickAndResetTypes() throws {
+        let model = AppModel(demoStore: store, downloads: root, scan: ScanResult(), status: "", lastSortRunID: nil)
+        XCTAssertTrue(model.isEverythingSelected)
+        XCTAssertTrue(model.canSort)
+
+        model.toggle(.images)
+        XCTAssertTrue(model.selectedCategories.isEmpty, "Ticks are ignored while Everything is chosen")
+
+        model.chooseSelective()
+        XCTAssertFalse(model.isEverythingSelected)
+        XCTAssertFalse(model.canSort, "Selective needs at least one type")
+
+        model.toggle(.images)
+        model.toggle(.documents)
+        XCTAssertEqual(model.effectiveSelection, [.images, .documents])
+        XCTAssertTrue(model.canSort)
+
+        model.toggle(.images)
+        XCTAssertEqual(model.effectiveSelection, [.documents])
+
+        model.resetSelection()
+        XCTAssertTrue(model.effectiveSelection.isEmpty)
+        XCTAssertFalse(model.isEverythingSelected, "Reset clears the ticks but stays in Selective")
+
+        model.chooseEverything()
+        XCTAssertEqual(model.effectiveSelection, Set(FileCategory.allCases))
+    }
+
+    @MainActor
+    func testHomeLimitsWhatCanBeSelected() throws {
+        let model = AppModel(demoStore: store, downloads: root, scan: ScanResult(), status: "", lastSortRunID: nil)
+
+        model.choose(.home)
+
+        XCTAssertEqual(model.location, .home)
+        XCTAssertEqual(model.allowedCategories, homeCategories)
+        XCTAssertEqual(model.effectiveSelection, homeCategories)
+
+        model.chooseSelective()
+        model.toggle(.code)
+        XCTAssertTrue(model.selectedCategories.isEmpty, "Code isn't allowed in Home, so it can't be ticked")
+        model.toggle(.images)
+        XCTAssertEqual(model.selectedCategories, [.images])
+    }
+
+    func testDatabasesGoToTheirOwnFolder() throws {
+        touch("app.sqlite")
+        touch("backup.sql")
+        touch("deck.apkg")
+        touch("script.py")
+
+        let result = try sortWith()
+
+        XCTAssertEqual(result.summary.moved, 4)
+        for name in ["app.sqlite", "backup.sql", "deck.apkg"] {
+            XCTAssertTrue(exists("\(dir(.databases))/\(name)"), name)
+        }
+        XCTAssertTrue(exists("\(dir(.code))/script.py"))
+    }
+
+    func testOldAnkiFolderIsNotMistakenForAProject() throws {
+        try fm.createDirectory(at: root.appendingPathComponent("Anki"), withIntermediateDirectories: true)
+
+        let result = try sortWith()
+
+        XCTAssertEqual(result.summary.moved, 0)
+        XCTAssertTrue(exists("Anki"))
+        XCTAssertFalse(exists(dir(.projects)))
     }
 }

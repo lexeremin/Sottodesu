@@ -62,7 +62,7 @@ struct LargestFilesView: View {
             if items.isEmpty {
                 if query.isEmpty && location == allLocations {
                     ContentUnavailableView(
-                        "No files in Downloads",
+                        "No files in \(model.locationName)",
                         systemImage: "tray",
                         description: Text("Once files land here, the biggest ones show up in this list.")
                     )
@@ -75,7 +75,7 @@ struct LargestFilesView: View {
         } else {
             VStack(spacing: 10) {
                 ProgressView()
-                Text("Measuring Downloads…")
+                Text("Measuring \(model.locationName)…")
                     .foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

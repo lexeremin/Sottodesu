@@ -1,10 +1,10 @@
 import Foundation
 
-/// Group identifiers for what is found in Downloads. A category folder's group is the category's
+/// Group identifiers for what is found in a folder. A category folder's group is the category's
 /// stable identifier (`FileCategory.rawValue`); these two are the rest. All of them are also string
 /// catalog keys, so `Localized.string(id)` gives the name to show.
 enum ScanGroup {
-    /// Files sitting directly in Downloads.
+    /// Files sitting directly in the folder.
     static let unsorted = "Not sorted yet"
     /// Anything inside a folder that isn't one of Sottodesu's category folders.
     static let loose = "Loose folders"
@@ -45,17 +45,21 @@ struct ScanResult: Equatable, Sendable {
 enum DownloadsScanner {
     static func scan(root: URL, limit: Int = 500) -> ScanResult {
         let fm = FileManager.default
-        let keys: [URLResourceKey] = [.isRegularFileKey, .isPackageKey, .isSymbolicLinkKey,
+        let keys: [URLResourceKey] = [.isRegularFileKey, .isDirectoryKey, .isPackageKey, .isSymbolicLinkKey,
                                       .fileSizeKey, .contentModificationDateKey]
         guard let walker = fm.enumerator(at: root, includingPropertiesForKeys: keys,
                                          options: [.skipsHiddenFiles], errorHandler: { _, _ in true }) else {
             return ScanResult()
         }
 
-        let rootDepth = root.pathComponents.count
-        var items: [ScannedItem] = []
+        var kept: [ScannedItem] = []
         var stats: [String: GroupStat] = [:]
         var total: Int64 = 0
+        var count = 0
+        // The group of the top-level folder being walked. The enumerator goes depth-first, so this stays
+        // right until the next top-level entry. (Using the enumerator's own depth avoids comparing paths,
+        // which can differ between /var and /private/var.)
+        var folderGroup = ScanGroup.loose
 
         for case let url as URL in walker {
             if Task.isCancelled { break }
@@ -65,8 +69,16 @@ enum DownloadsScanner {
                 continue
             }
 
+            let isPackage = values.isPackage == true
+            if values.isDirectory == true && !isPackage {
+                if walker.level == 1 {
+                    folderGroup = FileCategory.fromFolderName(url.lastPathComponent)?.rawValue ?? ScanGroup.loose
+                }
+                continue
+            }
+
             let size: Int64
-            if values.isPackage == true {
+            if isPackage {
                 size = packageSize(url)
                 walker.skipDescendants()
             } else if values.isRegularFile == true {
@@ -77,31 +89,32 @@ enum DownloadsScanner {
 
             let item = ScannedItem(url: url, size: size,
                                    modifiedDate: values.contentModificationDate ?? .distantPast,
-                                   group: group(for: url, rootDepth: rootDepth))
-            items.append(item)
+                                   group: walker.level == 1 ? ScanGroup.unsorted : folderGroup)
             total += size
+            count += 1
 
             var stat = stats[item.group, default: GroupStat(name: item.group)]
             stat.count += 1
             stat.bytes += size
             if stat.largest == nil || size > stat.largest!.size { stat.largest = item }
             stats[item.group] = stat
+
+            // Keep memory bounded on huge folders: only the biggest few items are ever needed.
+            kept.append(item)
+            if kept.count > limit * 4 {
+                kept.sort { $0.size > $1.size }
+                kept.removeLast(kept.count - limit)
+            }
         }
 
-        items.sort { $0.size > $1.size }
+        kept.sort { $0.size > $1.size }
         return ScanResult(
             totalBytes: total,
-            totalCount: items.count,
+            totalCount: count,
             groups: stats.values.sorted { $0.bytes > $1.bytes },
-            largest: Array(items.prefix(limit)),
+            largest: Array(kept.prefix(limit)),
             scannedAt: Date()
         )
-    }
-
-    private static func group(for url: URL, rootDepth: Int) -> String {
-        let parts = url.pathComponents
-        if parts.count <= rootDepth + 1 { return ScanGroup.unsorted }
-        return FileCategory.fromFolderName(parts[rootDepth])?.rawValue ?? ScanGroup.loose
     }
 
     private static func packageSize(_ url: URL) -> Int64 {

@@ -108,12 +108,19 @@ struct StatTile: View {
     let title: LocalizedStringKey
     let value: String
     var detail: String?
+    var symbol: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(title)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            HStack(spacing: 5) {
+                if let symbol {
+                    Image(systemName: symbol)
+                        .font(.caption2)
+                }
+                Text(title)
+            }
+            .font(.caption)
+            .foregroundStyle(.secondary)
             Text(value)
                 .font(.title2.weight(.semibold))
                 .monospacedDigit()
@@ -125,7 +132,7 @@ struct StatTile: View {
                 .lineLimit(1)
         }
         .padding(14)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .cardBackground()
         .accessibilityElement(children: .combine)
     }
@@ -171,5 +178,59 @@ struct ShareBar: View {
         }
         .frame(height: 8)
         .accessibilityHidden(true)
+    }
+}
+
+// MARK: - Tile layout
+
+/// Lays stat tiles out in a single row when there is room, otherwise in two even rows:
+/// six tiles go 6 across or 3 + 3, four tiles go 4 across or 2 + 2. Tiles in a row share a height.
+struct TileLayout: Layout {
+    var spacing: CGFloat = 12
+    var minTileWidth: CGFloat = 124
+
+    private func columns(width: CGFloat, count: Int) -> Int {
+        guard count > 1 else { return 1 }
+        let oneRow = CGFloat(count) * minTileWidth + CGFloat(count - 1) * spacing
+        return width >= oneRow ? count : (count + 1) / 2
+    }
+
+    private func rowHeights(_ subviews: Subviews, columns: Int, tileWidth: CGFloat) -> [CGFloat] {
+        stride(from: 0, to: subviews.count, by: columns).map { start in
+            subviews[start..<min(start + columns, subviews.count)]
+                .map { $0.sizeThatFits(ProposedViewSize(width: tileWidth, height: nil)).height }
+                .max() ?? 0
+        }
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard !subviews.isEmpty else { return .zero }
+        let proposed = proposal.width ?? 800
+        let width = proposed.isFinite ? proposed : 800
+        let cols = columns(width: width, count: subviews.count)
+        let tileWidth = (width - CGFloat(cols - 1) * spacing) / CGFloat(cols)
+        let heights = rowHeights(subviews, columns: cols, tileWidth: tileWidth)
+        return CGSize(width: width, height: heights.reduce(0, +) + CGFloat(heights.count - 1) * spacing)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard !subviews.isEmpty else { return }
+        let cols = columns(width: bounds.width, count: subviews.count)
+        let tileWidth = (bounds.width - CGFloat(cols - 1) * spacing) / CGFloat(cols)
+        let heights = rowHeights(subviews, columns: cols, tileWidth: tileWidth)
+
+        var y = bounds.minY
+        for (row, height) in heights.enumerated() {
+            for column in 0..<cols {
+                let index = row * cols + column
+                guard index < subviews.count else { break }
+                subviews[index].place(
+                    at: CGPoint(x: bounds.minX + CGFloat(column) * (tileWidth + spacing), y: y),
+                    anchor: .topLeading,
+                    proposal: ProposedViewSize(width: tileWidth, height: height)
+                )
+            }
+            y += height + spacing
+        }
     }
 }

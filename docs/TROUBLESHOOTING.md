@@ -21,16 +21,18 @@ xattr -dr com.apple.quarantine /Applications/Sottodesu.app
 
 If you opened the app straight from the disk image instead of from Applications, drag it to **Applications** first.
 
-## "Sottodesu can't access your Downloads folder"
+## "Sottodesu can't access this folder"
 
-macOS asks for permission the first time. If you clicked *Don't Allow* (or missed the question), turn it on here:
+macOS asks for permission the first time Sottodesu touches your Downloads folder, your Desktop or your Documents folder. If you clicked *Don't Allow* (or missed the question), turn it on here:
 
-**System Settings ▸ Privacy & Security ▸ Files & Folders ▸ Sottodesu ▸ Downloads folder** (switch it on).
+**System Settings ▸ Privacy & Security ▸ Files & Folders ▸ Sottodesu** and switch on the folder in question (Downloads Folder, Desktop Folder or Documents Folder). For a folder on an external drive, switch on *Removable Volumes*.
 
 If Sottodesu isn't in that list, quit it, open it again and press **Sort Downloads** — the question should come back. If it doesn't, run this in Terminal and try again:
 
 ```sh
 tccutil reset SystemPolicyDownloadsFolder dev.sottodesu.app
+tccutil reset SystemPolicyDesktopFolder dev.sottodesu.app
+tccutil reset SystemPolicyDocumentsFolder dev.sottodesu.app
 ```
 
 ## I pressed Sort and "Nothing to sort"
@@ -67,9 +69,21 @@ Sottodesu names the folders it creates in your Mac's current language (System Se
 
 Both tabs measure your whole Downloads folder when you open them. A very large folder can take a few seconds — there's a progress indicator while it works. Press **Rescan** (⌘R) to measure again. The *Largest Files* list shows the biggest 500 files.
 
+## I can't choose a folder
+
+Sottodesu refuses folders where sorting could do real damage: system folders, the Applications folder, a whole disk, your **Library**, apps, and hidden folders (names starting with a dot). To tidy your home folder itself, use the **Home** card — it works differently on purpose (see below).
+
+## Why does Home only move a few things?
+
+Your home folder is full of settings and data that apps depend on, so Sottodesu keeps to the safe part: loose **media and documents** sitting directly in it. Photos go to **Pictures**, videos to **Movies**, music to **Music**, and documents, books, archives, installers, 3D models and design files into **Documents**. Folders, hidden files (`.zshrc`, `.ssh`…), code, databases, configuration files, keys and secrets, fonts and apps are never touched. If you want more, sort a specific folder with **Choose Folder…**.
+
+## Sottodesu asked whether I'm sure about a folder
+
+When the folder you picked contains things like `.git`, `package.json`, `Package.swift` or an Xcode project, it's probably a software project. Sorting moves its files into subfolders by type, which can break it. Say **Cancel** unless that's really what you want — and remember **Undo** puts everything back.
+
 ## Where does Sottodesu keep its data? How do I remove everything?
 
-Only here: `~/Library/Application Support/Sottodesu/history.sqlite`.
+Only here: `~/Library/Application Support/Sottodesu/history.sqlite` (your history and your last choices — which folder and which file types).
 
 Use **Sottodesu ▸ Uninstall Sottodesu…** to delete it and move the app to the Trash in one go. Files you already sorted stay where they are. Note that after uninstalling you can no longer undo past sorts.
 

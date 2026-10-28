@@ -9,6 +9,8 @@ struct RunSummary: Identifiable, Equatable {
     let reverted: Int
     let bytes: Int64
     let categories: [CategoryCount]
+    /// The folder that was sorted (a path), if the history recorded it.
+    let location: String?
 
     var isFullyReverted: Bool { total > 0 && reverted == total }
     var remaining: Int { total - reverted }
@@ -79,13 +81,17 @@ final class HistoryStore: @unchecked Sendable {
                 """)
             try db.execute(sql: "CREATE INDEX moved_file_runID ON moved_file(runID)")
         }
+        migrator.registerMigration("v2") { db in
+            try db.execute(sql: "ALTER TABLE sort_run ADD COLUMN location TEXT")
+            try db.execute(sql: "CREATE TABLE setting (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+        }
         try migrator.migrate(dbQueue)
     }
 
-    func beginRun(at date: Date = Date()) throws -> Int64 {
+    func beginRun(at date: Date = Date(), location: String? = nil) throws -> Int64 {
         try dbQueue.write { db in
-            try db.execute(sql: "INSERT INTO sort_run (startedAt) VALUES (?)",
-                           arguments: [date.timeIntervalSince1970])
+            try db.execute(sql: "INSERT INTO sort_run (startedAt, location) VALUES (?, ?)",
+                           arguments: [date.timeIntervalSince1970, location])
             return db.lastInsertedRowID
         }
     }
@@ -112,7 +118,8 @@ final class HistoryStore: @unchecked Sendable {
             let rows = try Row.fetchAll(db, sql: """
                 SELECT r.id AS id, r.startedAt AS startedAt,
                        COUNT(m.id) AS total, COUNT(m.revertedAt) AS reverted,
-                       COALESCE(SUM(m.size), 0) AS bytes
+                       COALESCE(SUM(m.size), 0) AS bytes,
+                       r.location AS location
                 FROM sort_run r
                 LEFT JOIN moved_file m ON m.runID = r.id
                 GROUP BY r.id
@@ -135,7 +142,8 @@ final class HistoryStore: @unchecked Sendable {
                 let started: Double = row["startedAt"]
                 return RunSummary(id: id, startedAt: Date(timeIntervalSince1970: started),
                                   total: row["total"], reverted: row["reverted"], bytes: row["bytes"],
-                                  categories: CategoryCount.sorted(byRun[id] ?? []))
+                                  categories: CategoryCount.sorted(byRun[id] ?? []),
+                                  location: row["location"])
             }
         }
     }
@@ -144,6 +152,27 @@ final class HistoryStore: @unchecked Sendable {
         try dbQueue.read { db in
             try Row.fetchAll(db, sql: "SELECT * FROM moved_file WHERE runID = ? ORDER BY id",
                              arguments: [runID]).map(LoggedMove.init(row:))
+        }
+    }
+
+    // MARK: Settings (kept in the same file as the history, so the app still writes only one file)
+
+    func setting(_ key: String) -> String? {
+        (try? dbQueue.read { db in
+            try String.fetchOne(db, sql: "SELECT value FROM setting WHERE key = ?", arguments: [key])
+        }) ?? nil
+    }
+
+    func setSetting(_ key: String, _ value: String?) throws {
+        try dbQueue.write { db in
+            if let value {
+                try db.execute(sql: """
+                    INSERT INTO setting (key, value) VALUES (?, ?)
+                    ON CONFLICT(key) DO UPDATE SET value = excluded.value
+                    """, arguments: [key, value])
+            } else {
+                try db.execute(sql: "DELETE FROM setting WHERE key = ?", arguments: [key])
+            }
         }
     }
 

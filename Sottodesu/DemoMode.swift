@@ -4,7 +4,6 @@ import Foundation
 ///
 /// Start the app with `--demo` (and optionally `--tab sort|report|largest`). Nothing real is read or
 /// written: the history lives in a temporary folder and all sizes are invented.
-/// `Scripts/take-screenshots.sh` uses this to produce the README images.
 enum DemoMode {
     static var isActive: Bool { CommandLine.arguments.contains("--demo") }
 
@@ -25,7 +24,7 @@ enum DemoMode {
             let store = try HistoryStore(databaseURL: base.appendingPathComponent("history.sqlite"))
             let latest = try seedHistory(store)
 
-            var status = String(localized: "Ready to sort your Downloads.")
+            var status = String(localized: "Ready to sort.")
             if let newest = try store.runs().first {
                 status = String(localized: "Sorted \(newest.total) items:") + " " + CategoryCount.describe(newest.categories)
             }
@@ -54,6 +53,8 @@ enum DemoMode {
     /// Five sorts, oldest first so the newest ends up on top. The oldest has been undone.
     private static func seedHistory(_ store: HistoryStore) throws -> Int64 {
         let downloads = AppPaths.downloads
+        let desktop = AppPaths.desktop
+        let inbox = AppPaths.home.appendingPathComponent("Work Inbox", isDirectory: true)
 
         let today: [Item] = [
             item(.images, "IMG_4821.heic", 3.4), item(.images, "Screenshot 2026-10-27 at 14.02.11.png", 1.1),
@@ -80,12 +81,12 @@ enum DemoMode {
             item(.fonts, "Inter.ttf", 0.8),
         ]
         let threeDaysAgo: [Item] = [
-            item(.code, "main.py", 0.004), item(.code, "data-export.ipynb", 9), item(.code, "schema.sql", 0.1),
+            item(.code, "main.py", 0.004), item(.code, "data-export.ipynb", 9), item(.databases, "schema.sql", 0.1),
             item(.design, "Photoshop-Mockups.psd", 240), item(.design, "brand-guidelines.sketch", 18),
             item(.design, "icons.fig", 6),
             item(.images, "Panorama-Alps.heic", 71), item(.images, "team-photo.jpg", 4.6),
             item(.images, "diagram.png", 0.4),
-            item(.anki, "Japanese-Core-2k.apkg", 38),
+            item(.databases, "Japanese-Core-2k.apkg", 38),
             item(.fonts, "JetBrainsMono.ttf", 0.3),
             item(.documents, "Quarterly-Report.pdf", 2.4),
         ]
@@ -102,21 +103,21 @@ enum DemoMode {
             item(.images, "IMG_0042.dng", 96), item(.images, "scan-001.tif", 22),
         ]
 
-        let sorts: [(hoursAgo: Double, wasUndone: Bool, items: [Item])] = [
-            (21 * 24, true, undone),
-            (8 * 24, false, lastWeek),
-            (3 * 24 + 5, false, threeDaysAgo),
-            (18, false, yesterday),
-            (2, false, today),
+        let sorts: [(hoursAgo: Double, wasUndone: Bool, location: URL, items: [Item])] = [
+            (21 * 24, true, inbox, undone),
+            (8 * 24, false, downloads, lastWeek),
+            (3 * 24 + 5, false, desktop, threeDaysAgo),
+            (18, false, downloads, yesterday),
+            (2, false, downloads, today),
         ]
 
         var latest: Int64 = 0
         for sort in sorts {
-            let runID = try store.beginRun(at: Date().addingTimeInterval(-sort.hoursAgo * 3600))
+            let runID = try store.beginRun(at: Date().addingTimeInterval(-sort.hoursAgo * 3600), location: sort.location.path)
             for entry in sort.items {
-                let folder = downloads.appendingPathComponent(entry.category.folderName, isDirectory: true)
+                let folder = sort.location.appendingPathComponent(entry.category.folderName, isDirectory: true)
                 try store.record(MovedFile(
-                    originalPath: downloads.appendingPathComponent(entry.name).path,
+                    originalPath: sort.location.appendingPathComponent(entry.name).path,
                     newPath: folder.appendingPathComponent(entry.name).path,
                     category: entry.category.rawValue,
                     size: Int64(entry.megabytes * 1_000_000),
@@ -157,7 +158,7 @@ enum DemoMode {
         let images = FileCategory.images.rawValue
         let models = FileCategory.models3D.rawValue
         let books = FileCategory.books.rawValue
-        let anki = FileCategory.anki.rawValue
+        let databases = FileCategory.databases.rawValue
         let other = FileCategory.other.rawValue
         let code = FileCategory.code.rawValue
 
@@ -184,7 +185,7 @@ enum DemoMode {
             file(models, "benchy.stl", 11, daysAgo: 0.1),
             file(books, "Art-of-Computer-Programming.djvu", 86, daysAgo: 90),
             file(books, "Dune.mobi", 1.4, daysAgo: 0.3),
-            file(anki, "Japanese-Core-2k.apkg", 38, daysAgo: 2),
+            file(databases, "Japanese-Core-2k.apkg", 38, daysAgo: 2),
             file(code, "data-export.ipynb", 9, daysAgo: 4),
             file(other, "backup-2025.bin", 52, daysAgo: 70),
             file(ScanGroup.unsorted, "Zoom.pkg", 98, daysAgo: 0.01),
@@ -197,7 +198,7 @@ enum DemoMode {
             (videos, 214, 18_600), (installers, 61, 9_400), (archives, 87, 7_200), (projects, 1_520, 3_400),
             (images, 2_210, 2_300), (audio, 168, 1_900), (design, 74, 1_300), (documents, 412, 1_200),
             (models, 96, 980), (books, 134, 640), (ScanGroup.loose, 940, 480), (other, 77, 280),
-            (anki, 12, 160), (ScanGroup.unsorted, 3, 112), (FileCategory.fonts.rawValue, 31, 24),
+            (databases, 12, 160), (ScanGroup.unsorted, 3, 112), (FileCategory.fonts.rawValue, 31, 24),
             (code, 205, 12), (FileCategory.config.rawValue, 18, 2), (FileCategory.secrets.rawValue, 3, 1),
         ]
         let groups = table

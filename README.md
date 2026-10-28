@@ -16,15 +16,13 @@
 </p>
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/sort-dark.png">
-    <img src="docs/screenshots/sort-light.png" alt="Sottodesu's main window: a Sort Downloads button above a history of past sorts" width="760">
-  </picture>
+  <img src="docs/screenshots/sort.png" alt="Sottodesu's main window: a Sort Downloads button above a history of past sorts" width="760">
 </p>
 
 Sottodesu sorts everything in your Downloads folder into neat folders — Images, Documents, Videos, Books and more — and remembers every sort, so you can put things back with a single click.
 
-- 🧹 **One button.** Press *Sort Downloads*. That's it.
+- 🧹 **One button.** Pick a folder and press *Sort*. That's it.
+- 🎯 **You choose.** Sort your Downloads, your Desktop, your home folder (safely limited) or any folder you pick — and only the kinds of files you tick, such as just your photos.
 - ↩️ **Always undoable.** Every sort is saved in a history. Undo any of them later.
 - 🔐 **Careful with secrets.** Keys, certificates and `.env` files go into their own private folder.
 - 🔒 **Private.** Works entirely on your Mac. No account, no internet, no tracking — and it never opens your files, only looks at their names.
@@ -62,11 +60,11 @@ Stuck? See [Troubleshooting](docs/TROUBLESHOOTING.md).
 
 ## Your first sort
 
-1. Open Sottodesu and press **Sort Downloads**.
+1. Open Sottodesu. **Downloads** is already selected — press **Sort Downloads**.
 2. The first time, macOS asks whether Sottodesu may access your Downloads folder. Click **Allow** — it can't work without it.
 3. Done. Sottodesu tells you what it sorted, with an **Undo** link right there in case you change your mind.
 
-Sottodesu only looks at the **top level** of your Downloads folder, and it only **moves** things — it never deletes or overwrites anything. If two files would end up with the same name, the second one becomes `photo 2.jpg`.
+Sottodesu only looks at the **top level** of the folder you choose, and it only **moves** things — it never deletes or overwrites anything. If two files would end up with the same name, the second one becomes `photo 2.jpg`.
 
 It deliberately leaves alone:
 
@@ -76,6 +74,25 @@ It deliberately leaves alone:
 - the folders it created itself.
 
 > **Hidden files** such as `.gitignore` or `.zshrc` *are* sorted — into **Config & VPN**, or into **Keys & Secrets** if they hold credentials (`.env`, `.npmrc`…). They stay hidden after they move; press **⌘⇧.** in Finder to show them.
+
+## Choose what to sort
+
+At the top of the *Sort* tab you pick **where** to sort and **what** to sort. It remembers your choice.
+
+**Where to sort**
+
+| Card | What it does |
+|---|---|
+| **Downloads** | Everything, sorted by type. |
+| **Desktop** | The same for your desktop. Hidden files are left alone. |
+| **Home** | Your home folder — **restricted on purpose**, because it's full of settings. Only *loose media and documents* are moved: photos to **Pictures**, videos to **Movies**, music to **Music**, and documents, books, archives, installers, 3D models and design files into **Documents** (so your home folder never gets new clutter). Hidden files (`.zshrc`, `.ssh`…), folders, apps, code, databases, configuration, keys and secrets, fonts and your Library are **never** touched. |
+| **Choose Folder…** | Any other folder, including on an external drive. Sottodesu refuses system folders, apps, your Library and hidden folders, and **asks first** if the folder looks like a software project (a `.git` folder, `package.json`, an Xcode project…) because moving files around can break one. |
+
+**What to sort**
+
+Two cards: **Everything** (the default — every type of file) or **Selective**. Choose *Selective* and a row of file types appears; tick only the ones you want — say just **Images** and **Documents**. **Reset** clears your ticks so you can start over. Under the Sort button, Sottodesu always tells you exactly what it's about to do.
+
+Every sort in the history shows which folder it was for, and **Report** and **Largest Files** follow the folder you've selected.
 
 ## Undo
 
@@ -90,10 +107,7 @@ Every sort appears under **History** on the *Sort* tab. Click a sort to see exac
 Each sort is a card with a colour bar showing what went where. Open one to see every item and its size.
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/sort-dark.png">
-    <img src="docs/screenshots/sort-light.png" alt="The Sort tab with the sort history" width="760">
-  </picture>
+  <img src="docs/screenshots/sort.png" alt="The Sort tab with the sort history" width="760">
 </p>
 
 ### Understand your Downloads folder
@@ -101,10 +115,7 @@ Each sort is a card with a colour bar showing what went where. Open one to see e
 The **Report** tab shows how much Sottodesu has sorted, which categories you use most, and where the space in Downloads actually goes.
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/report-dark.png">
-    <img src="docs/screenshots/report-light.png" alt="The Report tab with statistics and a chart of disk space by folder" width="760">
-  </picture>
+  <img src="docs/screenshots/report.png" alt="The Report tab with statistics and a chart of disk space by folder" width="760">
 </p>
 
 ### Find the big files
@@ -112,28 +123,10 @@ The **Report** tab shows how much Sottodesu has sorted, which categories you use
 **Largest Files** lists the biggest files in Downloads, biggest first. **Double-click a file to show it in Finder.** Right-click for *Open* and *Copy Path*; click a column to sort, or just search.
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/largest-dark.png">
-    <img src="docs/screenshots/largest-light.png" alt="The Largest Files tab: a table of the biggest files with a Finder shortcut" width="760">
-  </picture>
+  <img src="docs/screenshots/largest.png" alt="The Largest Files tab: a table of the biggest files with a Finder shortcut" width="760">
 </p>
 
 Tip: ⌘1 / ⌘2 / ⌘3 switch tabs, ⌘R rescans.
-
-### In your language
-
-<table align="center">
-  <tr>
-    <td align="center"><img src="docs/screenshots/sort-ru.png" width="270" alt="Русский"><br><sub>Русский</sub></td>
-    <td align="center"><img src="docs/screenshots/sort-zh-Hans.png" width="270" alt="简体中文"><br><sub>简体中文</sub></td>
-    <td align="center"><img src="docs/screenshots/sort-ko.png" width="270" alt="한국어"><br><sub>한국어</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="docs/screenshots/sort-ja.png" width="270" alt="日本語"><br><sub>日本語</sub></td>
-    <td align="center"><img src="docs/screenshots/sort-fr.png" width="270" alt="Français"><br><sub>Français</sub></td>
-    <td></td>
-  </tr>
-</table>
 
 ---
 
@@ -149,10 +142,10 @@ Tip: ⌘1 / ⌘2 / ⌘3 switch tabs, ⌘R rescans.
 | **Archives** | zip, rar, 7z, tar, gz… |
 | **Installers** | dmg, pkg, iso |
 | **3D Models** | stl, 3mf, obj, step, gcode, blend, fbx, glb… |
-| **Anki** | apkg, colpkg |
+| **Databases** | sqlite, db, mdb, accdb, SQL dumps, Anki decks (apkg)… |
 | **Config & VPN** | ovpn, conf, mobileconfig, json, yaml, toml, plist… and **hidden "dot" files** like `.gitignore`, `.zshrc` |
 | **Keys & Secrets** | `.env` and `.env.*`, certificates and keys (cert, pem, crt, cer, p12, pfx, SSH keys), `.npmrc`, `.netrc`, password databases… |
-| **Code** | py, js, ts, swift, c, cpp, rs, go, sh, ipynb, sql… |
+| **Code** | py, js, ts, swift, c, cpp, rs, go, sh, ipynb… |
 | **Fonts** | ttf, otf, woff, woff2 |
 | **Design** | psd, ai, sketch, fig, xd… |
 | **Projects** | any loose folder |
@@ -174,7 +167,7 @@ Sottodesu follows your Mac's language (System Settings ▸ General ▸ Language 
 | Archives | Archives | Архивы | 压缩包 | 압축 파일 | アーカイブ | Archives |
 | Installers | Installers | Установщики | 安装程序 | 설치 파일 | インストーラ | Installateurs |
 | 3D Models | 3D Models | 3D-модели | 3D 模型 | 3D 모델 | 3Dモデル | Modèles 3D |
-| Anki | Anki | Anki | Anki | Anki | Anki | Anki |
+| Databases | Databases | Базы данных | 数据库 | 데이터베이스 | データベース | Bases de données |
 | Config & VPN | Config & VPN | Конфиги и VPN | 配置与 VPN | 설정 및 VPN | 設定とVPN | Config et VPN |
 | Keys & Secrets | Keys & Secrets | Ключи и секреты | 密钥与机密 | 키 및 보안 정보 | 鍵と機密情報 | Clés et secrets |
 | Code | Code | Код | 代码 | 코드 | コード | Code |
@@ -192,7 +185,7 @@ Want another language? See [Translating](docs/DEVELOPING.md#adding-or-fixing-a-t
 ## Privacy
 
 - Sottodesu **never connects to the internet.** There is no account, no analytics and no update check.
-- It only looks at **file names** inside your Downloads folder and moves files. It **never opens or reads what's inside them.**
+- It only looks at **file names** inside the folder you choose and moves files. It **never opens or reads what's inside them.**
 - The only thing it stores is its history — one small file at `~/Library/Application Support/Sottodesu/history.sqlite`.
 
 ## Uninstall

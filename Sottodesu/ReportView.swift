@@ -38,7 +38,7 @@ struct ReportView: View {
                     ContentUnavailableView(
                         "Nothing sorted yet",
                         systemImage: "chart.bar",
-                        description: Text("Sort your Downloads and this report fills in.")
+                        description: Text("Sort a folder and this report fills in.")
                     )
                     .frame(maxWidth: .infinity)
                 }
@@ -65,13 +65,13 @@ struct ReportView: View {
         let lastDay = r.lastSort?.formatted(date: .abbreviated, time: .omitted) ?? "–"
         let lastTime = r.lastSort?.formatted(date: .omitted, time: .shortened)
 
-        return LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 12)], spacing: 12) {
-            StatTile(title: "Sorts", value: "\(r.sorts)", detail: since)
-            StatTile(title: "Items sorted", value: "\(r.items)", detail: perSort)
-            StatTile(title: "Data moved", value: formatBytes(r.bytes))
-            StatTile(title: "Undone", value: "\(r.undone)", detail: undoneShare)
-            StatTile(title: "Most sorted", value: topName, detail: topDetail)
-            StatTile(title: "Last sort", value: lastDay, detail: lastTime)
+        return TileLayout {
+            StatTile(title: "Sorts", value: r.sorts.formatted(), detail: since, symbol: "arrow.up.arrow.down")
+            StatTile(title: "Items sorted", value: r.items.formatted(), detail: perSort, symbol: "square.stack.3d.up")
+            StatTile(title: "Data moved", value: formatBytes(r.bytes), symbol: "externaldrive")
+            StatTile(title: "Undone", value: r.undone.formatted(), detail: undoneShare, symbol: "arrow.uturn.backward")
+            StatTile(title: "Most sorted", value: topName, detail: topDetail, symbol: "chart.bar")
+            StatTile(title: "Last sort", value: lastDay, detail: lastTime, symbol: "clock")
         }
     }
 
@@ -122,7 +122,7 @@ struct ReportView: View {
     private var spaceSection: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(alignment: .firstTextBaseline, spacing: 10) {
-                sectionHeader("Disk space", "What’s in your Downloads folder right now.")
+                sectionHeader("Disk space", "What’s in \(model.locationName) right now.")
                 Spacer()
                 if model.isScanning {
                     ProgressView().controlSize(.small)
@@ -134,7 +134,7 @@ struct ReportView: View {
             if let scan = model.scan {
                 if scan.totalCount == 0 {
                     Card {
-                        ContentUnavailableView("Downloads is empty", systemImage: "tray")
+                        ContentUnavailableView("\(model.locationName) is empty", systemImage: "tray")
                             .frame(maxWidth: .infinity)
                     }
                 } else {
@@ -146,7 +146,7 @@ struct ReportView: View {
                 Card {
                     HStack(spacing: 10) {
                         ProgressView().controlSize(.small)
-                        Text("Measuring Downloads…").foregroundStyle(.secondary)
+                        Text("Measuring \(model.locationName)…").foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity, minHeight: 80)
                 }
@@ -162,11 +162,11 @@ struct ReportView: View {
         let unsortedDetail = unsorted.map { String(localized: "\($0.count) items") }
             ?? String(localized: "everything is sorted")
 
-        return LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 12)], spacing: 12) {
-            StatTile(title: "Total size", value: formatBytes(scan.totalBytes), detail: measured)
-            StatTile(title: "Files", value: scan.totalCount.formatted(), detail: places)
-            StatTile(title: "Largest file", value: biggest.map { formatBytes($0.size) } ?? "–", detail: biggest?.name)
-            StatTile(title: "Not sorted yet", value: formatBytes(unsorted?.bytes ?? 0), detail: unsortedDetail)
+        return TileLayout {
+            StatTile(title: "Total size", value: formatBytes(scan.totalBytes), detail: measured, symbol: "internaldrive")
+            StatTile(title: "Files", value: scan.totalCount.formatted(), detail: places, symbol: "doc.on.doc")
+            StatTile(title: "Largest file", value: biggest.map { formatBytes($0.size) } ?? "–", detail: biggest?.name, symbol: "scalemass")
+            StatTile(title: "Not sorted yet", value: formatBytes(unsorted?.bytes ?? 0), detail: unsortedDetail, symbol: "tray")
         }
     }
 
@@ -194,7 +194,7 @@ struct ReportView: View {
                         Text(formatBytes(scan.totalBytes))
                             .font(.title3.weight(.semibold))
                             .monospacedDigit()
-                        Text("in Downloads")
+                        Text("in \(model.locationName)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

@@ -36,10 +36,16 @@ struct ContentView: View {
 struct SortView: View {
     @Environment(AppModel.self) private var model
 
+    private var askAboutProject: Binding<Bool> {
+        Binding(get: { model.askAboutProject }, set: { model.askAboutProject = $0 })
+    }
+
     var body: some View {
         ScrollView {
-            VStack(spacing: 32) {
-                hero
+            VStack(spacing: 28) {
+                LocationPicker()
+                ScopePicker()
+                sortSection
                 history
             }
             .padding(.horizontal, 24)
@@ -47,21 +53,28 @@ struct SortView: View {
             .frame(maxWidth: 720)
             .frame(maxWidth: .infinity)
         }
+        .confirmationDialog("This looks like a project folder", isPresented: askAboutProject, titleVisibility: .visible) {
+            Button("Sort Anyway") { model.sort() }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Sorting moves files into subfolders by type, which can break a project. Sort it anyway?")
+        }
     }
 
-    private var hero: some View {
-        VStack(spacing: 16) {
-            SortMark()
-                .frame(width: 52, height: 52)
-
+    private var sortSection: some View {
+        VStack(spacing: 14) {
             Button {
-                model.sort()
+                model.requestSort()
             } label: {
-                Text("Sort Downloads")
+                Text("Sort \(model.locationName)")
             }
             .buttonStyle(SortButtonStyle())
             .keyboardShortcut(.defaultAction)
-            .disabled(!model.canWork)
+            .disabled(!model.canSort)
+
+            Text(model.scopeSummary)
+                .font(.caption)
+                .foregroundStyle(.secondary)
 
             HStack(spacing: 8) {
                 if model.isWorking {
@@ -80,6 +93,7 @@ struct SortView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .padding(.top, 4)
     }
 
     @ViewBuilder
@@ -150,7 +164,7 @@ private struct RunCard: View {
             Button("Undo \(run.remaining) items") { model.undo(run) }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Everything goes back to where it was in Downloads. Items you’ve since moved or deleted are skipped.")
+            Text("Everything goes back to where it was. Items you’ve since moved or deleted are skipped.")
         }
         // Load the item list only when the card is opened, and refresh it after an undo.
         .task(id: "\(expanded)-\(run.reverted)") {
@@ -170,8 +184,18 @@ private struct RunCard: View {
                         .rotationEffect(.degrees(expanded ? 90 : 0))
                         .frame(width: 12, height: 20)
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(run.startedAt.formatted(date: .abbreviated, time: .shortened))
-                            .fontWeight(.medium)
+                        HStack(spacing: 8) {
+                            Text(run.startedAt.formatted(date: .abbreviated, time: .shortened))
+                                .fontWeight(.medium)
+                            if let place = model.displayName(forPath: run.location) {
+                                Label(place, systemImage: "folder")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 2)
+                                    .background(Capsule().fill(Color.primary.opacity(0.06)))
+                            }
+                        }
                         Text(run.subtitle)
                             .font(.caption)
                             .foregroundStyle(.secondary)

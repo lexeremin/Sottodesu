@@ -6,6 +6,12 @@ enum AppPaths {
         FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
     }
 
+    static var desktop: URL {
+        FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)[0]
+    }
+
+    static var home: URL { FileManager.default.homeDirectoryForCurrentUser }
+
     private static var library: URL {
         FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
     }

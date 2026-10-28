@@ -24,7 +24,7 @@ extension FileCategory {
         case .archives: return Color(hex: 0xA8A294)
         case .installers: return Color(hex: 0xD9A63F)
         case .models3D: return Color(hex: 0x4F9A8F)
-        case .anki: return Color(hex: 0x7DA55C)
+        case .databases: return Color(hex: 0x7DA55C)
         case .config: return Color(hex: 0x4F7A9E)
         case .secrets: return Color(hex: 0x8A3B4A)
         case .code: return Color(hex: 0x3E8E6A)

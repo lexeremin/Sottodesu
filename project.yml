@@ -34,6 +34,9 @@ targets:
         LSApplicationCategoryType: public.app-category.utilities
         LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
         NSDownloadsFolderUsageDescription: Sottodesu sorts the files in your Downloads folder into subfolders by type.
+        NSDesktopFolderUsageDescription: If you choose to, Sottodesu sorts the files on your Desktop into subfolders by type.
+        NSDocumentsFolderUsageDescription: When you sort your home folder, Sottodesu moves loose documents into your Documents folder.
+        NSRemovableVolumesUsageDescription: If you choose a folder on an external drive, Sottodesu can sort it.
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sottodesu.app

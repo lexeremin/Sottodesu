@@ -28,7 +28,7 @@ struct SottodesuApp: App {
                 Button("Largest Files") { model.tab = .largest }
                     .keyboardShortcut("3")
                 Divider()
-                Button("Rescan Downloads") { model.rescan() }
+                Button("Rescan") { model.rescan() }
                     .keyboardShortcut("r")
             }
         }

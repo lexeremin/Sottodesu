@@ -25,6 +25,88 @@
         }
       }
     },
+    "NSDesktopFolderUsageDescription" : {
+      "comment" : "Privacy - Desktop Folder Usage Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you choose to, Sottodesu sorts the files on your Desktop into subfolders by type."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous le choisissez, Sottodesu range les fichiers de votre bureau dans des sous-dossiers selon leur type."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デスクトップを選んだ場合、Sottodesu はデスクトップ上のファイルを種類ごとのサブフォルダに整理します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "데스크탑을 선택하면 Sottodesu가 데스크탑의 파일을 종류별 하위 폴더로 정리해요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Если вы выберете рабочий стол, Sottodesu разложит его файлы по подпапкам по типу."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果你选择整理桌面，Sottodesu 会按类型将桌面上的文件整理到子文件夹中。"
+          }
+        }
+      }
+    },
+    "NSDocumentsFolderUsageDescription" : {
+      "comment" : "Privacy - Documents Folder Usage Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When you sort your home folder, Sottodesu moves loose documents into your Documents folder."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lorsque vous triez votre dossier personnel, Sottodesu déplace les documents isolés vers votre dossier Documents."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ホームフォルダを整理すると、Sottodesu は散らばった書類を「書類」フォルダに移動します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "홈 폴더를 정리하면 Sottodesu가 흩어진 문서를 문서 폴더로 옮겨요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "При сортировке домашней папки Sottodesu перемещает отдельные документы в папку «Документы»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "整理个人文件夹时，Sottodesu 会将零散的文档移入“文稿”文件夹。"
+          }
+        }
+      }
+    },
     "NSDownloadsFolderUsageDescription" : {
       "comment" : "Privacy - Downloads Folder Usage Description",
       "localizations" : {
@@ -62,6 +144,47 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sottodesu 会按类型将“下载”文件夹中的文件整理到子文件夹中。"
+          }
+        }
+      }
+    },
+    "NSRemovableVolumesUsageDescription" : {
+      "comment" : "Privacy - Removable Volumes Usage Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you choose a folder on an external drive, Sottodesu can sort it."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous choisissez un dossier sur un disque externe, Sottodesu peut le trier."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外部ドライブ上のフォルダを選んだ場合、Sottodesu はそれを整理できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "외장 드라이브의 폴더를 선택하면 Sottodesu가 정리할 수 있어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Если вы выберете папку на внешнем диске, Sottodesu сможет её отсортировать."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如果你选择外置磁盘上的文件夹，Sottodesu 可以对其进行整理。"
           }
         }
       }

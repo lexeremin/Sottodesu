@@ -25,31 +25,41 @@ final class AppModel {
     var report = HistoryReport()
     var scan: ScanResult?
     var isScanning = false
-    var status = String(localized: "Ready to sort your Downloads.")
+    var status = String(localized: "Ready to sort.")
     var isWorking = false
+    /// Drives the "this looks like a project" confirmation.
+    var askAboutProject = false
     private(set) var lastSortRunID: Int64?
 
+    // What to sort, and where.
+    private(set) var location: LocationKind = .downloads
+    private(set) var customFolder: URL?
+    /// "Selective" mode sorts only the ticked types; in "Everything" mode the ticks are ignored.
+    private(set) var isSelective = false
+    private(set) var selectedCategories: Set<FileCategory> = []
+
     private let store: HistoryStore?
-    private let downloads: URL
+    /// Demo mode points the app at an empty temporary folder instead of a real one.
+    private var rootOverride: URL?
     private var scanIsStale = true
     /// Bumped whenever files move, so a scan that was already running can tell it is out of date.
     private var changeCount = 0
 
     init() {
-        downloads = AppPaths.downloads
         do {
             store = try HistoryStore(databaseURL: AppPaths.database)
         } catch {
             store = nil
             status = String(localized: "Couldn’t open the history: \(error.localizedDescription)")
         }
+        restoreSettings()
         reload()
     }
 
-    /// For screenshots only (see DemoMode.swift): a made-up history and Downloads folder.
+    /// For screenshots only (see DemoMode.swift): a made-up history and folder.
     init(demoStore: HistoryStore, downloads: URL, scan: ScanResult, status: String, lastSortRunID: Int64?) {
         self.store = demoStore
-        self.downloads = downloads
+        self.rootOverride = downloads
         self.scan = scan
         self.status = status
         self.lastSortRunID = lastSortRunID
@@ -58,6 +68,157 @@ final class AppModel {
     }
 
     var canWork: Bool { store != nil && !isWorking }
+
+    // MARK: - Where and what
+
+    var rootURL: URL {
+        if let rootOverride { return rootOverride }
+        switch location {
+        case .downloads: return AppPaths.downloads
+        case .desktop: return AppPaths.desktop
+        case .home: return AppPaths.home
+        case .custom: return customFolder ?? AppPaths.downloads
+        }
+    }
+
+    var policy: SortPolicy { SortPolicy.policy(for: location) }
+    var allowedCategories: Set<FileCategory> { policy.allowedCategories }
+    /// What a sort will actually move: everything the location allows, or just the ticked types.
+    var effectiveSelection: Set<FileCategory> {
+        isSelective ? selectedCategories.intersection(allowedCategories) : allowedCategories
+    }
+    var isEverythingSelected: Bool { !isSelective }
+    /// A selective sort needs at least one type ticked.
+    var canSort: Bool { canWork && !effectiveSelection.isEmpty }
+
+    /// The folder's name as shown in the interface ("Downloads", or the custom folder's name).
+    var locationName: String {
+        location == .custom ? (customFolder?.lastPathComponent ?? LocationKind.custom.title) : location.title
+    }
+
+    /// "All file types", or "Images · Documents".
+    var scopeSummary: String {
+        if isEverythingSelected { return String(localized: "All file types") }
+        if effectiveSelection.isEmpty { return String(localized: "Pick at least one type") }
+        return FileCategory.allCases
+            .filter { effectiveSelection.contains($0) }
+            .map(\.displayName)
+            .joined(separator: " · ")
+    }
+
+    /// A friendly name for a folder path recorded in the history.
+    func displayName(forPath path: String?) -> String? {
+        guard let path else { return nil }
+        let url = URL(fileURLWithPath: path).standardizedFileURL
+        if url.path == AppPaths.downloads.standardizedFileURL.path { return LocationKind.downloads.title }
+        if url.path == AppPaths.desktop.standardizedFileURL.path { return LocationKind.desktop.title }
+        if url.path == AppPaths.home.standardizedFileURL.path { return LocationKind.home.title }
+        return url.lastPathComponent
+    }
+
+    func choose(_ kind: LocationKind) {
+        if kind == .custom, customFolder == nil || location == .custom {
+            chooseCustomFolder()
+        } else {
+            setLocation(kind)
+        }
+    }
+
+    func chooseCustomFolder() {
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.allowsMultipleSelection = false
+        panel.canCreateDirectories = false
+        panel.message = String(localized: "Choose a folder to sort")
+        panel.prompt = String(localized: "Choose")
+        panel.directoryURL = customFolder ?? AppPaths.home
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        select(customFolder: url)
+    }
+
+    func select(customFolder url: URL) {
+        guard FolderGuard.isAllowedCustomFolder(url) else {
+            status = String(localized: "Sottodesu won’t sort system folders, your Library, apps or hidden folders. To tidy your home folder, use Home.")
+            return
+        }
+        customFolder = url
+        setLocation(.custom)
+    }
+
+    private func setLocation(_ kind: LocationKind) {
+        guard kind != location || kind == .custom else { return }
+        location = kind
+        isSelective = false
+        selectedCategories = []
+        scan = nil
+        scanIsStale = true
+        status = String(localized: "Ready to sort.")
+        saveSettings()
+    }
+
+    func chooseEverything() {
+        isSelective = false
+        saveSettings()
+    }
+
+    func chooseSelective() {
+        isSelective = true
+        saveSettings()
+    }
+
+    /// Clears the ticked types (staying in Selective) so you can start over.
+    func resetSelection() {
+        selectedCategories = []
+        saveSettings()
+    }
+
+    /// Ticks or unticks a type. Only meaningful in Selective mode.
+    func toggle(_ category: FileCategory) {
+        guard isSelective, allowedCategories.contains(category) else { return }
+        if selectedCategories.contains(category) {
+            selectedCategories.remove(category)
+        } else {
+            selectedCategories.insert(category)
+        }
+        saveSettings()
+    }
+
+    // MARK: - Remembering the choice (in the same file as the history)
+
+    private func saveSettings() {
+        guard let store, rootOverride == nil else { return }
+        try? store.setSetting("location", location.rawValue)
+        try? store.setSetting("customPath", customFolder?.path)
+        try? store.setSetting("scope", isSelective ? "selective" : "all")
+        try? store.setSetting("categories", selectedCategories.map(\.rawValue).sorted().joined(separator: ","))
+    }
+
+    private func restoreSettings() {
+        guard let store else { return }
+
+        if let path = store.setting("customPath") {
+            let url = URL(fileURLWithPath: path, isDirectory: true)
+            if FileManager.default.fileExists(atPath: url.path), FolderGuard.isAllowedCustomFolder(url) {
+                customFolder = url
+            }
+        }
+        if let raw = store.setting("location"), let saved = LocationKind(rawValue: raw) {
+            if saved == .custom && customFolder == nil {
+                status = String(localized: "The folder you chose is no longer available, so Sottodesu switched back to Downloads.")
+            } else {
+                location = saved
+            }
+        }
+
+        let allowed = allowedCategories
+        isSelective = store.setting("scope") == "selective"
+        let raw = store.setting("categories") ?? ""
+        selectedCategories = Set(raw.split(separator: ",").compactMap { FileCategory(rawValue: String($0)) })
+            .intersection(allowed)
+    }
+
+    // MARK: - History
 
     /// The sort that just happened, as long as it hasn't been undone — shown as an inline Undo.
     var undoableLastRun: RunSummary? {
@@ -76,17 +237,30 @@ final class AppModel {
 
     // MARK: - Sorting
 
+    /// Starts a sort — after asking, if the chosen folder looks like a software project.
+    func requestSort() {
+        guard canSort else { return }
+        if location == .custom && FolderGuard.looksLikeProject(rootURL) {
+            askAboutProject = true
+        } else {
+            sort()
+        }
+    }
+
     func sort() {
-        guard canWork, let store else { return }
+        guard canSort, let store else { return }
         isWorking = true
         status = String(localized: "Sorting…")
-        let root = downloads
+        let root = rootURL
+        let policy = self.policy
+        let selection = effectiveSelection
 
         Task {
             do {
                 let outcome = try await Task.detached(priority: .userInitiated) { () -> (SortSummary, Int64?) in
-                    let runID = try store.beginRun()
-                    let result = try Sorter(root: root).sort { try store.record($0, runID: runID) }
+                    let runID = try store.beginRun(location: root.path)
+                    let result = try Sorter(root: root, policy: policy, selection: selection)
+                        .sort { try store.record($0, runID: runID) }
                     if result.moved == 0 {
                         try store.discardRun(runID)
                         return (result, nil)
@@ -128,7 +302,7 @@ final class AppModel {
         reload()
     }
 
-    // MARK: - Measuring Downloads
+    // MARK: - Measuring the folder
 
     func scanIfNeeded() {
         if scan == nil || scanIsStale { rescan() }
@@ -137,14 +311,21 @@ final class AppModel {
     func rescan() {
         guard !isScanning else { return }
         isScanning = true
-        let root = downloads
+        let root = rootURL
         let generation = changeCount
+        let where_ = location
 
         Task {
             let result = await Task.detached(priority: .utility) { DownloadsScanner.scan(root: root) }.value
-            scan = result
-            scanIsStale = generation != changeCount
+            // The person may have picked another folder while this was running.
+            if where_ == location, root == rootURL {
+                scan = result
+                scanIsStale = generation != changeCount
+            } else {
+                scanIsStale = true
+            }
             isScanning = false
+            if scanIsStale && scan == nil && tab != .sort { rescan() }
         }
     }
 
@@ -203,7 +384,7 @@ final class AppModel {
         let ns = error as NSError
         if ns.domain == NSCocoaErrorDomain,
            ns.code == NSFileReadNoPermissionError || ns.code == NSFileWriteNoPermissionError {
-            return String(localized: "Sottodesu can’t access your Downloads folder. Allow it in System Settings › Privacy & Security › Files & Folders.")
+            return String(localized: "Sottodesu can’t access this folder. Allow it in System Settings › Privacy & Security › Files & Folders.")
         }
         return error.localizedDescription
     }
