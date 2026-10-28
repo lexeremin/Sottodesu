@@ -13,6 +13,7 @@
   <a href="https://github.com/lexeremin/Sottodesu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/lexeremin/Sottodesu/actions/workflows/ci.yml/badge.svg"></a>
   <img alt="macOS 15 or later" src="https://img.shields.io/badge/macOS-15%2B-1f1f1f">
   <img alt="6 languages" src="https://img.shields.io/badge/languages-6-1f1f1f">
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-1f1f1f"></a>
 </p>
 
 <p align="center">
@@ -204,3 +205,7 @@ Use **Sottodesu ▸ Uninstall Sottodesu…** from the menu bar. It deletes the h
 - 🐞 [Report a problem or suggest something](https://github.com/lexeremin/Sottodesu/issues/new)
 - 🛠 [Build it yourself / contribute](docs/DEVELOPING.md)
 - 📝 [What's new](CHANGELOG.md)
+
+## License
+
+Sottodesu is free and open source under the [MIT License](LICENSE).
