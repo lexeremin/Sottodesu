@@ -453,14 +453,20 @@ struct ScheduleEditor: View {
     }
 
     private var timeRow: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        HStack(spacing: 16) {
             Text("Time")
-                .font(.callout)
                 .foregroundStyle(.secondary)
-            TimeWheel(hour: $schedule.hour, minute: $schedule.minute)
-                .padding(.horizontal, 6)
-                .cardBackground(cornerRadius: 14)
+            // The standard macOS time field, enlarged so it is easy to hit.
+            DatePicker("Time", selection: timeBinding, displayedComponents: .hourAndMinute)
+                .labelsHidden()
+                .datePickerStyle(.stepperField)
+                .scaleEffect(1.7, anchor: .leading)
+                .frame(width: 150, height: 40, alignment: .leading)
+            Spacer(minLength: 0)
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .cardBackground(cornerRadius: 14)
     }
 
     // MARK: Summary
@@ -492,6 +498,17 @@ struct ScheduleEditor: View {
     }
 
     // MARK: Helpers
+
+    private var timeBinding: Binding<Date> {
+        Binding(
+            get: { calendar.date(bySettingHour: schedule.hour, minute: schedule.minute, second: 0, of: Date()) ?? Date() },
+            set: {
+                let parts = calendar.dateComponents([.hour, .minute], from: $0)
+                schedule.hour = parts.hour ?? 0
+                schedule.minute = parts.minute ?? 0
+            }
+        )
+    }
 
     private func toggle(_ category: FileCategory) {
         if schedule.categories.contains(category) {

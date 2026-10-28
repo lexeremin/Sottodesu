@@ -1,7 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {},
+    "%@" : {
+
+    },
     "%@ is empty" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -37,7 +39,9 @@
         }
       }
     },
-    "%@ items skipped (still downloading or just added)." : {},
+    "%@ items skipped (still downloading or just added)." : {
+
+    },
     "%@ of items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -73,7 +77,9 @@
         }
       }
     },
-    "%@ sorts" : {},
+    "%@ sorts" : {
+
+    },
     "%lld items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -714,6 +720,41 @@
         }
       }
     },
+    "A schedule couldn’t run: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une planification n’a pas pu s’exécuter : %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールを実行できませんでした：%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약을 실행하지 못했어요: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписание не удалось выполнить: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有计划无法运行：%@"
+          }
+        }
+      }
+    },
     "about %lld per sort" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -923,7 +964,9 @@
         }
       }
     },
-    "and %@ more" : {},
+    "and %@ more" : {
+
+    },
     "and %lld more" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -995,6 +1038,7 @@
       }
     },
     "At" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1269,6 +1313,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "图书"
+          }
+        }
+      }
+    },
+    "Busy with another sort. Checking again in a minute." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un autre tri est en cours. Nouvelle vérification dans une minute."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "別の整理を実行中です。1分後に再確認します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다른 정리가 진행 중이에요. 1분 뒤에 다시 확인해요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Идёт другая сортировка. Проверю снова через минуту."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在进行另一项整理。一分钟后再次检查。"
           }
         }
       }
@@ -4518,6 +4597,41 @@
         }
       }
     },
+    "No schedule is switched on." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune planification n’est activée."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オンのスケジュールはありません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "켜져 있는 예약이 없어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ни одно расписание не включено."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有已开启的计划。"
+          }
+        }
+      }
+    },
     "No schedules yet" : {
       "localizations" : {
         "fr" : {
@@ -4790,6 +4904,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "历史记录中没有与“%@”匹配的内容。"
+          }
+        }
+      }
+    },
+    "Nothing is due yet. Next: %@, %@." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien à faire pour l’instant. Prochaine : %@, %@."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだ実行するものはありません。次回：%@、%@。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 실행할 예약이 없어요. 다음: %@, %@."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пока ничего не нужно запускать. Следующее: %@, %@."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂时没有到期的计划。下一个：%@，%@。"
           }
         }
       }
@@ -6085,6 +6234,41 @@
         }
       }
     },
+    "Schedules are paused." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les planifications sont suspendues."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールは一時停止中です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약이 일시 중지되었어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписания приостановлены."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计划已暂停。"
+          }
+        }
+      }
+    },
     "Schedules only run while Sottodesu is open. Switch on “Keep running in the menu bar” below to keep them going after you close the window." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6713,7 +6897,9 @@
         }
       }
     },
-    "Sort %@ items" : {},
+    "Sort %@ items" : {
+
+    },
     "Sort %@ Now" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7553,6 +7739,41 @@
         }
       }
     },
+    "Tidied up %lld items in the last check." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld éléments rangés lors de la dernière vérification."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前回の確認で %lld 件を整理しました。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마지막 확인에서 %lld개 항목을 정리했어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "При последней проверке наведён порядок: элементов — %lld."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次检查已整理 %lld 个项目。"
+          }
+        }
+      }
+    },
     "Tidied up %lld items. Open Sottodesu to look or undo." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7693,7 +7914,6 @@
       }
     },
     "Time" : {
-      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -8632,210 +8852,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你可以手动将 Sottodesu 拖到废纸篓。"
-          }
-        }
-      }
-    },
-    "Busy with another sort. Checking again in a minute." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Идёт другая сортировка. Проверю снова через минуту."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在进行另一项整理。一分钟后再次检查。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "다른 정리가 진행 중이에요. 1분 뒤에 다시 확인해요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "別の整理を実行中です。1分後に再確認します。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un autre tri est en cours. Nouvelle vérification dans une minute."
-          }
-        }
-      }
-    },
-    "No schedule is switched on." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ни одно расписание не включено."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "没有已开启的计划。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "켜져 있는 예약이 없어요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "オンのスケジュールはありません。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune planification n’est activée."
-          }
-        }
-      }
-    },
-    "Schedules are paused." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Расписания приостановлены."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "计划已暂停。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "예약이 일시 중지되었어요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スケジュールは一時停止中です。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les planifications sont suspendues."
-          }
-        }
-      }
-    },
-    "Nothing is due yet. Next: %@, %@." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пока ничего не нужно запускать. Следующее: %@, %@."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "暂时没有到期的计划。下一个：%@，%@。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "아직 실행할 예약이 없어요. 다음: %@, %@."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "まだ実行するものはありません。次回：%@、%@。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rien à faire pour l’instant. Prochaine : %@, %@."
-          }
-        }
-      }
-    },
-    "Tidied up %lld items in the last check." : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "При последней проверке наведён порядок: элементов — %lld."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上次检查已整理 %lld 个项目。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "마지막 확인에서 %lld개 항목을 정리했어요."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "前回の確認で %lld 件を整理しました。"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld éléments rangés lors de la dernière vérification."
-          }
-        }
-      }
-    },
-    "A schedule couldn’t run: %@" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Расписание не удалось выполнить: %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有计划无法运行：%@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "예약을 실행하지 못했어요: %@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スケジュールを実行できませんでした：%@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Une planification n’a pas pu s’exécuter : %@"
           }
         }
       }
