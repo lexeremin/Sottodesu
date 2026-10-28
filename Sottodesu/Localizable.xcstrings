@@ -1,9 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
-    },
+    "%@" : {},
     "%@ is empty" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -39,9 +37,7 @@
         }
       }
     },
-    "%@ items skipped (still downloading or just added)." : {
-
-    },
+    "%@ items skipped (still downloading or just added)." : {},
     "%@ of items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -77,9 +73,7 @@
         }
       }
     },
-    "%@ sorts" : {
-
-    },
+    "%@ sorts" : {},
     "%lld items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -755,37 +749,36 @@
         }
       }
     },
-    "about %lld per sort" : {
-      "extractionState" : "stale",
+    "About Sottodesu" : {
       "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "environ %lld par tri"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 回あたり約 %lld 件"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "정리당 약 %lld개"
-          }
-        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "около %lld за сортировку"
+            "value" : "О программе Sottodesu"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "平均每次约 %lld 项"
+            "value" : "关于 Sottodesu"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu 정보"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu について"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos de Sottodesu"
           }
         }
       }
@@ -824,40 +817,6 @@
         }
       }
     },
-    "Add one to keep Downloads or your Desktop tidy without thinking about it." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ajoutez-en une pour garder Téléchargements ou le Bureau rangés sans y penser."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スケジュールを追加すると、「ダウンロード」やデスクトップを意識せずに整理できます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "예약을 추가하면 다운로드나 데스크탑이 알아서 정돈돼요."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавьте расписание, чтобы «Загрузки» или рабочий стол оставались в порядке без лишних забот."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "添加一个计划，让“下载”或桌面自动保持整洁。"
-          }
-        }
-      }
-    },
     "Add Schedule" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -889,6 +848,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "添加计划"
+          }
+        }
+      }
+    },
+    "Add one to keep Downloads or your Desktop tidy without thinking about it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoutez-en une pour garder Téléchargements ou le Bureau rangés sans y penser."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールを追加すると、「ダウンロード」やデスクトップを意識せずに整理できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약을 추가하면 다운로드나 데스크탑이 알아서 정돈돼요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавьте расписание, чтобы «Загрузки» или рабочий стол оставались в порядке без лишних забот."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加一个计划，让“下载”或桌面自动保持整洁。"
           }
         }
       }
@@ -994,44 +987,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "所有位置"
-          }
-        }
-      }
-    },
-    "and %@ more" : {
-
-    },
-    "and %lld more" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "et %lld de plus"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ほか %lld 件"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "외 %lld개"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "и ещё %lld"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "还有 %lld 项"
           }
         }
       }
@@ -1489,36 +1444,37 @@
         }
       }
     },
-    "Check for updates automatically" : {
+    "Check Now" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rechercher automatiquement les mises à jour"
+            "value" : "Vérifier maintenant"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アップデートを自動で確認"
+            "value" : "今すぐ確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "업데이트 자동 확인"
+            "value" : "지금 확인"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Проверять обновления автоматически"
+            "value" : "Проверить сейчас"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自动检查更新"
+            "value" : "立即检查"
           }
         }
       }
@@ -1558,37 +1514,36 @@
         }
       }
     },
-    "Check Now" : {
-      "extractionState" : "stale",
+    "Check for updates automatically" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vérifier maintenant"
+            "value" : "Rechercher automatiquement les mises à jour"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今すぐ確認"
+            "value" : "アップデートを自動で確認"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지금 확인"
+            "value" : "업데이트 자동 확인"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Проверить сейчас"
+            "value" : "Проверять обновления автоматически"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "立即检查"
+            "value" : "自动检查更新"
           }
         }
       }
@@ -1662,41 +1617,6 @@
         }
       }
     },
-    "Choose a folder to sort" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choisissez un dossier à trier"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "整理するフォルダを選択"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "정리할 폴더를 선택하세요"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выберите папку для сортировки"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择要整理的文件夹"
-          }
-        }
-      }
-    },
     "Choose Folder…" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1728,6 +1648,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选择文件夹…"
+          }
+        }
+      }
+    },
+    "Choose a folder to sort" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez un dossier à trier"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "整理するフォルダを選択"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정리할 폴더를 선택하세요"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите папку для сортировки"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择要整理的文件夹"
           }
         }
       }
@@ -1976,41 +1931,6 @@
         }
       }
     },
-    "Couldn’t check for updates: %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impossible de rechercher les mises à jour : %@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "アップデートを確認できませんでした: %@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "업데이트를 확인할 수 없습니다: %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось проверить обновления: %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法检查更新：%@"
-          }
-        }
-      }
-    },
     "Couldn’t check for updates." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2042,6 +1962,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法检查更新。"
+          }
+        }
+      }
+    },
+    "Couldn’t check for updates: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de rechercher les mises à jour : %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートを確認できませんでした: %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "업데이트를 확인할 수 없습니다: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось проверить обновления: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法检查更新：%@"
           }
         }
       }
@@ -2534,6 +2489,40 @@
         }
       }
     },
+    "Developed by" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разработчик:"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开发者："
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "개발자:"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開発者："
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Développé par"
+          }
+        }
+      }
+    },
     "Disk space" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2950,75 +2939,6 @@
         }
       }
     },
-    "Everything goes back to where it was. Items you’ve since moved or deleted are skipped." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tout retourne à son emplacement d’origine. Les éléments que vous avez déplacés ou supprimés depuis sont ignorés."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "すべての項目が元の場所に戻ります。その後に移動または削除した項目はスキップされます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "모든 항목이 원래 위치로 돌아가요. 이후에 이동하거나 삭제한 항목은 건너뛰어요."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Всё вернётся на прежние места. Элементы, которые вы с тех пор переместили или удалили, будут пропущены."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有项目都会回到原来的位置。之后被你移动或删除的项目将被跳过。"
-          }
-        }
-      }
-    },
-    "everything is sorted" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "tout est trié"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "すべて整理済み"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "모두 정리됨"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "всё отсортировано"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "全部已整理"
-          }
-        }
-      }
-    },
     "Everything Sottodesu has sorted for you." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3050,6 +2970,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sottodesu 为你整理的所有内容。"
+          }
+        }
+      }
+    },
+    "Everything goes back to where it was. Items you’ve since moved or deleted are skipped." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout retourne à son emplacement d’origine. Les éléments que vous avez déplacés ou supprimés depuis sont ignorés."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての項目が元の場所に戻ります。その後に移動または削除した項目はスキップされます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모든 항목이 원래 위치로 돌아가요. 이후에 이동하거나 삭제한 항목은 건너뛰어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Всё вернётся на прежние места. Элементы, которые вы с тех пор переместили или удалили, будут пропущены."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有项目都会回到原来的位置。之后被你移动或删除的项目将被跳过。"
           }
         }
       }
@@ -3652,147 +3606,6 @@
         }
       }
     },
-    "in %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "dans « %@ »"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "「%@」内"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "“%@” 내"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "в «%@»"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在“%@”中"
-          }
-        }
-      }
-    },
-    "in %lld places" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "in %lld place"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "in %lld places"
-                }
-              }
-            }
-          }
-        },
-        "fr" : {
-          "variations" : {
-            "plural" : {
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "dans %lld emplacement"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "dans %lld emplacements"
-                }
-              }
-            }
-          }
-        },
-        "ja" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld か所"
-                }
-              }
-            }
-          }
-        },
-        "ko" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "%lld곳에 있음"
-                }
-              }
-            }
-          }
-        },
-        "ru" : {
-          "variations" : {
-            "plural" : {
-              "few" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "в %lld местах"
-                }
-              },
-              "many" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "в %lld местах"
-                }
-              },
-              "one" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "в %lld месте"
-                }
-              },
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "в %lld места"
-                }
-              }
-            }
-          }
-        },
-        "zh-Hans" : {
-          "variations" : {
-            "plural" : {
-              "other" : {
-                "stringUnit" : {
-                  "state" : "translated",
-                  "value" : "分布在 %lld 处"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "Installers" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4001,41 +3814,6 @@
         }
       }
     },
-    "Largest file" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plus gros fichier"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最大のファイル"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "가장 큰 파일"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Самый большой файл"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最大的文件"
-          }
-        }
-      }
-    },
     "Largest Files" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4061,6 +3839,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Крупные файлы"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最大的文件"
+          }
+        }
+      }
+    },
+    "Largest file" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus gros fichier"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最大のファイル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가장 큰 파일"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Самый большой файл"
           }
         },
         "zh-Hans" : {
@@ -4451,110 +4264,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "仅限零散的媒体文件和文档"
-          }
-        }
-      }
-    },
-    "macOS needs your OK before Sottodesu can open at login. Switch it on under Login Items." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS doit autoriser Sottodesu à s’ouvrir à la connexion. Activez-le dans Ouverture."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu をログイン時に開くには macOS の許可が必要です。「ログイン項目」でオンにしてください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu가 로그인 시 열리려면 macOS의 허용이 필요해요. 로그인 항목에서 켜 주세요."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS должна разрешить Sottodesu открываться при входе. Включите его в разделе «Объекты входа»."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS 需要你的许可，Sottodesu 才能在登录时打开。请在“登录项”中打开它。"
-          }
-        }
-      }
-    },
-    "macOS needs your OK before Sottodesu can run in the background. Switch it on under Login Items." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS doit autoriser Sottodesu à s’exécuter en arrière-plan. Activez-le dans Ouverture."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu をバックグラウンドで実行するには macOS の許可が必要です。「ログイン項目」でオンにしてください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sottodesu가 백그라운드에서 실행되려면 macOS의 허용이 필요해요. 로그인 항목에서 켜 주세요."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS должна разрешить Sottodesu работать в фоне. Включите его в разделе «Объекты входа»."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "macOS 需要你的许可，Sottodesu 才能在后台运行。请在“登录项”中打开它。"
-          }
-        }
-      }
-    },
-    "measured %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "mesuré à %@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ に計測"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@에 측정"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "измерено в %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "测量于 %@"
           }
         }
       }
@@ -5741,40 +5450,6 @@
         }
       }
     },
-    "Open at login" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ouvrir à la connexion"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ログイン時に開く"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "로그인 시 열기"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Открывать при входе"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登录时打开"
-          }
-        }
-      }
-    },
     "Open Settings" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -5841,6 +5516,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "打开 Sottodesu"
+          }
+        }
+      }
+    },
+    "Open at login" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir à la connexion"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログイン時に開く"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인 시 열기"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открывать при входе"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时打开"
           }
         }
       }
@@ -7241,41 +6950,6 @@
         }
       }
     },
-    "since %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "depuis le %@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ から"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@부터"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "с %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自 %@ 起"
-          }
-        }
-      }
-    },
     "Size" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7450,9 +7124,6 @@
         }
       }
     },
-    "Sort %@ items" : {
-
-    },
     "Sort %@ Now" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7488,6 +7159,7 @@
         }
       }
     },
+    "Sort %@ items" : {},
     "Sort %lld items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7523,40 +7195,6 @@
         }
       }
     },
-    "Sort a folder and this report fills in." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Triez un dossier et ce rapport se remplira."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "フォルダを整理すると、ここにレポートが表示されます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "폴더를 정리하면 이곳에 리포트가 채워져요."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отсортируйте папку, и здесь появится отчёт."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "整理一个文件夹后，这里就会显示报告。"
-          }
-        }
-      }
-    },
     "Sort Anyway" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7588,6 +7226,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "仍要整理"
+          }
+        }
+      }
+    },
+    "Sort a folder and this report fills in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Triez un dossier et ce rapport se remplira."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォルダを整理すると、ここにレポートが表示されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "폴더를 정리하면 이곳에 리포트가 채워져요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отсортируйте папку, и здесь появится отчёт."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "整理一个文件夹后，这里就会显示报告。"
           }
         }
       }
@@ -7799,6 +7471,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "整理次数"
+          }
+        }
+      }
+    },
+    "Sorts the files in a folder into neat folders by type and remembers every sort, so you can undo it." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Раскладывает файлы из папки по аккуратным папкам по типу и запоминает каждую сортировку, чтобы её можно было отменить."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按类型将文件夹中的文件整理到清晰的文件夹中，并记录每次整理，方便您撤销。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "폴더의 파일을 유형별로 깔끔하게 분류하고 모든 정리를 기록해 되돌릴 수 있습니다."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォルダ内のファイルを種類ごとに整理し、すべての整理を記録して元に戻せるようにします。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Range les fichiers d’un dossier dans des dossiers par type et garde la trace de chaque tri pour pouvoir l’annuler."
           }
         }
       }
@@ -8078,6 +7784,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sottodesu 不会整理系统文件夹、“资源库”、App 或隐藏文件夹。如需整理个人文件夹，请使用“主文件夹”。"
+          }
+        }
+      }
+    },
+    "Source code on GitHub" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Исходный код на GitHub"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub 上的源代码"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub의 소스 코드"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub のソースコード"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code source sur GitHub"
           }
         }
       }
@@ -9721,41 +9461,6 @@
         }
       }
     },
-    "You can drag it onto the Applications folder yourself." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous pouvez le glisser vous-même dans le dossier Applications."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自分で「アプリケーション」フォルダにドラッグしてください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "직접 응용 프로그램 폴더로 끌어다 놓을 수 있어요."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вы можете перетащить его в папку «Программы» самостоятельно."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "你可以自己把它拖到“应用程序”文件夹。"
-          }
-        }
-      }
-    },
     "You can drag Sottodesu to the Trash yourself." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -9787,6 +9492,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你可以手动将 Sottodesu 拖到废纸篓。"
+          }
+        }
+      }
+    },
+    "You can drag it onto the Applications folder yourself." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez le glisser vous-même dans le dossier Applications."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自分で「アプリケーション」フォルダにドラッグしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "직접 응용 프로그램 폴더로 끌어다 놓을 수 있어요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вы можете перетащить его в папку «Программы» самостоятельно."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你可以自己把它拖到“应用程序”文件夹。"
           }
         }
       }
@@ -9856,6 +9596,392 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已是最新版本。"
+          }
+        }
+      }
+    },
+    "about %lld per sort" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "environ %lld par tri"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 回あたり約 %lld 件"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정리당 약 %lld개"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "около %lld за сортировку"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "平均每次约 %lld 项"
+          }
+        }
+      }
+    },
+    "and %@ more" : {},
+    "and %lld more" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "et %lld de plus"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ほか %lld 件"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "외 %lld개"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "и ещё %lld"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还有 %lld 项"
+          }
+        }
+      }
+    },
+    "everything is sorted" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tout est trié"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて整理済み"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모두 정리됨"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "всё отсортировано"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部已整理"
+          }
+        }
+      }
+    },
+    "in %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dans « %@ »"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「%@」内"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” 내"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "в «%@»"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在“%@”中"
+          }
+        }
+      }
+    },
+    "in %lld places" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "in %lld place"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "in %lld places"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "dans %lld emplacement"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "dans %lld emplacements"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld か所"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld곳에 있음"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "в %lld местах"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "в %lld местах"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "в %lld месте"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "в %lld места"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "分布在 %lld 处"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "macOS needs your OK before Sottodesu can open at login. Switch it on under Login Items." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS doit autoriser Sottodesu à s’ouvrir à la connexion. Activez-le dans Ouverture."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu をログイン時に開くには macOS の許可が必要です。「ログイン項目」でオンにしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 로그인 시 열리려면 macOS의 허용이 필요해요. 로그인 항목에서 켜 주세요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS должна разрешить Sottodesu открываться при входе. Включите его в разделе «Объекты входа»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS 需要你的许可，Sottodesu 才能在登录时打开。请在“登录项”中打开它。"
+          }
+        }
+      }
+    },
+    "macOS needs your OK before Sottodesu can run in the background. Switch it on under Login Items." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS doit autoriser Sottodesu à s’exécuter en arrière-plan. Activez-le dans Ouverture."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu をバックグラウンドで実行するには macOS の許可が必要です。「ログイン項目」でオンにしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 백그라운드에서 실행되려면 macOS의 허용이 필요해요. 로그인 항목에서 켜 주세요."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS должна разрешить Sottodesu работать в фоне. Включите его в разделе «Объекты входа»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS 需要你的许可，Sottodesu 才能在后台运行。请在“登录项”中打开它。"
+          }
+        }
+      }
+    },
+    "measured %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mesuré à %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ に計測"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@에 측정"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "измерено в %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测量于 %@"
+          }
+        }
+      }
+    },
+    "since %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "depuis le %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ から"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@부터"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "с %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自 %@ 起"
           }
         }
       }

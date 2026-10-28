@@ -16,6 +16,9 @@ struct SottodesuApp: App {
         // Don't write "saved application state" files to ~/Library.
         .restorationBehavior(.disabled)
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About Sottodesu") { AboutPanel.show() }
+            }
             CommandGroup(after: .appInfo) {
                 Button("Check for Updates…") { model.checkForUpdates(userInitiated: true) }
                 Divider()

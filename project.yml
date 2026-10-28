@@ -35,6 +35,10 @@ targets:
       path: Sottodesu/Info.plist
       properties:
         CFBundleDisplayName: Sottodesu
+        # XcodeGen would otherwise write a fixed "1.0"; these follow MARKETING_VERSION / the release tag.
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSHumanReadableCopyright: "© 2026 lexeremin · MIT License"
         CFBundleDevelopmentRegion: en
         CFBundleLocalizations: [en, ru, zh-Hans, ko, ja, fr]
         LSApplicationCategoryType: public.app-category.utilities
