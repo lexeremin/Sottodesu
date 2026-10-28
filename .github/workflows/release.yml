@@ -20,7 +20,7 @@ jobs:
         run: brew install xcodegen
 
       - name: Build the disk image
-        run: Scripts/build-dmg.sh "${GITHUB_REF_NAME#v}"
+        run: bash Scripts/build-dmg.sh "${GITHUB_REF_NAME#v}"
 
       - name: Publish the release
         env:

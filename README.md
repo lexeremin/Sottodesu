@@ -5,7 +5,7 @@
 <h1 align="center">Sottodesu</h1>
 
 <p align="center">
-  <b>Tidy your Mac's Downloads folder with one click — and undo it any time.</b>
+  <b>Tidy up your Mac's folders with one click — and undo it any time.</b>
 </p>
 
 <p align="center">
@@ -16,10 +16,10 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/sort.png" alt="Sottodesu's main window: a Sort Downloads button above a history of past sorts" width="760">
+  <img src="docs/screenshots/sort.png" alt="Sottodesu's Sort tab: cards for choosing where and what to sort, above the Sort button and a history of past sorts" width="760">
 </p>
 
-Sottodesu sorts everything in your Downloads folder into neat folders — Images, Documents, Videos, Books and more — and remembers every sort, so you can put things back with a single click.
+Sottodesu sorts the mess in your **Downloads**, your **Desktop**, your **home folder** or **any folder you pick** into neat folders by type — Images, Documents, Videos, Books and more — and remembers every sort, so you can put things back with a single click.
 
 - 🧹 **One button.** Pick a folder and press *Sort*. That's it.
 - 🎯 **You choose.** Sort your Downloads, your Desktop, your home folder (safely limited) or any folder you pick — and only the kinds of files you tick, such as just your photos.
@@ -61,7 +61,7 @@ Stuck? See [Troubleshooting](docs/TROUBLESHOOTING.md).
 ## Your first sort
 
 1. Open Sottodesu. **Downloads** is already selected — press **Sort Downloads**.
-2. The first time, macOS asks whether Sottodesu may access your Downloads folder. Click **Allow** — it can't work without it.
+2. The first time you sort Downloads, your Desktop or your Documents (or a folder on an external drive), macOS asks whether Sottodesu may access it. Click **Allow** — it can't work without it.
 3. Done. Sottodesu tells you what it sorted, with an **Undo** link right there in case you change your mind.
 
 Sottodesu only looks at the **top level** of the folder you choose, and it only **moves** things — it never deletes or overwrites anything. If two files would end up with the same name, the second one becomes `photo 2.jpg`.
@@ -73,7 +73,7 @@ It deliberately leaves alone:
 - hidden **folders**, and the hidden clutter macOS creates by itself (`.DS_Store`, `.localized`, `._…`),
 - the folders it created itself.
 
-> **Hidden files** such as `.gitignore` or `.zshrc` *are* sorted — into **Config & VPN**, or into **Keys & Secrets** if they hold credentials (`.env`, `.npmrc`…). They stay hidden after they move; press **⌘⇧.** in Finder to show them.
+> **Hidden files** such as `.gitignore` or `.zshrc` are sorted in **Downloads** — into **Config & VPN**, or into **Keys & Secrets** if they hold credentials (`.env`, `.npmrc`…). They stay hidden after they move; press **⌘⇧.** in Finder to show them. Desktop, Home and folders you pick leave hidden files alone.
 
 ## Choose what to sort
 
@@ -102,17 +102,13 @@ Every sort appears under **History** on the *Sort* tab. Click a sort to see exac
 
 ## A quick tour
 
-### See what's been sorted — and take it back
+### Choose where and what — then take it back if you like
 
-Each sort is a card with a colour bar showing what went where. Open one to see every item and its size.
+The **Sort** tab (shown at the top) is where you pick a folder, choose *Everything* or *Selective*, and press the button. Below it, every sort is saved as a card with a colour bar showing what went where and which folder it was for. Open one to see every item and its size, or press **Undo**.
 
-<p align="center">
-  <img src="docs/screenshots/sort.png" alt="The Sort tab with the sort history" width="760">
-</p>
+### Understand your folder
 
-### Understand your Downloads folder
-
-The **Report** tab shows how much Sottodesu has sorted, which categories you use most, and where the space in Downloads actually goes.
+The **Report** tab shows how much Sottodesu has sorted, which categories you use most, and where the space in the selected folder actually goes.
 
 <p align="center">
   <img src="docs/screenshots/report.png" alt="The Report tab with statistics and a chart of disk space by folder" width="760">
@@ -120,7 +116,7 @@ The **Report** tab shows how much Sottodesu has sorted, which categories you use
 
 ### Find the big files
 
-**Largest Files** lists the biggest files in Downloads, biggest first. **Double-click a file to show it in Finder.** Right-click for *Open* and *Copy Path*; click a column to sort, or just search.
+**Largest Files** lists the biggest files in the selected folder, biggest first. **Double-click a file to show it in Finder.** Right-click for *Open* and *Copy Path*; click a column to sort, or just search.
 
 <p align="center">
   <img src="docs/screenshots/largest.png" alt="The Largest Files tab: a table of the biggest files with a Finder shortcut" width="760">
@@ -131,6 +127,8 @@ Tip: ⌘1 / ⌘2 / ⌘3 switch tabs, ⌘R rescans.
 ---
 
 ## What goes where
+
+These are the folders Sottodesu sorts into in Downloads, on your Desktop and in any folder you choose. (Your home folder works differently — see [Choose what to sort](#choose-what-to-sort).)
 
 | Folder | What's in it |
 |---|---|
@@ -151,7 +149,7 @@ Tip: ⌘1 / ⌘2 / ⌘3 switch tabs, ⌘R rescans.
 | **Projects** | any loose folder |
 | **Other** | everything else |
 
-**Keys & Secrets** is created so that only your user account can open it. Sottodesu never reads what's inside these files — it only moves them, so they don't sit loose among your downloads. (Template files like `.env.example` aren't secret and go to Config & VPN.)
+**Keys & Secrets** is created so that only your user account can open it. Sottodesu never reads what's inside these files — it only moves them, so they don't sit loose among your files. (Template files like `.env.example` aren't secret and go to Config & VPN.)
 
 ## Languages
 
@@ -186,7 +184,7 @@ Want another language? See [Translating](docs/DEVELOPING.md#adding-or-fixing-a-t
 
 - Sottodesu **never connects to the internet.** There is no account, no analytics and no update check.
 - It only looks at **file names** inside the folder you choose and moves files. It **never opens or reads what's inside them.**
-- The only thing it stores is its history — one small file at `~/Library/Application Support/Sottodesu/history.sqlite`.
+- The only thing it stores is its history and your last choices (which folder and which file types) — in one small file at `~/Library/Application Support/Sottodesu/history.sqlite`.
 
 ## Uninstall
 

@@ -2,7 +2,7 @@
 
 All notable changes to Sottodesu are listed here.
 
-## 1.0.0 — not yet released
+## 1.0.0 — 2026-10-28
 
 First public version.
 
