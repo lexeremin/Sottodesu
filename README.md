@@ -147,7 +147,15 @@ The **Report** tab shows how much Sottodesu has sorted, which categories you use
   <img src="docs/screenshots/largest.png" alt="The Largest Files tab: a table of the biggest files with a Finder shortcut" width="760">
 </p>
 
-Tip: ⌘1 / ⌘2 / ⌘3 switch tabs, ⌘R rescans.
+### Let it tidy up for you
+
+The **Schedule** tab keeps a folder tidy automatically: pick a folder, the file types and how often, and Sottodesu does the rest in the background. Pause everything with one switch, or add a small menu bar icon.
+
+<p align="center">
+  <img src="docs/screenshots/schedule.png" alt="The Schedule tab: a daily schedule for Downloads, with options to pause all schedules and show Sottodesu in the menu bar" width="760">
+</p>
+
+Tip: ⌘1 / ⌘2 / ⌘3 / ⌘4 switch tabs, ⌘R rescans.
 
 ---
 
