@@ -1,0 +1,46 @@
+name: Sottodesu
+options:
+  bundleIdPrefix: dev.sottodesu
+  deploymentTarget:
+    macOS: "15.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: "-"
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift
+    from: 7.0.0
+targets:
+  Sottodesu:
+    type: application
+    platform: macOS
+    sources:
+      - Sottodesu
+    dependencies:
+      - package: GRDB
+    info:
+      path: Sottodesu/Info.plist
+      properties:
+        CFBundleDisplayName: Sottodesu
+        LSApplicationCategoryType: public.app-category.utilities
+        LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
+        NSDownloadsFolderUsageDescription: Sottodesu sorts the files in your Downloads folder into subfolders by type.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sottodesu.app
+  SottodesuTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - SottodesuTests
+    dependencies:
+      - target: Sottodesu
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.sottodesu.tests
