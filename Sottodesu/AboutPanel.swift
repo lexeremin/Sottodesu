@@ -8,7 +8,13 @@ enum AboutPanel {
     @MainActor
     static func show() {
         NSApp.activate(ignoringOtherApps: true)
-        NSApp.orderFrontStandardAboutPanel(options: [.credits: credits()])
+        // An empty build number hides the "(1)" after the version.
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        NSApp.orderFrontStandardAboutPanel(options: [
+            .credits: credits(),
+            .applicationVersion: version,
+            .version: "",
+        ])
     }
 
     static func credits() -> NSAttributedString {
