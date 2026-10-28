@@ -615,4 +615,22 @@ final class SottodesuTests: XCTestCase {
         XCTAssertTrue(exists("Anki"))
         XCTAssertFalse(exists(dir(.projects)))
     }
+
+    func testSelfInstallerFindsTheDiskImageForAVolume() throws {
+        let plist = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <plist version="1.0"><dict><key>images</key><array>
+        <dict><key>image-path</key><string>/Users/me/Downloads/Other.dmg</string>
+        <key>system-entities</key><array><dict><key>mount-point</key><string>/Volumes/Other</string></dict></array></dict>
+        <dict><key>image-path</key><string>/Users/me/Downloads/Sottodesu-1.0.0.dmg</string>
+        <key>system-entities</key><array><dict><key>dev-entry</key><string>/dev/disk4</string></dict>
+        <dict><key>mount-point</key><string>/Volumes/Sottodesu</string></dict></array></dict>
+        </array></dict></plist>
+        """
+        let data = Data(plist.utf8)
+        let found = SelfInstaller.diskImage(containing: "/Volumes/Sottodesu/Sottodesu.app", hdiutilInfo: data)
+        XCTAssertEqual(found, SelfInstaller.DiskImage(imagePath: "/Users/me/Downloads/Sottodesu-1.0.0.dmg", mountPoint: "/Volumes/Sottodesu"))
+        XCTAssertNil(SelfInstaller.diskImage(containing: "/Applications/Sottodesu.app", hdiutilInfo: data))
+        XCTAssertNil(SelfInstaller.diskImage(containing: "/Volumes/Sottodesu 2/Sottodesu.app", hdiutilInfo: data))
+    }
 }

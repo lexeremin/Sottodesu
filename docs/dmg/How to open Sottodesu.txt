@@ -1,8 +1,10 @@
 Sottodesu - how to install
 ==========================
 
-1. Drag "Sottodesu" onto the "Applications" folder next to it.
-2. Open Sottodesu from your Applications folder (or Launchpad).
+1. Double-click "Sottodesu". When it asks, choose "Move to Applications".
+   It copies itself, reopens from Applications, ejects this disk and moves the download to the Trash.
+   (Or drag "Sottodesu" onto the "Applications" folder yourself.)
+2. Next time, open Sottodesu from your Applications folder (or Launchpad).
 
 If macOS says Sottodesu "cannot be opened" or "could not be verified":
    a. Click "Done" (do not move it to the Trash).

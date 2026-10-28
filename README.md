@@ -36,8 +36,8 @@ Free and open source. Requires **macOS 15 or later** (Apple silicon or Intel).
 ## Install
 
 1. **[Download the latest release](https://github.com/lexeremin/Sottodesu/releases/latest)** — get the file ending in `.dmg` from the *Assets* list.
-2. **Open the downloaded file** and drag **Sottodesu** onto the **Applications** folder.
-3. **Open Sottodesu** from your Applications folder (or Launchpad).
+2. **Open the downloaded file** and double-click **Sottodesu**. It offers to **move itself to Applications**; say yes and it reopens from there, ejects the installer and moves the downloaded `.dmg` to the Trash. *(Prefer to do it yourself? Drag **Sottodesu** onto the **Applications** folder instead.)*
+3. Next time, open Sottodesu from your Applications folder (or Launchpad).
 
 ### Opening it for the first time
 
