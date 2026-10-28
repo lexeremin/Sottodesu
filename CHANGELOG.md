@@ -2,6 +2,15 @@
 
 All notable changes to Sottodesu are listed here.
 
+## 1.3.0 — 2026-10-28
+
+- **Schedules now run inside the app.** macOS blocks background items from apps without an Apple Developer signature, so Sottodesu checks for due schedules itself every minute (and after waking from sleep) while it is open or kept in the menu bar. New switches on the Schedule tab: **Keep running in the menu bar** and **Open at login**.
+- A clearer **Schedule editor**: folder cards, weekday and day-of-month buttons, and a big time field with hour and minute popups. Schedule cards have Run, Edit and Delete buttons.
+- **Check Now** on the Schedule tab, with a plain-language result ("Nothing is due yet. Next: …"), so you can see what the scheduler is doing.
+- A menu bar icon that matches the app icon.
+- The history search box no longer grabs the cursor when the window opens.
+- Removes the test background item from earlier builds.
+
 ## 1.2.0 — 2026-10-28
 
 - **Schedule tab:** tidy a folder up automatically every day, week or month. Sottodesu runs the schedules while it is open or kept in the menu bar (with an optional *Open at login*). Automatic sorts appear in the history, marked *Scheduled*, and can be undone. Includes a pause switch.
