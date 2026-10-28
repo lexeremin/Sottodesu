@@ -85,7 +85,9 @@ When the folder you picked contains things like `.git`, `package.json`, `Package
 
 Only here: `~/Library/Application Support/Sottodesu/history.sqlite` (your history and your last choices — which folder and which file types).
 
-Use **Sottodesu ▸ Uninstall Sottodesu…** to delete it and move the app to the Trash in one go. Files you already sorted stay where they are. Note that after uninstalling you can no longer undo past sorts.
+That one file also holds your schedules. Dragging the app to the Trash does **not** delete it, so a reinstall remembers everything. Use **Sottodesu ▸ Uninstall Sottodesu…** to delete it, take Sottodesu out of your login items and move the app to the Trash in one go. Files you already sorted stay where they are. Note that after uninstalling you can no longer undo past sorts.
+
+To remove every trace by hand, including the small files macOS may add and the permissions you granted, follow [Uninstall in the README](../README.md#uninstall).
 
 ## Sottodesu won't start at all
 

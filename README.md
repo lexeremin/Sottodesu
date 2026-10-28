@@ -9,8 +9,14 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lexeremin/Sottodesu/releases/latest"><img alt="Download the latest release" src="https://img.shields.io/badge/download-latest%20release-D8431F"></a>
-  <a href="https://github.com/lexeremin/Sottodesu/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/lexeremin/Sottodesu/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/lexeremin/Sottodesu/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/lexeremin/Sottodesu?display_name=tag&label=latest%20release&labelColor=1f1f1f&cacheSeconds=300"></a>
+  <a href="https://github.com/lexeremin/Sottodesu/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/lexeremin/Sottodesu/total?label=downloads&labelColor=1f1f1f&cacheSeconds=300"></a>
+  <a href="https://github.com/lexeremin/Sottodesu/actions/workflows/ci.yml"><img alt="CI status" src="https://img.shields.io/github/actions/workflow/status/lexeremin/Sottodesu/ci.yml?branch=main&label=CI&labelColor=1f1f1f&cacheSeconds=300"></a>
+  <a href="https://github.com/lexeremin/Sottodesu/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/lexeremin/Sottodesu?labelColor=1f1f1f&cacheSeconds=300"></a>
+  <a href="https://github.com/lexeremin/Sottodesu/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/lexeremin/Sottodesu?labelColor=1f1f1f&cacheSeconds=300"></a>
+</p>
+
+<p align="center">
   <img alt="macOS 15 or later" src="https://img.shields.io/badge/macOS-15%2B-1f1f1f">
   <img alt="6 languages" src="https://img.shields.io/badge/languages-6-1f1f1f">
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-1f1f1f"></a>
@@ -28,7 +34,9 @@ Sottodesu sorts the mess in your **Downloads**, your **Desktop**, your **home fo
 - 🔐 **Careful with secrets.** Keys, certificates and `.env` files go into their own private folder.
 - 🔒 **Private.** Works entirely on your Mac. No account, no internet, no tracking — and it never opens your files, only looks at their names.
 - 🌍 **Speaks your language.** English, Русский, 简体中文, 한국어, 日本語 and Français — even the folders it creates are named in your language.
-- 🪶 **Light.** One small window, no menu-bar icon, nothing running in the background.
+- 👀 **Look first.** *Preview* shows exactly what would move before anything does, and *Search history* finds where any file went.
+- ⏰ **Automatic if you like.** Schedule a daily, weekly or monthly tidy-up. Every automatic sort can be undone too.
+- 🪶 **Light.** One small window. An optional menu bar icon and nothing else running — unless you add a schedule and keep Sottodesu in the menu bar.
 
 Free and open source. Requires **macOS 15 or later** (Apple silicon or Intel).
 
@@ -153,7 +161,7 @@ The **Report** tab shows how much Sottodesu has sorted, which categories you use
 The **Schedule** tab keeps a folder tidy automatically: pick a folder, the file types and how often, and Sottodesu does the rest from the menu bar. Pause everything with one switch.
 
 <p align="center">
-  <img src="docs/screenshots/schedule.png" alt="The Schedule tab: a daily schedule for Downloads, with options to pause all schedules and show Sottodesu in the menu bar" width="760">
+  <img src="docs/screenshots/schedule.png" alt="The Schedule tab in dark mode: a daily schedule for Downloads with run, edit and delete buttons, and options to pause schedules, keep Sottodesu in the menu bar and open it at login" width="760">
 </p>
 
 Tip: ⌘1 / ⌘2 / ⌘3 / ⌘4 switch tabs, ⌘R rescans.
@@ -222,7 +230,34 @@ Want another language? See [Translating](docs/DEVELOPING.md#adding-or-fixing-a-t
 
 ## Uninstall
 
-Use **Sottodesu ▸ Uninstall Sottodesu…** from the menu bar. It deletes the history file and moves the app to the Trash. (Just dragging the app to the Trash works too, but leaves the small history file behind — macOS gives apps no chance to clean up after themselves.) Files that were already sorted stay where they are.
+**The easy way:** choose **Sottodesu ▸ Uninstall Sottodesu…** from the menu bar. It removes Sottodesu's history, schedules and settings, takes it out of your login items, and moves the app to the Trash. Files that were already sorted stay where they are, but you can no longer undo past sorts, so press *Undo* first if you want something back.
+
+Just dragging the app to the Trash works too, but it **leaves the history file behind**, because macOS gives apps no chance to clean up after themselves. If you reinstall later, Sottodesu will remember everything.
+
+### Remove every trace by hand
+
+| What | Where |
+| --- | --- |
+| The app | `/Applications/Sottodesu.app` |
+| History, schedules and settings (the only file Sottodesu creates) | `~/Library/Application Support/Sottodesu/` |
+| Small files macOS may add | `~/Library/Preferences/dev.sottodesu.app.plist`, `~/Library/Caches/dev.sottodesu.app`, `~/Library/HTTPStorages/dev.sottodesu.app`, `~/Library/Saved Application State/dev.sottodesu.app.savedState` |
+| *Open at login* | **System Settings ▸ General ▸ Login Items & Extensions** — switch Sottodesu off (Uninstall does this for you) |
+| Permissions you granted | **System Settings ▸ Privacy & Security ▸ Files & Folders** and **Notifications** |
+
+Or do it all in one go. Paste this into **Terminal**:
+
+```sh
+osascript -e 'quit app "Sottodesu"'
+rm -rf /Applications/Sottodesu.app \
+       ~/Library/Application\ Support/Sottodesu \
+       ~/Library/Preferences/dev.sottodesu.app.plist \
+       ~/Library/Caches/dev.sottodesu.app \
+       ~/Library/HTTPStorages/dev.sottodesu.app \
+       ~/Library/Saved\ Application\ State/dev.sottodesu.app.savedState
+tccutil reset All dev.sottodesu.app
+```
+
+The last line forgets the folder and notification permissions you gave Sottodesu. The folders Sottodesu created while sorting (*Images*, *Documents* and so on) are your own files and stay where they are.
 
 ## Help
 
