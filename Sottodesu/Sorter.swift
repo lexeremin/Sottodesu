@@ -249,14 +249,29 @@ struct Sorter {
 
     static let partialExtensions: Set<String> = ["crdownload", "download", "part", "opdownload", "partial", "tmp"]
 
-    /// Moves items one at a time and calls `onMoved` after each successful move, so the history never
-    /// lags behind what actually happened on disk.
-    func sort(now: Date = Date(), onMoved: (MovedFile) throws -> Void) throws -> SortSummary {
+    /// One thing a sort would move.
+    struct Candidate: Equatable {
+        let url: URL
+        let category: FileCategory
+        let isFolder: Bool
+        /// Size in bytes for files; nil for folders (measured only when they are actually moved).
+        let fileSize: Int?
+    }
+
+    /// What a sort would do, worked out without touching anything.
+    struct Plan: Equatable {
+        var candidates: [Candidate] = []
+        /// Items that are still downloading or were just added.
+        var skipped = 0
+    }
+
+    /// Works out what a sort would move. Nothing on disk changes.
+    func plan(now: Date = Date()) throws -> Plan {
         let fm = FileManager.default
         let keys: [URLResourceKey] = [.isRegularFileKey, .isDirectoryKey, .isPackageKey, .isSymbolicLinkKey,
                                       .contentModificationDateKey, .fileSizeKey]
         let items = try fm.contentsOfDirectory(at: root, includingPropertiesForKeys: keys, options: [])
-        var summary = SortSummary()
+        var result = Plan()
         let effective = policy.allowedCategories.intersection(selection ?? policy.allowedCategories)
 
         for item in items.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
@@ -285,16 +300,34 @@ struct Sorter {
             guard effective.contains(category) else { continue }
 
             if Sorter.partialExtensions.contains(item.pathExtension.lowercased()) {
-                summary.skipped += 1
+                result.skipped += 1
                 continue
             }
             if let modified = values.contentModificationDate, now.timeIntervalSince(modified) < minimumAge {
-                summary.skipped += 1
+                result.skipped += 1
                 continue
             }
 
-            let (folder, createdFolder) = try destinationFolder(for: category)
-            let destination = Sorter.uniqueDestination(for: item.lastPathComponent, in: folder, isFolder: isFolder)
+            result.candidates.append(Candidate(url: item, category: category, isFolder: isFolder,
+                                               fileSize: isFolder ? nil : values.fileSize))
+        }
+        return result
+    }
+
+    /// Moves items one at a time and calls `onMoved` after each successful move, so the history never
+    /// lags behind what actually happened on disk. With `only`, just the items at those paths move
+    /// (used by the preview, where the person can untick files).
+    func sort(now: Date = Date(), only: Set<String>? = nil, onMoved: (MovedFile) throws -> Void) throws -> SortSummary {
+        let fm = FileManager.default
+        let found = try plan(now: now)
+        var summary = SortSummary()
+        summary.skipped = found.skipped
+
+        for candidate in found.candidates {
+            if let only, !only.contains(candidate.url.path) { continue }
+            let item = candidate.url
+            let (folder, createdFolder) = try destinationFolder(for: candidate.category)
+            let destination = Sorter.uniqueDestination(for: item.lastPathComponent, in: folder, isFolder: candidate.isFolder)
             do {
                 try fm.moveItem(at: item, to: destination)
             } catch {
@@ -305,12 +338,12 @@ struct Sorter {
             try onMoved(MovedFile(
                 originalPath: item.path,
                 newPath: destination.path,
-                category: category.rawValue,
-                size: Sorter.size(of: destination, isFolder: isFolder, fileSize: values.fileSize),
+                category: candidate.category.rawValue,
+                size: Sorter.size(of: destination, isFolder: candidate.isFolder, fileSize: candidate.fileSize),
                 createdFolder: createdFolder
             ))
             summary.moved += 1
-            summary.byCategory[category.rawValue, default: 0] += 1
+            summary.byCategory[candidate.category.rawValue, default: 0] += 1
         }
         return summary
     }

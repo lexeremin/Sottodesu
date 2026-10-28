@@ -103,11 +103,27 @@ Two cards: **Everything** (the default — every type of file) or **Selective**.
 
 Every sort in the history shows which folder it was for, and **Report** and **Largest Files** follow the folder you've selected.
 
+## Preview before you sort
+
+Not sure what a sort will do? Press **Preview…** under the Sort button. Sottodesu lists every file it would move, grouped by type, and **nothing moves yet**. Untick anything you want to leave where it is, then press **Sort**.
+
 ## Undo
 
 Every sort appears under **History** on the *Sort* tab. Click a sort to see exactly what it moved, and press **Undo** to put everything back where it was. If you've since moved or deleted something, Sottodesu skips it and tells you — it never overwrites anything while undoing.
 
+You don't have to undo a whole sort. Open a sort and press **Restore these** to put back just one type of file, or use **Search history** to find a single file (*"where did report.pdf go?"*) and restore only that.
+
 ---
+
+## Tidy up automatically
+
+Open the **Schedule** tab, press **Add Schedule**, and pick a folder, which file types, and how often: **daily, weekly or monthly**, at a time you choose. Sottodesu then sorts that folder in the background, **even when the app is closed**, and sends a notification when it moved something.
+
+- Every automatic sort is saved in your history, marked *Scheduled*, so you can look at it or undo it like any other.
+- Files newer than ten minutes are left alone, so something you just downloaded isn't swept away. If your Mac was asleep at the set time, the sort runs when it wakes.
+- The first time, macOS may ask you to allow Sottodesu under **System Settings ▸ General ▸ Login Items** (the schedule runs as a small background item). Switch it on.
+- **Pause all schedules** stops everything with one switch. **Show in the menu bar** keeps a small icon in the menu bar with a *Sort Now* shortcut after you close the window.
+- Deleting a schedule, or using **Uninstall Sottodesu…**, removes the background item again.
 
 ## A quick tour
 
@@ -193,7 +209,7 @@ Want another language? See [Translating](docs/DEVELOPING.md#adding-or-fixing-a-t
 
 - Sottodesu **never connects to the internet.** There is no account, no analytics and no update check.
 - It only looks at **file names** inside the folder you choose and moves files. It **never opens or reads what's inside them.**
-- The only thing it stores is its history and your last choices (which folder and which file types) — in one small file at `~/Library/Application Support/Sottodesu/history.sqlite`.
+- The only thing it stores is its history, your last choices and your schedules — in one small file at `~/Library/Application Support/Sottodesu/history.sqlite`. Schedules run through a small background item that lives inside the app itself and is removed when you delete the schedules or uninstall.
 
 ## Uninstall
 

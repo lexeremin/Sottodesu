@@ -1,10 +1,11 @@
 import AppKit
 import Foundation
 import Observation
+import ServiceManagement
 import SwiftUI
 
 enum AppTab: String, CaseIterable, Identifiable {
-    case sort, report, largest
+    case sort, report, largest, schedule
 
     var id: String { rawValue }
 
@@ -13,7 +14,50 @@ enum AppTab: String, CaseIterable, Identifiable {
         case .sort: return "Sort"
         case .report: return "Report"
         case .largest: return "Largest Files"
+        case .schedule: return "Schedule"
         }
+    }
+}
+
+/// Mirrors the "show in menu bar" choice for the app delegate, which has no access to the model.
+enum MenuBarPreference {
+    static var isEnabled = false
+}
+
+/// One file or folder in the preview, before anything moves.
+struct PreviewItem: Identifiable, Equatable {
+    let id: String          // the path
+    let name: String
+    let category: FileCategory
+    let isFolder: Bool
+    let size: Int64?
+}
+
+struct PreviewGroup: Identifiable, Equatable {
+    let category: FileCategory
+    let items: [PreviewItem]
+
+    var id: String { category.rawValue }
+}
+
+/// What a sort would do right now, shown so the person can untick things before it happens.
+struct SortPreview: Identifiable, Equatable {
+    let id = UUID()
+    let items: [PreviewItem]
+    let skipped: Int
+
+    init(plan: Sorter.Plan) {
+        items = plan.candidates.map {
+            PreviewItem(id: $0.url.path, name: $0.url.lastPathComponent, category: $0.category,
+                        isFolder: $0.isFolder, size: $0.fileSize.map { Int64($0) })
+        }
+        skipped = plan.skipped
+    }
+
+    var groups: [PreviewGroup] {
+        Dictionary(grouping: items, by: \.category)
+            .map { PreviewGroup(category: $0.key, items: $0.value) }
+            .sorted { FileCategory.order(of: $0.category.rawValue) < FileCategory.order(of: $1.category.rawValue) }
     }
 }
 
@@ -30,6 +74,15 @@ final class AppModel {
     /// Drives the "this looks like a project" confirmation.
     var askAboutProject = false
     private(set) var lastSortRunID: Int64?
+    /// The "what would move" sheet, while it is open.
+    var preview: SortPreview?
+    var isPlanning = false
+
+    // Schedules and the menu bar.
+    var schedules: [Schedule] = []
+    private(set) var schedulesPaused = false
+    private(set) var showsMenuBarIcon = false
+    private(set) var agentStatus: SMAppService.Status = .notRegistered
 
     // What to sort, and where.
     private(set) var location: LocationKind = .downloads
@@ -211,6 +264,10 @@ final class AppModel {
             }
         }
 
+        schedulesPaused = store.setting("schedulesPaused") == "1"
+        showsMenuBarIcon = store.setting("menuBar") == "1"
+        MenuBarPreference.isEnabled = showsMenuBarIcon
+
         let allowed = allowedCategories
         isSelective = store.setting("scope") == "selective"
         let raw = store.setting("categories") ?? ""
@@ -229,10 +286,17 @@ final class AppModel {
     func reload() {
         runs = (try? store?.runs()) ?? []
         report = (try? store?.report()) ?? HistoryReport()
+        schedules = (try? store?.schedules()) ?? []
+        agentStatus = SchedulerAgent.status
     }
 
     func moves(for run: RunSummary) -> [LoggedMove] {
         (try? store?.moves(forRun: run.id)) ?? []
+    }
+
+    /// Finds moves by file name — "where did report.pdf go?".
+    func search(_ text: String) -> [FoundMove] {
+        (try? store?.search(text)) ?? []
     }
 
     // MARK: - Sorting
@@ -247,7 +311,7 @@ final class AppModel {
         }
     }
 
-    func sort() {
+    func sort(only: Set<String>? = nil) {
         guard canSort, let store else { return }
         isWorking = true
         status = String(localized: "Sorting…")
@@ -260,7 +324,7 @@ final class AppModel {
                 let outcome = try await Task.detached(priority: .userInitiated) { () -> (SortSummary, Int64?) in
                     let runID = try store.beginRun(location: root.path)
                     let result = try Sorter(root: root, policy: policy, selection: selection)
-                        .sort { try store.record($0, runID: runID) }
+                        .sort(only: only) { try store.record($0, runID: runID) }
                     if result.moved == 0 {
                         try store.discardRun(runID)
                         return (result, nil)
@@ -269,6 +333,55 @@ final class AppModel {
                 }.value
                 status = Self.message(for: outcome.0)
                 lastSortRunID = outcome.1
+            } catch {
+                status = String(localized: "Stopped: \(Self.describe(error))")
+            }
+            filesDidChange()
+        }
+    }
+
+    /// Works out what a sort would move and opens the preview, without moving anything.
+    func showPreview() {
+        guard canSort, !isPlanning else { return }
+        isPlanning = true
+        status = String(localized: "Looking at what would move…")
+        let root = rootURL
+        let policy = self.policy
+        let selection = effectiveSelection
+
+        Task {
+            let result = await Task.detached(priority: .userInitiated) { () -> Result<Sorter.Plan, Error> in
+                Result { try Sorter(root: root, policy: policy, selection: selection).plan() }
+            }.value
+            isPlanning = false
+            switch result {
+            case .success(let plan):
+                if plan.candidates.isEmpty {
+                    var summary = SortSummary()
+                    summary.skipped = plan.skipped
+                    status = Self.message(for: summary)
+                } else {
+                    status = String(localized: "Ready to sort.")
+                    preview = SortPreview(plan: plan)
+                }
+            case .failure(let error):
+                status = String(localized: "Stopped: \(Self.describe(error))")
+            }
+        }
+    }
+
+    /// Puts just these files back (one file, or one category of a run).
+    func restore(_ moves: [LoggedMove]) {
+        guard canWork, let store, !moves.isEmpty else { return }
+        isWorking = true
+        status = String(localized: "Undoing…")
+
+        Task {
+            do {
+                let summary = try await Task.detached(priority: .userInitiated) { () -> UndoSummary in
+                    try Reverter.revert(moves: moves, store: store)
+                }.value
+                status = Self.message(for: summary)
             } catch {
                 status = String(localized: "Stopped: \(Self.describe(error))")
             }
@@ -300,6 +413,72 @@ final class AppModel {
         changeCount += 1
         scanIsStale = true
         reload()
+    }
+
+    // MARK: - Schedules
+
+    /// Saves a schedule, asks for what the background run will need, and keeps the agent in step.
+    func save(_ schedule: Schedule) {
+        guard let store else { return }
+        _ = try? store.save(schedule)
+        // Visit the folder now, while you are here, so macOS asks for access now rather than in the background.
+        if let root = schedule.rootURL { _ = try? FileManager.default.contentsOfDirectory(atPath: root.path) }
+        ScheduleNotifier.requestPermission()
+        schedulesChanged()
+    }
+
+    func deleteSchedule(_ schedule: Schedule) {
+        try? store?.deleteSchedule(schedule.id)
+        schedulesChanged()
+    }
+
+    func setEnabled(_ enabled: Bool, for schedule: Schedule) {
+        var changed = schedule
+        changed.isEnabled = enabled
+        save(changed)
+    }
+
+    func runNow(_ schedule: Schedule) {
+        guard canWork, let store else { return }
+        isWorking = true
+        status = String(localized: "Sorting…")
+        Task {
+            let outcome = await Task.detached(priority: .userInitiated) {
+                ScheduleRunner.run(schedule, store: store, minimumAge: 5)
+            }.value
+            if outcome.error != nil {
+                status = String(localized: "That folder isn’t available.")
+            } else {
+                var summary = SortSummary()
+                summary.moved = outcome.moved
+                status = outcome.moved > 0
+                    ? String(localized: "Tidied up \(outcome.moved) items in \(outcome.folderName).")
+                    : Self.message(for: summary)
+            }
+            filesDidChange()
+        }
+    }
+
+    func setSchedulesPaused(_ paused: Bool) {
+        schedulesPaused = paused
+        try? store?.setSetting("schedulesPaused", paused ? "1" : nil)
+    }
+
+    func setMenuBar(_ shown: Bool) {
+        showsMenuBarIcon = shown
+        MenuBarPreference.isEnabled = shown
+        try? store?.setSetting("menuBar", shown ? "1" : nil)
+    }
+
+    private func schedulesChanged() {
+        schedules = (try? store?.schedules()) ?? []
+        guard rootOverride == nil else { return }
+        SchedulerAgent.sync(hasActiveSchedules: schedules.contains { $0.isEnabled })
+        agentStatus = SchedulerAgent.status
+    }
+
+    func openLoginItemsSettings() {
+        SchedulerAgent.openSystemSettings()
     }
 
     // MARK: - Measuring the folder

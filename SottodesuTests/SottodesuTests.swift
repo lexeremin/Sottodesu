@@ -633,4 +633,152 @@ final class SottodesuTests: XCTestCase {
         XCTAssertNil(SelfInstaller.diskImage(containing: "/Applications/Sottodesu.app", hdiutilInfo: data))
         XCTAssertNil(SelfInstaller.diskImage(containing: "/Volumes/Sottodesu 2/Sottodesu.app", hdiutilInfo: data))
     }
+
+    // MARK: - Preview, search and schedules
+
+    func testPlanListsWhatWouldMoveWithoutMovingAnything() throws {
+        touch("a.jpg"); touch("b.pdf"); touch("c.jpg.crdownload")
+        let plan = try Sorter(root: root).plan(now: Date().addingTimeInterval(60))
+        XCTAssertEqual(plan.candidates.map(\.url.lastPathComponent), ["a.jpg", "b.pdf"])
+        XCTAssertEqual(plan.skipped, 1)
+        XCTAssertTrue(exists("a.jpg"))
+        XCTAssertFalse(exists(dir(.images)))
+    }
+
+    func testSortingOnlyTheApprovedPaths() throws {
+        touch("a.jpg"); touch("b.jpg"); touch("c.pdf")
+        let approved: Set<String> = [root.appendingPathComponent("a.jpg").path]
+        let runID = try store.beginRun()
+        let summary = try Sorter(root: root, minimumAge: 0)
+            .sort(only: approved) { try self.store.record($0, runID: runID) }
+        XCTAssertEqual(summary.moved, 1)
+        XCTAssertTrue(exists("\(dir(.images))/a.jpg"))
+        XCTAssertTrue(exists("b.jpg"))
+        XCTAssertTrue(exists("c.pdf"))
+    }
+
+    func testHistorySearchFindsMovesByNameAndRestoresOne() throws {
+        touch("report.pdf"); touch("photo.jpg")
+        try sortAll()
+        let found = try store.search("report")
+        XCTAssertEqual(found.count, 1)
+        XCTAssertEqual(found[0].move.fileName, "report.pdf")
+        XCTAssertTrue(try store.search("   ").isEmpty)
+        XCTAssertTrue(try store.search("%").isEmpty)
+
+        let summary = try Reverter.revert(moves: [found[0].move], store: store)
+        XCTAssertEqual(summary.restored, 1)
+        XCTAssertTrue(exists("report.pdf"))
+        XCTAssertTrue(exists("\(dir(.images))/photo.jpg"))
+    }
+
+    func testScheduleKnowsWhenItIsDue() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        func date(_ day: Int, _ hour: Int) -> Date {
+            calendar.date(from: DateComponents(year: 2026, month: 3, day: day, hour: hour, minute: 0))!
+        }
+
+        var daily = Schedule()
+        daily.hour = 18
+        daily.createdAt = date(10, 9)
+        XCTAssertFalse(daily.isDue(now: date(10, 17), calendar: calendar))
+        XCTAssertTrue(daily.isDue(now: date(10, 19), calendar: calendar))
+        // Already ran today: not due again until tomorrow evening.
+        daily.lastRunAt = date(10, 19)
+        XCTAssertFalse(daily.isDue(now: date(11, 12), calendar: calendar))
+        XCTAssertTrue(daily.isDue(now: date(11, 19), calendar: calendar))
+        // A Mac that slept for days runs once, then waits for the next slot.
+        daily.lastRunAt = date(10, 19)
+        XCTAssertTrue(daily.isDue(now: date(15, 3), calendar: calendar))
+
+        var weekly = Schedule()
+        weekly.frequency = .weekly
+        weekly.weekday = 2   // Monday; 2026-03-09 is a Monday
+        weekly.hour = 8
+        weekly.createdAt = date(10, 9)
+        XCTAssertFalse(weekly.isDue(now: date(14, 12), calendar: calendar))
+        XCTAssertTrue(weekly.isDue(now: date(16, 9), calendar: calendar))
+
+        var monthly = Schedule()
+        monthly.frequency = .monthly
+        monthly.dayOfMonth = 20
+        monthly.hour = 8
+        monthly.createdAt = date(10, 9)
+        XCTAssertFalse(monthly.isDue(now: date(19, 12), calendar: calendar))
+        XCTAssertTrue(monthly.isDue(now: date(20, 9), calendar: calendar))
+
+        var off = daily
+        off.isEnabled = false
+        off.lastRunAt = nil
+        XCTAssertFalse(off.isDue(now: date(30, 12), calendar: calendar))
+    }
+
+    func testSchedulesAreSavedAndRead() throws {
+        var schedule = Schedule()
+        schedule.location = .desktop
+        schedule.categories = [.images, .documents]
+        schedule.frequency = .weekly
+        schedule.weekday = 6
+        schedule.hour = 7
+        schedule.minute = 30
+        let id = try store.save(schedule)
+        XCTAssertNotEqual(id, 0)
+
+        var saved = try XCTUnwrap(try store.schedules().first)
+        XCTAssertEqual(saved.location, .desktop)
+        XCTAssertEqual(saved.categories, [.images, .documents])
+        XCTAssertEqual(saved.frequency, .weekly)
+        XCTAssertEqual(saved.weekday, 6)
+        XCTAssertEqual(saved.minute, 30)
+        XCTAssertTrue(saved.isEnabled)
+
+        saved.isEnabled = false
+        try store.save(saved)
+        XCTAssertEqual(try store.schedules().count, 1)
+        XCTAssertFalse(try XCTUnwrap(try store.schedules().first).isEnabled)
+
+        try store.deleteSchedule(id)
+        XCTAssertTrue(try store.schedules().isEmpty)
+    }
+
+    func testScheduledRunSortsRecordsAndMarksItself() throws {
+        touch("a.jpg"); touch("b.pdf")
+        var schedule = Schedule()
+        schedule.categories = [.images]
+        schedule.id = try store.save(schedule)
+
+        let outcome = ScheduleRunner.run(schedule, store: store, now: Date().addingTimeInterval(60),
+                                         minimumAge: 0, rootOverride: root)
+        XCTAssertEqual(outcome.moved, 1)
+        XCTAssertNil(outcome.error)
+        XCTAssertTrue(exists("\(dir(.images))/a.jpg"))
+        XCTAssertTrue(exists("b.pdf"))
+
+        let run = try XCTUnwrap(try store.runs().first)
+        XCTAssertTrue(run.isScheduled)
+        XCTAssertEqual(run.total, 1)
+        XCTAssertEqual(try XCTUnwrap(try store.schedules().first).lastMoved, 1)
+
+        // And it can be undone like any other sort.
+        _ = try Reverter.revert(moves: try store.moves(forRun: run.id), store: store)
+        XCTAssertTrue(exists("a.jpg"))
+    }
+
+    func testScheduledRunWithNothingToDoLeavesNoHistory() throws {
+        var schedule = Schedule()
+        schedule.id = try store.save(schedule)
+        let outcome = ScheduleRunner.run(schedule, store: store, minimumAge: 0, rootOverride: root)
+        XCTAssertEqual(outcome.moved, 0)
+        XCTAssertTrue(try store.runs().isEmpty)
+        XCTAssertEqual(try XCTUnwrap(try store.schedules().first).lastMoved, 0)
+    }
+
+    func testPausedSchedulesDoNotRun() throws {
+        var schedule = Schedule()
+        schedule.createdAt = Date(timeIntervalSince1970: 0)
+        try store.save(schedule)
+        try store.setSetting("schedulesPaused", "1")
+        XCTAssertTrue(ScheduleRunner.runDue(store: store).isEmpty)
+    }
 }

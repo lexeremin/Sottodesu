@@ -23,6 +23,12 @@ targets:
     platform: macOS
     sources:
       - Sottodesu
+      # The background agent's description goes inside the app, where macOS looks for it.
+      - path: Agent/dev.sottodesu.app.scheduler.plist
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Library/LaunchAgents
     dependencies:
       - package: GRDB
     info:

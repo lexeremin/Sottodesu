@@ -11,6 +11,10 @@ struct RunSummary: Identifiable, Equatable {
     let categories: [CategoryCount]
     /// The folder that was sorted (a path), if the history recorded it.
     let location: String?
+    /// "manual" for a sort you started, "scheduled" for one a schedule ran in the background.
+    var source: String = "manual"
+
+    var isScheduled: Bool { source == "scheduled" }
 
     var isFullyReverted: Bool { total > 0 && reverted == total }
     var remaining: Int { total - reverted }
@@ -50,6 +54,15 @@ struct LoggedMove: Identifiable, Equatable {
     }
 }
 
+/// A move found by searching the history, with the run it belongs to.
+struct FoundMove: Identifiable, Equatable {
+    let move: LoggedMove
+    let runID: Int64
+    let date: Date
+
+    var id: Int64 { move.id }
+}
+
 /// The whole history lives in a single SQLite file.
 final class HistoryStore: @unchecked Sendable {
     let dbQueue: DatabaseQueue
@@ -57,7 +70,10 @@ final class HistoryStore: @unchecked Sendable {
     init(databaseURL: URL) throws {
         try FileManager.default.createDirectory(
             at: databaseURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-        dbQueue = try DatabaseQueue(path: databaseURL.path)
+        // The app and its background agent can both open the file; wait a moment instead of failing.
+        var configuration = Configuration()
+        configuration.busyMode = .timeout(5)
+        dbQueue = try DatabaseQueue(path: databaseURL.path, configuration: configuration)
 
         var migrator = DatabaseMigrator()
         migrator.registerMigration("v1") { db in
@@ -85,13 +101,33 @@ final class HistoryStore: @unchecked Sendable {
             try db.execute(sql: "ALTER TABLE sort_run ADD COLUMN location TEXT")
             try db.execute(sql: "CREATE TABLE setting (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
         }
+        migrator.registerMigration("v3") { db in
+            try db.execute(sql: "ALTER TABLE sort_run ADD COLUMN source TEXT NOT NULL DEFAULT 'manual'")
+            try db.execute(sql: """
+                CREATE TABLE schedule (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    location TEXT NOT NULL,
+                    customPath TEXT,
+                    categories TEXT NOT NULL DEFAULT '',
+                    frequency TEXT NOT NULL,
+                    hour INTEGER NOT NULL,
+                    minute INTEGER NOT NULL,
+                    weekday INTEGER NOT NULL DEFAULT 2,
+                    dayOfMonth INTEGER NOT NULL DEFAULT 1,
+                    enabled INTEGER NOT NULL DEFAULT 1,
+                    createdAt REAL NOT NULL,
+                    lastRunAt REAL,
+                    lastResult TEXT
+                )
+                """)
+        }
         try migrator.migrate(dbQueue)
     }
 
-    func beginRun(at date: Date = Date(), location: String? = nil) throws -> Int64 {
+    func beginRun(at date: Date = Date(), location: String? = nil, source: String = "manual") throws -> Int64 {
         try dbQueue.write { db in
-            try db.execute(sql: "INSERT INTO sort_run (startedAt, location) VALUES (?, ?)",
-                           arguments: [date.timeIntervalSince1970, location])
+            try db.execute(sql: "INSERT INTO sort_run (startedAt, location, source) VALUES (?, ?, ?)",
+                           arguments: [date.timeIntervalSince1970, location, source])
             return db.lastInsertedRowID
         }
     }
@@ -119,7 +155,7 @@ final class HistoryStore: @unchecked Sendable {
                 SELECT r.id AS id, r.startedAt AS startedAt,
                        COUNT(m.id) AS total, COUNT(m.revertedAt) AS reverted,
                        COALESCE(SUM(m.size), 0) AS bytes,
-                       r.location AS location
+                       r.location AS location, r.source AS source
                 FROM sort_run r
                 LEFT JOIN moved_file m ON m.runID = r.id
                 GROUP BY r.id
@@ -143,7 +179,7 @@ final class HistoryStore: @unchecked Sendable {
                 return RunSummary(id: id, startedAt: Date(timeIntervalSince1970: started),
                                   total: row["total"], reverted: row["reverted"], bytes: row["bytes"],
                                   categories: CategoryCount.sorted(byRun[id] ?? []),
-                                  location: row["location"])
+                                  location: row["location"], source: row["source"] ?? "manual")
             }
         }
     }
@@ -152,6 +188,80 @@ final class HistoryStore: @unchecked Sendable {
         try dbQueue.read { db in
             try Row.fetchAll(db, sql: "SELECT * FROM moved_file WHERE runID = ? ORDER BY id",
                              arguments: [runID]).map(LoggedMove.init(row:))
+        }
+    }
+
+    /// Finds moves by file name or folder, newest first — "where did report.pdf go?".
+    func search(_ text: String, limit: Int = 200) throws -> [FoundMove] {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return [] }
+        let escaped = trimmed
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "%", with: "\\%")
+            .replacingOccurrences(of: "_", with: "\\_")
+        let pattern = "%" + escaped + "%"
+        return try dbQueue.read { db in
+            try Row.fetchAll(db, sql: """
+                SELECT m.*, r.startedAt AS runStartedAt
+                FROM moved_file m JOIN sort_run r ON r.id = m.runID
+                WHERE m.originalPath LIKE ? ESCAPE '\\' OR m.newPath LIKE ? ESCAPE '\\'
+                ORDER BY m.id DESC
+                LIMIT ?
+                """, arguments: [pattern, pattern, limit]).map { row in
+                let started: Double = row["runStartedAt"]
+                return FoundMove(move: LoggedMove(row: row), runID: row["runID"],
+                                 date: Date(timeIntervalSince1970: started))
+            }
+        }
+    }
+
+    // MARK: Schedules
+
+    func schedules() throws -> [Schedule] {
+        try dbQueue.read { db in
+            try Row.fetchAll(db, sql: "SELECT * FROM schedule ORDER BY id").map(Schedule.init(row:))
+        }
+    }
+
+    /// Inserts a new schedule (id 0) or updates an existing one. Returns the saved id.
+    @discardableResult
+    func save(_ schedule: Schedule) throws -> Int64 {
+        try dbQueue.write { db in
+            let categories = schedule.categories.map(\.rawValue).sorted().joined(separator: ",")
+            var values: [(any DatabaseValueConvertible)?] = [
+                schedule.location.rawValue, schedule.customPath, categories, schedule.frequency.rawValue,
+                schedule.hour, schedule.minute, schedule.weekday, schedule.dayOfMonth,
+                schedule.isEnabled ? 1 : 0,
+            ]
+            if schedule.id == 0 {
+                values.append(schedule.createdAt.timeIntervalSince1970)
+                try db.execute(sql: """
+                    INSERT INTO schedule (location, customPath, categories, frequency, hour, minute,
+                                          weekday, dayOfMonth, enabled, createdAt)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, arguments: StatementArguments(values))
+                return db.lastInsertedRowID
+            }
+            values.append(schedule.id)
+            try db.execute(sql: """
+                UPDATE schedule SET location = ?, customPath = ?, categories = ?, frequency = ?, hour = ?,
+                                    minute = ?, weekday = ?, dayOfMonth = ?, enabled = ?
+                WHERE id = ?
+                """, arguments: StatementArguments(values))
+            return schedule.id
+        }
+    }
+
+    func deleteSchedule(_ id: Int64) throws {
+        try dbQueue.write { db in
+            try db.execute(sql: "DELETE FROM schedule WHERE id = ?", arguments: [id])
+        }
+    }
+
+    func markScheduleRan(_ id: Int64, at date: Date, result: String) throws {
+        try dbQueue.write { db in
+            try db.execute(sql: "UPDATE schedule SET lastRunAt = ?, lastResult = ? WHERE id = ?",
+                           arguments: [date.timeIntervalSince1970, result, id])
         }
     }
 

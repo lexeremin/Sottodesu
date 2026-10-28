@@ -92,3 +92,11 @@ Use **Sottodesu ▸ Uninstall Sottodesu…** to delete it and move the app to th
 - Make sure you're on **macOS 15 or later** (Apple menu ▸ About This Mac).
 - Re-download the latest `.dmg` from the [releases page](https://github.com/lexeremin/Sottodesu/releases/latest) — a download that was cut short can leave a damaged app.
 - Still stuck? [Open an issue](https://github.com/lexeremin/Sottodesu/issues/new) with your macOS version and what happens when you open the app.
+
+## My schedule doesn't run
+
+1. Open **System Settings ▸ General ▸ Login Items & Extensions** and make sure **Sottodesu** is switched on under *Allow in the Background*. The Schedule tab shows a notice with a shortcut when macOS is still waiting for your OK.
+2. Check that the schedule is switched on and **Pause all schedules** is off.
+3. Keep Sottodesu in your **Applications** folder. The background item doesn't work from the disk image.
+4. A Mac that is off or asleep runs a missed schedule as soon as it wakes. Files newer than ten minutes are skipped on purpose.
+5. For Desktop or Documents, macOS must have allowed Sottodesu to access the folder (**Privacy & Security ▸ Files & Folders**).

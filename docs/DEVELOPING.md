@@ -35,6 +35,8 @@ The project signs ad hoc, which is fine for running locally. macOS may ask for D
 | `Components.swift`, `Theme.swift` | Shared views, colours, formatting |
 | `Localization.swift` | Looks strings up in every shipped language |
 | `DemoMode.swift` | Made-up data for screenshots (`--demo`) |
+| `Schedule.swift`, `ScheduleRunner.swift`, `ScheduleView.swift` | Schedules, the headless run (`--run-schedules`) and the login-item agent (`Agent/*.plist`, registered with `SMAppService`) |
+| `PreviewSheet.swift` | The preview shown before a sort (`Sorter.plan`) |
 | `Uninstaller.swift`, `AppPaths.swift` | Clean removal; every path the app touches |
 | `Localizable.xcstrings`, `InfoPlist.xcstrings` | All translations |
 | `Tools/make_icon.py` | Draws the app icon set (needs Pillow) |

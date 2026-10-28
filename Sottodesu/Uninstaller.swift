@@ -13,6 +13,9 @@ enum Uninstaller {
         alert.addButton(withTitle: String(localized: "Cancel"))
         guard alert.runModal() == .alertFirstButtonReturn else { return }
 
+        // Remove the background agent's login item first, so nothing keeps running after the app is gone.
+        SchedulerAgent.unregister()
+
         let fm = FileManager.default
         for url in [AppPaths.supportDirectory] + AppPaths.systemGeneratedLeftovers {
             try? fm.removeItem(at: url)

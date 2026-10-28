@@ -13,6 +13,7 @@ struct ContentView: View {
             case .sort: SortView()
             case .report: ReportView()
             case .largest: LargestFilesView()
+            case .schedule: ScheduleView()
             }
         }
         .frame(minWidth: 760, minHeight: 560)
@@ -25,7 +26,7 @@ struct ContentView: View {
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
-                .frame(width: 330)
+                .frame(width: 440)
             }
         }
     }
@@ -35,6 +36,9 @@ struct ContentView: View {
 
 struct SortView: View {
     @Environment(AppModel.self) private var model
+
+    @State private var query = ""
+    @State private var found: [FoundMove] = []
 
     private var askAboutProject: Binding<Bool> {
         Binding(get: { model.askAboutProject }, set: { model.askAboutProject = $0 })
@@ -52,6 +56,9 @@ struct SortView: View {
             .padding(.vertical, 28)
             .frame(maxWidth: 720)
             .frame(maxWidth: .infinity)
+        }
+        .sheet(item: Binding(get: { model.preview }, set: { model.preview = $0 })) { preview in
+            PreviewSheet(preview: preview)
         }
         .confirmationDialog("This looks like a project folder", isPresented: askAboutProject, titleVisibility: .visible) {
             Button("Sort Anyway") { model.sort() }
@@ -72,9 +79,16 @@ struct SortView: View {
             .keyboardShortcut(.defaultAction)
             .disabled(!model.canSort)
 
-            Text(model.scopeSummary)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            HStack(spacing: 10) {
+                Text(model.scopeSummary)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Button("Preview…") { model.showPreview() }
+                    .buttonStyle(.link)
+                    .font(.caption)
+                    .disabled(!model.canSort || model.isPlanning)
+                    .help("See what would move before anything does")
+            }
 
             HStack(spacing: 8) {
                 if model.isWorking {
@@ -120,16 +134,90 @@ struct SortView: View {
                         .font(.callout)
                         .foregroundStyle(.secondary)
                     Spacer()
+                    TextField("Search history", text: $query)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(width: 190)
                     Button("See report") { model.tab = .report }
                         .buttonStyle(.link)
                 }
-                LazyVStack(spacing: 10) {
-                    ForEach(model.runs) { run in
-                        RunCard(run: run)
+                if query.trimmingCharacters(in: .whitespaces).isEmpty {
+                    LazyVStack(spacing: 10) {
+                        ForEach(model.runs) { run in
+                            RunCard(run: run)
+                        }
                     }
+                } else {
+                    searchResults
                 }
             }
         }
+    }
+}
+
+extension SortView {
+    /// Matching files across every sort, each with its own Restore.
+    @ViewBuilder
+    fileprivate var searchResults: some View {
+        Group {
+            if found.isEmpty {
+                Text("Nothing in your history matches “\(query)”.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 24)
+            } else {
+                LazyVStack(spacing: 0) {
+                    ForEach(found) { item in
+                        FoundMoveRow(item: item)
+                        if item.id != found.last?.id { Divider() }
+                    }
+                }
+                .cardBackground()
+            }
+        }
+        .task(id: "\(query)-\(model.runs.map(\.reverted).reduce(0, +))") {
+            try? await Task.sleep(for: .milliseconds(250))
+            guard !Task.isCancelled else { return }
+            found = model.search(query)
+        }
+    }
+}
+
+private struct FoundMoveRow: View {
+    let item: FoundMove
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(item.move.fileName)
+                    .fontWeight(.medium)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                Text(verbatim: "\(shortPath(item.move.originalPath)) → \(shortPath(item.move.newPath))")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                Text(item.date.formatted(date: .abbreviated, time: .shortened) + " · " + formatBytes(item.move.size))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            if item.move.revertedAt != nil {
+                Text("Restored").foregroundStyle(.secondary)
+            } else {
+                Button("Show") { model.reveal([URL(fileURLWithPath: item.move.newPath)]) }
+                    .buttonStyle(.link)
+                Button("Restore") { model.restore([item.move]) }
+                    .disabled(!model.canWork)
+            }
+        }
+        .padding(12)
+    }
+
+    private func shortPath(_ path: String) -> String {
+        (path as NSString).abbreviatingWithTildeInPath
     }
 }
 
@@ -187,6 +275,11 @@ private struct RunCard: View {
                         HStack(spacing: 8) {
                             Text(run.startedAt.formatted(date: .abbreviated, time: .shortened))
                                 .fontWeight(.medium)
+                            if run.isScheduled {
+                                Label("Scheduled", systemImage: "clock")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
                             if let place = model.displayName(forPath: run.location) {
                                 Label(place, systemImage: "folder")
                                     .font(.caption)
@@ -245,6 +338,12 @@ private struct RunCard: View {
                         }
                         .font(.callout.weight(.semibold))
                         Spacer()
+                        if group.moves.contains(where: { $0.revertedAt == nil }) {
+                            Button("Restore these") { model.restore(group.moves) }
+                                .buttonStyle(.link)
+                                .font(.callout)
+                                .disabled(!model.canWork)
+                        }
                         Text(formatBytes(group.bytes))
                             .font(.callout)
                             .monospacedDigit()

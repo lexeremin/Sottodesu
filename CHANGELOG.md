@@ -5,6 +5,9 @@ All notable changes to Sottodesu are listed here.
 ## 1.1.0 — 2026-10-28
 
 - Easy install: open the disk image and Sottodesu offers to move itself to Applications, then ejects the installer and moves the downloaded `.dmg` to the Trash. Drag-to-install still works.
+- **Preview** what a sort would move before anything moves, and untick files you want to keep in place.
+- **Search history** to find where a single file went, and restore just that file or just one type from a sort.
+- **Schedule tab:** tidy a folder up automatically every day, week or month, even when the app is closed. Automatic sorts appear in the history, marked *Scheduled*, and can be undone. Includes a pause switch and an optional menu bar icon.
 - Screenshots and an updated guide in the README.
 
 ## 1.0.0 — 2026-10-28
