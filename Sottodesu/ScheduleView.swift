@@ -453,19 +453,14 @@ struct ScheduleEditor: View {
     }
 
     private var timeRow: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 14) {
             Text("Time")
                 .foregroundStyle(.secondary)
-            // The standard macOS time field, enlarged so it is easy to hit.
-            DatePicker("Time", selection: timeBinding, displayedComponents: .hourAndMinute)
-                .labelsHidden()
-                .datePickerStyle(.stepperField)
-                .scaleEffect(1.7, anchor: .leading)
-                .frame(width: 150, height: 40, alignment: .leading)
+            TimeField(hour: $schedule.hour, minute: $schedule.minute)
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 10)
+        .padding(.vertical, 12)
         .cardBackground(cornerRadius: 14)
     }
 
@@ -498,17 +493,6 @@ struct ScheduleEditor: View {
     }
 
     // MARK: Helpers
-
-    private var timeBinding: Binding<Date> {
-        Binding(
-            get: { calendar.date(bySettingHour: schedule.hour, minute: schedule.minute, second: 0, of: Date()) ?? Date() },
-            set: {
-                let parts = calendar.dateComponents([.hour, .minute], from: $0)
-                schedule.hour = parts.hour ?? 0
-                schedule.minute = parts.minute ?? 0
-            }
-        )
-    }
 
     private func toggle(_ category: FileCategory) {
         if schedule.categories.contains(category) {
@@ -555,5 +539,127 @@ private struct DayDot: View {
         .animation(.easeOut(duration: 0.12), value: isOn)
         .accessibilityLabel(accessibilityName)
         .accessibilityAddTraits(isOn ? .isSelected : [])
+    }
+}
+
+/// The time as big, clickable numbers. Click the hour or the minutes to pick from a small popup.
+private struct TimeField: View {
+    @Binding var hour: Int      // 0…23
+    @Binding var minute: Int    // 0…59
+
+    @State private var showHours = false
+    @State private var showMinutes = false
+    private let calendar = Calendar.current
+
+    private var uses12Hour: Bool {
+        let cycle = Locale.current.hourCycle
+        return cycle == .zeroToEleven || cycle == .oneToTwelve
+    }
+
+    private var shownHour: Int {
+        uses12Hour ? (hour % 12 == 0 ? 12 : hour % 12) : hour
+    }
+
+    var body: some View {
+        HStack(spacing: 6) {
+            pill(String(format: uses12Hour ? "%d" : "%02d", shownHour)) { showHours = true }
+                .popover(isPresented: $showHours, arrowEdge: .bottom) { hourPopup }
+                .accessibilityLabel(Text("Hour"))
+            Text(verbatim: ":")
+                .font(.system(size: 30, weight: .semibold, design: .rounded))
+                .foregroundStyle(.secondary)
+            pill(String(format: "%02d", minute)) { showMinutes = true }
+                .popover(isPresented: $showMinutes, arrowEdge: .bottom) { minutePopup }
+                .accessibilityLabel(Text("Minute"))
+            if uses12Hour {
+                pill(hour >= 12 ? calendar.pmSymbol : calendar.amSymbol, size: 20) {
+                    hour = (hour + 12) % 24
+                }
+                .padding(.leading, 6)
+            }
+        }
+    }
+
+    private func pill(_ text: String, size: CGFloat = 34, action: @escaping () -> Void) -> some View {
+        TimePill(text: text, size: size, action: action)
+    }
+
+    // MARK: Popups
+
+    private var hourPopup: some View {
+        let hours = uses12Hour ? Array(1...12) : Array(0...23)
+        return VStack(spacing: 12) {
+            LazyVGrid(columns: Array(repeating: GridItem(.fixed(38), spacing: 8), count: 6), spacing: 8) {
+                ForEach(hours, id: \.self) { value in
+                    DayDot(label: uses12Hour ? "\(value)" : String(format: "%02d", value),
+                           isOn: value == shownHour, accessibilityName: "\(value)") {
+                        hour = uses12Hour ? (value % 12) + (hour >= 12 ? 12 : 0) : value
+                        showHours = false
+                    }
+                }
+            }
+            if uses12Hour {
+                Picker("", selection: Binding(get: { hour >= 12 }, set: { pm in hour = (hour % 12) + (pm ? 12 : 0) })) {
+                    Text(calendar.amSymbol).tag(false)
+                    Text(calendar.pmSymbol).tag(true)
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+            }
+        }
+        .padding(16)
+    }
+
+    private var minutePopup: some View {
+        VStack(spacing: 14) {
+            LazyVGrid(columns: Array(repeating: GridItem(.fixed(38), spacing: 8), count: 6), spacing: 8) {
+                ForEach(Array(stride(from: 0, to: 60, by: 5)), id: \.self) { value in
+                    DayDot(label: String(format: "%02d", value), isOn: value == minute, accessibilityName: "\(value)") {
+                        minute = value
+                        showMinutes = false
+                    }
+                }
+            }
+            Divider()
+            HStack {
+                Text("Exact minute")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Text(String(format: "%02d", minute))
+                    .font(.callout.weight(.semibold))
+                    .monospacedDigit()
+                Stepper("Minute", value: $minute, in: 0...59)
+                    .labelsHidden()
+            }
+        }
+        .padding(16)
+        .frame(width: 6 * 38 + 5 * 8 + 32)
+    }
+}
+
+/// One big number that lifts a little when the pointer is over it.
+private struct TimePill: View {
+    let text: String
+    let size: CGFloat
+    let action: () -> Void
+    @State private var hovering = false
+
+    var body: some View {
+        Button(action: action) {
+            Text(text)
+                .font(.system(size: size, weight: .semibold, design: .rounded))
+                .monospacedDigit()
+                .padding(.horizontal, 14)
+                .padding(.vertical, 6)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color.primary.opacity(hovering ? 0.13 : 0.07))
+                )
+                .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering = $0 }
+        .animation(.easeOut(duration: 0.12), value: hovering)
     }
 }

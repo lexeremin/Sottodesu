@@ -1,9 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
-    },
+    "%@" : {},
     "%@ is empty" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -39,9 +37,7 @@
         }
       }
     },
-    "%@ items skipped (still downloading or just added)." : {
-
-    },
+    "%@ items skipped (still downloading or just added)." : {},
     "%@ of items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -77,9 +73,7 @@
         }
       }
     },
-    "%@ sorts" : {
-
-    },
+    "%@ sorts" : {},
     "%lld items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -964,9 +958,7 @@
         }
       }
     },
-    "and %@ more" : {
-
-    },
+    "and %@ more" : {},
     "and %lld more" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6897,9 +6889,7 @@
         }
       }
     },
-    "Sort %@ items" : {
-
-    },
+    "Sort %@ items" : {},
     "Sort %@ Now" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -8852,6 +8842,108 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你可以手动将 Sottodesu 拖到废纸篓。"
+          }
+        }
+      }
+    },
+    "Hour" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Час"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小时"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heure"
+          }
+        }
+      }
+    },
+    "Minute" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Минута"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分钟"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "분"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minute"
+          }
+        }
+      }
+    },
+    "Exact minute" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Точная минута"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "精确分钟"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정확한 분"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分を細かく指定"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minute exacte"
           }
         }
       }
