@@ -49,3 +49,4 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.sottodesu.tests
+        GENERATE_INFOPLIST_FILE: YES
