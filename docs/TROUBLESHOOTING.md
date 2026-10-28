@@ -99,4 +99,5 @@ Use **Sottodesu ▸ Uninstall Sottodesu…** to delete it and move the app to th
 2. Check that the schedule is switched on and **Pause all schedules** is off.
 3. Keep Sottodesu in your **Applications** folder. The background item doesn't work from the disk image.
 4. A Mac that is off or asleep runs a missed schedule as soon as it wakes. Files newer than ten minutes are skipped on purpose.
-5. For Desktop or Documents, macOS must have allowed Sottodesu to access the folder (**Privacy & Security ▸ Files & Folders**).
+5. The Schedule tab shows a line about the background item, including when it last checked. If it says "Last check" with a recent time, the item is running and the schedule simply wasn't due yet.
+6. For Desktop or Documents, macOS must have allowed Sottodesu to access the folder (**Privacy & Security ▸ Files & Folders**).

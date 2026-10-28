@@ -26,6 +26,12 @@ enum ScheduleRunner {
         return outcomes
     }
 
+    /// Runs every switched-on schedule right now, due or not. Used to test the background run by hand.
+    @discardableResult
+    static func runAllNow(store: HistoryStore, now: Date = Date()) -> [Outcome] {
+        ((try? store.schedules()) ?? []).filter(\.isEnabled).map { run($0, store: store, now: now) }
+    }
+
     /// Sorts the schedule's folder now and records the run (marked "scheduled") in the history.
     /// `rootOverride` exists for tests.
     static func run(_ schedule: Schedule, store: HistoryStore, now: Date = Date(),
@@ -58,7 +64,13 @@ enum ScheduleRunner {
 enum BackgroundRun {
     static func execute() -> Never {
         if let store = try? HistoryStore(databaseURL: AppPaths.database) {
-            ScheduleNotifier.post(ScheduleRunner.runDue(store: store))
+            // `--now` (for testing by hand) runs every switched-on schedule, due or not.
+            let outcomes = CommandLine.arguments.contains("--now")
+                ? ScheduleRunner.runAllNow(store: store)
+                : ScheduleRunner.runDue(store: store)
+            // A heartbeat, so the app can show that the background item really is running.
+            try? store.setSetting("agentLastCheck", String(Date().timeIntervalSince1970))
+            ScheduleNotifier.post(outcomes)
         }
         exit(0)
     }
@@ -94,12 +106,24 @@ enum SchedulerAgent {
     static var status: SMAppService.Status { service.status }
 
     /// Registers the agent while at least one schedule is switched on, and removes it otherwise.
-    static func sync(hasActiveSchedules: Bool) {
+    /// `forceRefresh` registers it again, so a new version's changed description replaces the old one.
+    /// Returns a message if macOS refused (other than "waiting for your approval", which has its own notice).
+    @discardableResult
+    static func sync(hasActiveSchedules: Bool, forceRefresh: Bool = false) -> String? {
+        var problem: String?
         if hasActiveSchedules {
-            if service.status != .enabled { try? service.register() }
+            if forceRefresh { try? service.unregister() }
+            if service.status != .enabled {
+                do {
+                    try service.register()
+                } catch {
+                    if service.status != .requiresApproval { problem = error.localizedDescription }
+                }
+            }
         } else {
             unregister()
         }
+        return problem
     }
 
     static func unregister() {

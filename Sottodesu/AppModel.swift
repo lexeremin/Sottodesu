@@ -83,6 +83,10 @@ final class AppModel {
     private(set) var schedulesPaused = false
     private(set) var showsMenuBarIcon = false
     private(set) var agentStatus: SMAppService.Status = .notRegistered
+    /// Why macOS refused to set up the background item, if it did.
+    private(set) var agentError: String?
+    /// When the background item last looked for due schedules.
+    private(set) var agentLastCheck: Date?
 
     // What to sort, and where.
     private(set) var location: LocationKind = .downloads
@@ -106,7 +110,19 @@ final class AppModel {
             status = String(localized: "Couldn’t open the history: \(error.localizedDescription)")
         }
         restoreSettings()
+        refreshAgentIfNeeded()
         reload()
+    }
+
+    /// A new version of the app can ship a changed background item; register it again once per version.
+    private func refreshAgentIfNeeded() {
+        guard let store, rootOverride == nil else { return }
+        let info = Bundle.main.infoDictionary
+        let build = "\(info?["CFBundleShortVersionString"] as? String ?? "")-\(info?["CFBundleVersion"] as? String ?? "")"
+        guard store.setting("agentBuild") != build else { return }
+        let active = ((try? store.schedules()) ?? []).contains { $0.isEnabled }
+        agentError = SchedulerAgent.sync(hasActiveSchedules: active, forceRefresh: true)
+        try? store.setSetting("agentBuild", build)
     }
 
     /// For screenshots only (see DemoMode.swift): a made-up history and folder.
@@ -288,6 +304,7 @@ final class AppModel {
         report = (try? store?.report()) ?? HistoryReport()
         schedules = (try? store?.schedules()) ?? []
         agentStatus = SchedulerAgent.status
+        agentLastCheck = store?.setting("agentLastCheck").flatMap(Double.init).map { Date(timeIntervalSince1970: $0) }
     }
 
     func moves(for run: RunSummary) -> [LoggedMove] {
@@ -473,7 +490,7 @@ final class AppModel {
     private func schedulesChanged() {
         schedules = (try? store?.schedules()) ?? []
         guard rootOverride == nil else { return }
-        SchedulerAgent.sync(hasActiveSchedules: schedules.contains { $0.isEnabled })
+        agentError = SchedulerAgent.sync(hasActiveSchedules: schedules.contains { $0.isEnabled })
         agentStatus = SchedulerAgent.status
     }
 

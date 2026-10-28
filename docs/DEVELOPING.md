@@ -101,3 +101,13 @@ Scripts/build-dmg.sh 1.2.3
 ```
 
 `NOTARY_PROFILE` is created once with `xcrun notarytool store-credentials`. Making the GitHub workflow do this needs the certificate and notary credentials stored as repository secrets — not set up yet.
+
+## Testing schedules by hand
+
+The background item starts the app with `--run-schedules`. To run every switched-on schedule right now, without waiting for its time:
+
+```sh
+open -n -g -j -a /Applications/Sottodesu.app --args --run-schedules --now
+```
+
+Nothing appears on screen. Look at the History on the *Sort* tab (the run is marked *Scheduled*) and at the notification. Files newer than ten minutes are skipped on purpose.

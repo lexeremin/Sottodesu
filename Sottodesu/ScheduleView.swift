@@ -18,6 +18,7 @@ struct ScheduleView: View {
                 if model.schedules.isEmpty {
                     emptyState
                 } else {
+                    backgroundStatus
                     VStack(spacing: 10) {
                         ForEach(model.schedules) { schedule in
                             ScheduleCard(schedule: schedule) { editing = schedule }
@@ -76,6 +77,27 @@ struct ScheduleView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 32)
         .cardBackground()
+    }
+
+    /// Whether the background item is really set up and running, so a schedule that never fires can be explained.
+    private var backgroundStatus: some View {
+        let text: String
+        if let error = model.agentError {
+            text = String(localized: "The background item couldn’t be set up: \(error)")
+        } else if model.agentStatus == .enabled {
+            if let last = model.agentLastCheck {
+                text = String(localized: "Background item is on. Last check: \(last.formatted(date: .omitted, time: .shortened))")
+            } else {
+                text = String(localized: "Background item is on. Waiting for its first check.")
+            }
+        } else if model.agentStatus == .requiresApproval {
+            text = String(localized: "Background item is waiting for your OK in Login Items.")
+        } else {
+            text = String(localized: "Background item isn’t set up yet. Switch a schedule off and on, with Sottodesu in your Applications folder.")
+        }
+        return Label(text, systemImage: model.agentStatus == .enabled && model.agentError == nil ? "checkmark.circle" : "info.circle")
+            .font(.caption)
+            .foregroundStyle(.secondary)
     }
 
     private var approvalNotice: some View {

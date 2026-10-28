@@ -17,6 +17,12 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 760, minHeight: 560)
+        // Don't start with the cursor in the history search box.
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                NSApp.keyWindow?.makeFirstResponder(nil)
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Picker("View", selection: tabBinding) {

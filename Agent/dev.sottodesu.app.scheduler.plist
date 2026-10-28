@@ -4,20 +4,27 @@
 <dict>
     <key>Label</key>
     <string>dev.sottodesu.app.scheduler</string>
-    <key>BundleProgram</key>
-    <string>Contents/MacOS/Sottodesu</string>
+    <key>AssociatedBundleIdentifiers</key>
+    <array>
+        <string>dev.sottodesu.app</string>
+    </array>
+    <!-- Starts the app the normal way (through Launch Services) as a hidden, new instance. macOS refuses
+         to let launchd start an ad-hoc signed app's executable directly. The app notices the run-schedules argument,
+         sorts what is due and quits before any window or Dock icon appears. -->
     <key>ProgramArguments</key>
     <array>
-        <string>Sottodesu</string>
+        <string>/usr/bin/open</string>
+        <string>-n</string>
+        <string>-g</string>
+        <string>-j</string>
+        <string>-a</string>
+        <string>/Applications/Sottodesu.app</string>
+        <string>--args</string>
         <string>--run-schedules</string>
     </array>
     <key>StartInterval</key>
     <integer>1800</integer>
     <key>RunAtLoad</key>
-    <true/>
-    <key>ProcessType</key>
-    <string>Background</string>
-    <key>LowPriorityIO</key>
     <true/>
 </dict>
 </plist>

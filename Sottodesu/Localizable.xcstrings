@@ -1,9 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
-    },
+    "%@" : {},
     "%@ is empty" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -39,9 +37,7 @@
         }
       }
     },
-    "%@ items skipped (still downloading or just added)." : {
-
-    },
+    "%@ items skipped (still downloading or just added)." : {},
     "%@ of items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -77,9 +73,7 @@
         }
       }
     },
-    "%@ sorts" : {
-
-    },
+    "%@ sorts" : {},
     "%lld items" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -929,9 +923,7 @@
         }
       }
     },
-    "and %@ more" : {
-
-    },
+    "and %@ more" : {},
     "and %lld more" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6025,9 +6017,7 @@
         }
       }
     },
-    "Sort %@ items" : {
-
-    },
+    "Sort %@ items" : {},
     "Sort %@ Now" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7808,6 +7798,176 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你可以手动将 Sottodesu 拖到废纸篓。"
+          }
+        }
+      }
+    },
+    "The background item couldn’t be set up: %@" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось настроить фоновый объект: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法设置后台项目：%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목을 설정하지 못했어요: %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目を設定できませんでした：%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de configurer l’élément d’arrière-plan : %@"
+          }
+        }
+      }
+    },
+    "Background item is on. Last check: %@" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект включён. Последняя проверка: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目已开启。上次检查：%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 켜져 있어요. 마지막 확인: %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目はオンです。最終確認：%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan est actif. Dernière vérification : %@"
+          }
+        }
+      }
+    },
+    "Background item is on. Waiting for its first check." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект включён. Ждём первой проверки."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目已开启。等待首次检查。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 켜져 있어요. 첫 확인을 기다리는 중이에요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目はオンです。最初の確認を待っています。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan est actif. En attente de la première vérification."
+          }
+        }
+      }
+    },
+    "Background item is waiting for your OK in Login Items." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект ждёт вашего разрешения в «Объектах входа»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目正在等待你在“登录项”中允许。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 로그인 항목에서 허용되기를 기다리고 있어요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目は「ログイン項目」での許可を待っています。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan attend votre accord dans Ouverture."
+          }
+        }
+      }
+    },
+    "Background item isn’t set up yet. Switch a schedule off and on, with Sottodesu in your Applications folder." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фоновый объект ещё не настроен. Выключите и снова включите расписание; Sottodesu должен лежать в папке «Программы»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台项目尚未设置。请把 Sottodesu 放在“应用程序”文件夹中，然后关闭再打开某个计划。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 항목이 아직 설정되지 않았어요. Sottodesu를 응용 프로그램 폴더에 두고 예약을 껐다가 다시 켜 주세요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンド項目はまだ設定されていません。Sottodesu を「アプリケーション」フォルダに置き、スケジュールをオフにしてからオンにしてください。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’élément d’arrière-plan n’est pas encore configuré. Placez Sottodesu dans Applications, puis désactivez et réactivez une planification."
           }
         }
       }
