@@ -50,6 +50,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # Re-running for the same tag replaces the old release instead of failing or piling up duplicates.
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release delete "$GITHUB_REF_NAME" --yes
+          fi
           gh release create "$GITHUB_REF_NAME" \
             build/Sottodesu-*.dmg build/Sottodesu-*.dmg.sha256 \
             --title "Sottodesu ${GITHUB_REF_NAME#v}" \
