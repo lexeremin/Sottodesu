@@ -4,7 +4,7 @@ All notable changes to Sottodesu are listed here.
 
 ## 1.2.0 — 2026-10-28
 
-- **Schedule tab:** tidy a folder up automatically every day, week or month, even when the app is closed. Automatic sorts appear in the history, marked *Scheduled*, and can be undone. Includes a pause switch and an optional menu bar icon.
+- **Schedule tab:** tidy a folder up automatically every day, week or month. Sottodesu runs the schedules while it is open or kept in the menu bar (with an optional *Open at login*). Automatic sorts appear in the history, marked *Scheduled*, and can be undone. Includes a pause switch.
 - **Preview** what a sort would move before anything moves, and untick files you want to keep in place.
 - **Search history** to find where a single file went, and restore just that file or just one type from a sort.
 

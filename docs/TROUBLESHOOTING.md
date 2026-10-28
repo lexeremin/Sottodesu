@@ -95,9 +95,9 @@ Use **Sottodesu ▸ Uninstall Sottodesu…** to delete it and move the app to th
 
 ## My schedule doesn't run
 
-1. Open **System Settings ▸ General ▸ Login Items & Extensions** and make sure **Sottodesu** is switched on under *Allow in the Background*. The Schedule tab shows a notice with a shortcut when macOS is still waiting for your OK.
+1. **Schedules only run while Sottodesu is running.** On the Schedule tab, switch on **Keep running in the menu bar** (and **Open at login** if you want it after a restart). Look for the Sottodesu icon in the menu bar.
 2. Check that the schedule is switched on and **Pause all schedules** is off.
-3. Keep Sottodesu in your **Applications** folder. The background item doesn't work from the disk image.
-4. A Mac that is off or asleep runs a missed schedule as soon as it wakes. Files newer than ten minutes are skipped on purpose.
-5. The Schedule tab shows a line about the background item, including when it last checked. If it says "Last check" with a recent time, the item is running and the schedule simply wasn't due yet.
-6. For Desktop or Documents, macOS must have allowed Sottodesu to access the folder (**Privacy & Security ▸ Files & Folders**).
+3. The line at the top of the Schedule tab shows when Sottodesu last looked for due schedules. A recent time means it is working and the schedule just wasn't due yet. To test, press **Run Now** in the schedule's ⋯ menu.
+4. Files newer than ten minutes are skipped on purpose.
+5. For Desktop or Documents, macOS must have allowed Sottodesu to access the folder (**Privacy & Security ▸ Files & Folders**).
+6. If you turned on **Open at login** and macOS asks for approval, switch Sottodesu on under **System Settings ▸ General ▸ Login Items & Extensions**.

@@ -117,13 +117,14 @@ You don't have to undo a whole sort. Open a sort and press **Restore these** to 
 
 ## Tidy up automatically
 
-Open the **Schedule** tab, press **Add Schedule**, and pick a folder, which file types, and how often: **daily, weekly or monthly**, at a time you choose. Sottodesu then sorts that folder in the background, **even when the app is closed**, and sends a notification when it moved something.
+Open the **Schedule** tab, press **Add Schedule**, and pick a folder, which file types, and how often: **daily, weekly or monthly**, at a time you choose. Sottodesu checks every minute and sorts the folder when its time comes, then sends a notification if it moved something.
+
+**Schedules run while Sottodesu is running.** To keep it going after you close the window, switch on **Keep running in the menu bar** on the Schedule tab: Sottodesu then stays in the menu bar (and out of the Dock) with a *Sort Now* shortcut. Switch on **Open at login** to have it start quietly in the menu bar whenever you log in.
 
 - Every automatic sort is saved in your history, marked *Scheduled*, so you can look at it or undo it like any other.
-- Files newer than ten minutes are left alone, so something you just downloaded isn't swept away. If your Mac was asleep at the set time, the sort runs when it wakes.
-- The first time, macOS may ask you to allow Sottodesu under **System Settings ▸ General ▸ Login Items** (the schedule runs as a small background item). Switch it on.
-- **Pause all schedules** stops everything with one switch. **Show in the menu bar** keeps a small icon in the menu bar with a *Sort Now* shortcut after you close the window.
-- Deleting a schedule, or using **Uninstall Sottodesu…**, removes the background item again.
+- Files newer than ten minutes are left alone, so something you just downloaded isn't swept away. If your Mac was asleep or Sottodesu wasn't running at the set time, the sort runs as soon as it can.
+- **Pause all schedules** stops everything with one switch.
+- Deleting the schedules, or using **Uninstall Sottodesu…**, leaves nothing running.
 
 ## A quick tour
 
@@ -149,7 +150,7 @@ The **Report** tab shows how much Sottodesu has sorted, which categories you use
 
 ### Let it tidy up for you
 
-The **Schedule** tab keeps a folder tidy automatically: pick a folder, the file types and how often, and Sottodesu does the rest in the background. Pause everything with one switch, or add a small menu bar icon.
+The **Schedule** tab keeps a folder tidy automatically: pick a folder, the file types and how often, and Sottodesu does the rest from the menu bar. Pause everything with one switch.
 
 <p align="center">
   <img src="docs/screenshots/schedule.png" alt="The Schedule tab: a daily schedule for Downloads, with options to pause all schedules and show Sottodesu in the menu bar" width="760">
@@ -217,7 +218,7 @@ Want another language? See [Translating](docs/DEVELOPING.md#adding-or-fixing-a-t
 
 - Sottodesu **never connects to the internet.** There is no account, no analytics and no update check.
 - It only looks at **file names** inside the folder you choose and moves files. It **never opens or reads what's inside them.**
-- The only thing it stores is its history, your last choices and your schedules — in one small file at `~/Library/Application Support/Sottodesu/history.sqlite`. Schedules run through a small background item that lives inside the app itself and is removed when you delete the schedules or uninstall.
+- The only thing it stores is its history, your last choices and your schedules — in one small file at `~/Library/Application Support/Sottodesu/history.sqlite`. Nothing runs in the background except Sottodesu itself, and only if you choose to keep it in the menu bar.
 
 ## Uninstall
 

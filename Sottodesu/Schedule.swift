@@ -16,7 +16,7 @@ enum ScheduleFrequency: String, CaseIterable, Identifiable {
 }
 
 /// "Tidy this folder up every day / week / month." Stored in the history database and carried out by
-/// the background agent (or by "Run now" in the app).
+/// the app itself, which checks every minute while it is open or in the menu bar.
 struct Schedule: Identifiable, Equatable {
     /// 0 until the schedule has been saved.
     var id: Int64 = 0

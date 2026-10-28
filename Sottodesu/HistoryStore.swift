@@ -70,7 +70,7 @@ final class HistoryStore: @unchecked Sendable {
     init(databaseURL: URL) throws {
         try FileManager.default.createDirectory(
             at: databaseURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-        // The app and its background agent can both open the file; wait a moment instead of failing.
+        // Wait a moment for a busy file instead of failing.
         var configuration = Configuration()
         configuration.busyMode = .timeout(5)
         dbQueue = try DatabaseQueue(path: databaseURL.path, configuration: configuration)

@@ -13,8 +13,9 @@ enum Uninstaller {
         alert.addButton(withTitle: String(localized: "Cancel"))
         guard alert.runModal() == .alertFirstButtonReturn else { return }
 
-        // Remove the background agent's login item first, so nothing keeps running after the app is gone.
-        SchedulerAgent.unregister()
+        // Take Sottodesu out of the login items first, so nothing is left pointing at a deleted app.
+        LoginItem.set(false)
+        LegacyAgent.remove()
 
         let fm = FileManager.default
         for url in [AppPaths.supportDirectory] + AppPaths.systemGeneratedLeftovers {

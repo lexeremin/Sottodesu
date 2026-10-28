@@ -12,7 +12,7 @@ struct ScheduleView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 header
-                if model.agentStatus == .requiresApproval {
+                if model.loginItemStatus == .requiresApproval {
                     approvalNotice
                 }
                 if model.schedules.isEmpty {
@@ -42,7 +42,7 @@ struct ScheduleView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Schedule")
                     .font(.title2.weight(.semibold))
-                Text("Tidy up a folder automatically, even when Sottodesu is closed. Every automatic sort goes into your history, so you can undo it.")
+                Text("Tidy up a folder automatically while Sottodesu stays in the menu bar. Every automatic sort goes into your history, so you can undo it.")
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -79,23 +79,17 @@ struct ScheduleView: View {
         .cardBackground()
     }
 
-    /// Whether the background item is really set up and running, so a schedule that never fires can be explained.
+    /// Says plainly when schedules can run, because they only run while the app is open.
     private var backgroundStatus: some View {
         let text: String
-        if let error = model.agentError {
-            text = String(localized: "The background item couldn’t be set up: \(error)")
-        } else if model.agentStatus == .enabled {
-            if let last = model.agentLastCheck {
-                text = String(localized: "Background item is on. Last check: \(last.formatted(date: .omitted, time: .shortened))")
-            } else {
-                text = String(localized: "Background item is on. Waiting for its first check.")
-            }
-        } else if model.agentStatus == .requiresApproval {
-            text = String(localized: "Background item is waiting for your OK in Login Items.")
+        if !model.showsMenuBarIcon {
+            text = String(localized: "Schedules only run while Sottodesu is open. Switch on “Keep running in the menu bar” below to keep them going after you close the window.")
+        } else if let last = model.lastScheduleCheck {
+            text = String(localized: "Schedules run while Sottodesu is open or in the menu bar. Last check: \(last.formatted(date: .omitted, time: .shortened))")
         } else {
-            text = String(localized: "Background item isn’t set up yet. Switch a schedule off and on, with Sottodesu in your Applications folder.")
+            text = String(localized: "Schedules run while Sottodesu is open or in the menu bar. Waiting for the first check.")
         }
-        return Label(text, systemImage: model.agentStatus == .enabled && model.agentError == nil ? "checkmark.circle" : "info.circle")
+        return Label(text, systemImage: model.showsMenuBarIcon ? "checkmark.circle" : "exclamationmark.circle")
             .font(.caption)
             .foregroundStyle(.secondary)
     }
@@ -104,7 +98,7 @@ struct ScheduleView: View {
         HStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle")
                 .foregroundStyle(Color.accentColor)
-            Text("macOS needs your OK before Sottodesu can run in the background. Switch it on under Login Items.")
+            Text("macOS needs your OK before Sottodesu can open at login. Switch it on under Login Items.")
                 .font(.callout)
             Spacer()
             Button("Open Settings") { model.openLoginItemsSettings() }
@@ -129,8 +123,17 @@ struct ScheduleView: View {
                 Divider()
                 Toggle(isOn: Binding(get: { model.showsMenuBarIcon }, set: { model.setMenuBar($0) })) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Show in the menu bar")
-                        Text("Closing the window then keeps Sottodesu in the menu bar, with a Sort Now shortcut.")
+                        Text("Keep running in the menu bar")
+                        Text("Closing the window leaves Sottodesu in the menu bar, so schedules keep running. It also gets a Sort Now shortcut.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Divider()
+                Toggle(isOn: Binding(get: { model.opensAtLogin }, set: { model.setOpensAtLogin($0) })) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Open at login")
+                        Text("Starts Sottodesu quietly in the menu bar when you log in.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

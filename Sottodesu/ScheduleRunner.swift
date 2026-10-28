@@ -2,7 +2,7 @@ import Foundation
 import ServiceManagement
 import UserNotifications
 
-/// Carries out schedules. Used by the background agent and by "Run now" in the app.
+/// Carries out schedules. The app checks for due ones every minute while it is running; "Run Now" uses it too.
 enum ScheduleRunner {
     struct Outcome: Equatable {
         let scheduleID: Int64
@@ -24,12 +24,6 @@ enum ScheduleRunner {
             outcomes.append(run(schedule, store: store, now: now))
         }
         return outcomes
-    }
-
-    /// Runs every switched-on schedule right now, due or not. Used to test the background run by hand.
-    @discardableResult
-    static func runAllNow(store: HistoryStore, now: Date = Date()) -> [Outcome] {
-        ((try? store.schedules()) ?? []).filter(\.isEnabled).map { run($0, store: store, now: now) }
     }
 
     /// Sorts the schedule's folder now and records the run (marked "scheduled") in the history.
@@ -60,22 +54,6 @@ enum ScheduleRunner {
     }
 }
 
-/// What the background agent does when macOS starts it: run what is due, tell you, and quit.
-enum BackgroundRun {
-    static func execute() -> Never {
-        if let store = try? HistoryStore(databaseURL: AppPaths.database) {
-            // `--now` (for testing by hand) runs every switched-on schedule, due or not.
-            let outcomes = CommandLine.arguments.contains("--now")
-                ? ScheduleRunner.runAllNow(store: store)
-                : ScheduleRunner.runDue(store: store)
-            // A heartbeat, so the app can show that the background item really is running.
-            try? store.setSetting("agentLastCheck", String(Date().timeIntervalSince1970))
-            ScheduleNotifier.post(outcomes)
-        }
-        exit(0)
-    }
-}
-
 enum ScheduleNotifier {
     /// Asked once, when the first schedule is saved.
     static func requestPermission() {
@@ -89,45 +67,28 @@ enum ScheduleNotifier {
         content.title = "Sottodesu"
         content.body = String(localized: "Tidied up \(total) items. Open Sottodesu to look or undo.")
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
-        let done = DispatchSemaphore(value: 0)
-        UNUserNotificationCenter.current().add(request) { _ in done.signal() }
-        _ = done.wait(timeout: .now() + 5)
+        UNUserNotificationCenter.current().add(request) { _ in }
     }
 }
 
-/// The login-item agent that wakes the app up every half hour to run what is due.
-/// Its description lives inside the app (Contents/Library/LaunchAgents), so nothing is copied to your
-/// Library, and removing it is one call.
-enum SchedulerAgent {
-    static let plistName = "dev.sottodesu.app.scheduler.plist"
-
-    private static var service: SMAppService { SMAppService.agent(plistName: plistName) }
-
-    static var status: SMAppService.Status { service.status }
-
-    /// Registers the agent while at least one schedule is switched on, and removes it otherwise.
-    /// `forceRefresh` registers it again, so a new version's changed description replaces the old one.
-    /// Returns a message if macOS refused (other than "waiting for your approval", which has its own notice).
-    @discardableResult
-    static func sync(hasActiveSchedules: Bool, forceRefresh: Bool = false) -> String? {
-        var problem: String?
-        if hasActiveSchedules {
-            if forceRefresh { try? service.unregister() }
-            if service.status != .enabled {
-                do {
-                    try service.register()
-                } catch {
-                    if service.status != .requiresApproval { problem = error.localizedDescription }
-                }
-            }
-        } else {
-            unregister()
-        }
-        return problem
+/// An earlier test version registered a launchd background item, which macOS refuses to start for apps
+/// without an Apple Developer signature. This only makes sure no such item is left behind.
+enum LegacyAgent {
+    static func remove() {
+        try? SMAppService.agent(plistName: "dev.sottodesu.app.scheduler.plist").unregister()
     }
+}
 
-    static func unregister() {
-        try? service.unregister()
+/// "Open at login": starts Sottodesu when you log in (it then stays in the menu bar).
+enum LoginItem {
+    static var status: SMAppService.Status { SMAppService.mainApp.status }
+
+    static func set(_ enabled: Bool) {
+        if enabled {
+            try? SMAppService.mainApp.register()
+        } else {
+            try? SMAppService.mainApp.unregister()
+        }
     }
 
     static func openSystemSettings() {

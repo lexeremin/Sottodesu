@@ -7971,6 +7971,312 @@
           }
         }
       }
+    },
+    "Schedules only run while Sottodesu is open. Switch on “Keep running in the menu bar” below to keep them going after you close the window." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписания работают, только пока Sottodesu открыт. Включите ниже «Оставаться в строке меню», чтобы они работали и после закрытия окна."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计划只在 Sottodesu 打开时运行。请打开下方的“保留在菜单栏中运行”，这样关闭窗口后计划仍会运行。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약은 Sottodesu가 열려 있는 동안에만 실행돼요. 창을 닫은 뒤에도 실행하려면 아래의 ‘메뉴 막대에서 계속 실행’을 켜세요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールは Sottodesu が開いている間だけ実行されます。ウインドウを閉じても続けるには、下の「メニューバーで実行し続ける」をオンにしてください。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les planifications ne s’exécutent que lorsque Sottodesu est ouvert. Activez « Rester dans la barre des menus » ci-dessous pour qu’elles continuent après la fermeture de la fenêtre."
+          }
+        }
+      }
+    },
+    "Schedules run while Sottodesu is open or in the menu bar. Last check: %@" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписания работают, пока Sottodesu открыт или находится в строке меню. Последняя проверка: %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计划会在 Sottodesu 打开或位于菜单栏时运行。上次检查：%@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약은 Sottodesu가 열려 있거나 메뉴 막대에 있는 동안 실행돼요. 마지막 확인: %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールは Sottodesu が開いている間、またはメニューバーにある間に実行されます。最終確認：%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les planifications s’exécutent tant que Sottodesu est ouvert ou dans la barre des menus. Dernière vérification : %@"
+          }
+        }
+      }
+    },
+    "Schedules run while Sottodesu is open or in the menu bar. Waiting for the first check." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расписания работают, пока Sottodesu открыт или находится в строке меню. Ждём первой проверки."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "计划会在 Sottodesu 打开或位于菜单栏时运行。等待首次检查。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "예약은 Sottodesu가 열려 있거나 메뉴 막대에 있는 동안 실행돼요. 첫 확인을 기다리는 중이에요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スケジュールは Sottodesu が開いている間、またはメニューバーにある間に実行されます。最初の確認を待っています。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les planifications s’exécutent tant que Sottodesu est ouvert ou dans la barre des menus. En attente de la première vérification."
+          }
+        }
+      }
+    },
+    "Keep running in the menu bar" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оставаться в строке меню"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保留在菜单栏中运行"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메뉴 막대에서 계속 실행"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メニューバーで実行し続ける"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rester dans la barre des menus"
+          }
+        }
+      }
+    },
+    "Closing the window leaves Sottodesu in the menu bar, so schedules keep running. It also gets a Sort Now shortcut." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После закрытия окна Sottodesu остаётся в строке меню, и расписания продолжают работать. Там же есть быстрая кнопка «Разобрать сейчас»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭窗口后，Sottodesu 会留在菜单栏中，计划继续运行，并提供“立即整理”快捷方式。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "창을 닫아도 Sottodesu가 메뉴 막대에 남아 예약이 계속 실행되고, ‘지금 정리’ 바로가기도 쓸 수 있어요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウインドウを閉じても Sottodesu はメニューバーに残り、スケジュールが続行されます。「今すぐ整理」も使えます。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer la fenêtre laisse Sottodesu dans la barre des menus, et les planifications continuent. Un raccourci « Trier maintenant » s’y ajoute."
+          }
+        }
+      }
+    },
+    "Open at login" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открывать при входе"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时打开"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인 시 열기"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログイン時に開く"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir à la connexion"
+          }
+        }
+      }
+    },
+    "Starts Sottodesu quietly in the menu bar when you log in." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Запускает Sottodesu тихо в строке меню при входе в систему."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录时在菜单栏中静默启动 Sottodesu。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인하면 Sottodesu가 메뉴 막대에서 조용히 시작돼요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログイン時に Sottodesu をメニューバーで静かに起動します。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lance Sottodesu discrètement dans la barre des menus à la connexion."
+          }
+        }
+      }
+    },
+    "Tidy up a folder automatically while Sottodesu stays in the menu bar. Every automatic sort goes into your history, so you can undo it." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Наводите порядок в папке автоматически, пока Sottodesu работает в строке меню. Каждая автоматическая сортировка попадает в историю, так что её можно отменить."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在 Sottodesu 留在菜单栏期间自动整理文件夹。每次自动整理都会记入历史记录，因此可以撤销。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 메뉴 막대에 있는 동안 폴더를 자동으로 정리해요. 자동 정리도 모두 기록에 남아 되돌릴 수 있어요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu がメニューバーにある間、フォルダを自動で整理します。自動整理もすべて履歴に残るので、取り消せます。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rangez un dossier automatiquement tant que Sottodesu reste dans la barre des menus. Chaque tri automatique est ajouté à l’historique, vous pouvez donc l’annuler."
+          }
+        }
+      }
+    },
+    "macOS needs your OK before Sottodesu can open at login. Switch it on under Login Items." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS должна разрешить Sottodesu открываться при входе. Включите его в разделе «Объекты входа»."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS 需要你的许可，Sottodesu 才能在登录时打开。请在“登录项”中打开它。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu가 로그인 시 열리려면 macOS의 허용이 필요해요. 로그인 항목에서 켜 주세요."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sottodesu をログイン時に開くには macOS の許可が必要です。「ログイン項目」でオンにしてください。"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS doit autoriser Sottodesu à s’ouvrir à la connexion. Activez-le dans Ouverture."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

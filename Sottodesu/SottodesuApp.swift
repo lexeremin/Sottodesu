@@ -1,15 +1,6 @@
 import SwiftUI
 
-/// The background agent starts the same program with `--run-schedules`: it sorts what is due and quits
-/// before any window or Dock icon appears.
 @main
-enum Launcher {
-    static func main() {
-        if CommandLine.arguments.contains("--run-schedules") { BackgroundRun.execute() }
-        SottodesuApp.main()
-    }
-}
-
 struct SottodesuApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var model = DemoMode.isActive ? (DemoMode.makeModel() ?? AppModel()) : AppModel()
@@ -85,6 +76,23 @@ private struct MenuBarContent: View {
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         Task { @MainActor in SelfInstaller.offerIfNeeded() }
+
+        guard MenuBarPreference.isEnabled, Self.launchedAsLoginItem else { return }
+        // Started at login: stay quietly in the menu bar instead of opening the window.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            NSApp.windows.forEach { $0.close() }
+            NSApp.setActivationPolicy(.accessory)
+        }
+    }
+
+    /// True when macOS opened the app because it is an "open at login" item.
+    private static var launchedAsLoginItem: Bool {
+        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
+        let openApplication = AEEventID(0x6F617070)   // 'oapp'
+        let propData = AEKeyword(0x70726474)          // 'prdt'
+        let loginItem = AEKeyword(0x6C676974)         // 'lgit'
+        return event.eventID == openApplication
+            && event.paramDescriptor(forKeyword: propData)?.enumCodeValue == loginItem
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

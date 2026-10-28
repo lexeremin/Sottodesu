@@ -82,11 +82,11 @@ final class AppModel {
     var schedules: [Schedule] = []
     private(set) var schedulesPaused = false
     private(set) var showsMenuBarIcon = false
-    private(set) var agentStatus: SMAppService.Status = .notRegistered
-    /// Why macOS refused to set up the background item, if it did.
-    private(set) var agentError: String?
-    /// When the background item last looked for due schedules.
-    private(set) var agentLastCheck: Date?
+    /// When the app last looked for schedules that are due (it looks every minute while it is running).
+    private(set) var lastScheduleCheck: Date?
+    private(set) var opensAtLogin = false
+    private(set) var loginItemStatus: SMAppService.Status = .notRegistered
+    private var scheduleTimer: Timer?
 
     // What to sort, and where.
     private(set) var location: LocationKind = .downloads
@@ -110,19 +110,8 @@ final class AppModel {
             status = String(localized: "Couldn’t open the history: \(error.localizedDescription)")
         }
         restoreSettings()
-        refreshAgentIfNeeded()
         reload()
-    }
-
-    /// A new version of the app can ship a changed background item; register it again once per version.
-    private func refreshAgentIfNeeded() {
-        guard let store, rootOverride == nil else { return }
-        let info = Bundle.main.infoDictionary
-        let build = "\(info?["CFBundleShortVersionString"] as? String ?? "")-\(info?["CFBundleVersion"] as? String ?? "")"
-        guard store.setting("agentBuild") != build else { return }
-        let active = ((try? store.schedules()) ?? []).contains { $0.isEnabled }
-        agentError = SchedulerAgent.sync(hasActiveSchedules: active, forceRefresh: true)
-        try? store.setSetting("agentBuild", build)
+        startScheduler()
     }
 
     /// For screenshots only (see DemoMode.swift): a made-up history and folder.
@@ -303,8 +292,8 @@ final class AppModel {
         runs = (try? store?.runs()) ?? []
         report = (try? store?.report()) ?? HistoryReport()
         schedules = (try? store?.schedules()) ?? []
-        agentStatus = SchedulerAgent.status
-        agentLastCheck = store?.setting("agentLastCheck").flatMap(Double.init).map { Date(timeIntervalSince1970: $0) }
+        loginItemStatus = LoginItem.status
+        opensAtLogin = loginItemStatus == .enabled
     }
 
     func moves(for run: RunSummary) -> [LoggedMove] {
@@ -434,7 +423,7 @@ final class AppModel {
 
     // MARK: - Schedules
 
-    /// Saves a schedule, asks for what the background run will need, and keeps the agent in step.
+    /// Saves a schedule and asks for what an automatic run will need (folder access, notifications).
     func save(_ schedule: Schedule) {
         guard let store else { return }
         _ = try? store.save(schedule)
@@ -482,6 +471,11 @@ final class AppModel {
     }
 
     func setMenuBar(_ shown: Bool) {
+        if !shown && opensAtLogin {
+            LoginItem.set(false)
+            loginItemStatus = LoginItem.status
+            opensAtLogin = false
+        }
         showsMenuBarIcon = shown
         MenuBarPreference.isEnabled = shown
         try? store?.setSetting("menuBar", shown ? "1" : nil)
@@ -489,13 +483,62 @@ final class AppModel {
 
     private func schedulesChanged() {
         schedules = (try? store?.schedules()) ?? []
-        guard rootOverride == nil else { return }
-        agentError = SchedulerAgent.sync(hasActiveSchedules: schedules.contains { $0.isEnabled })
-        agentStatus = SchedulerAgent.status
     }
 
     func openLoginItemsSettings() {
-        SchedulerAgent.openSystemSettings()
+        LoginItem.openSystemSettings()
+    }
+
+    /// "Open at login" needs the menu bar icon, so Sottodesu can start quietly instead of opening a window.
+    func setOpensAtLogin(_ enabled: Bool) {
+        if enabled { setMenuBar(true) }
+        LoginItem.set(enabled)
+        loginItemStatus = LoginItem.status
+        opensAtLogin = loginItemStatus == .enabled
+    }
+
+    // MARK: - Running schedules (while the app is open or in the menu bar)
+
+    /// Looks for due schedules every minute, and right after the Mac wakes up.
+    private func startScheduler() {
+        guard rootOverride == nil else { return }
+        LegacyAgent.remove()
+
+        scheduleTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+            Task { @MainActor in self?.checkSchedules() }
+        }
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didWakeNotification, object: nil, queue: .main
+        ) { [weak self] _ in
+            // Give the network and disks a moment to come back.
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(5))
+                self?.checkSchedules()
+            }
+        }
+        Task {
+            try? await Task.sleep(for: .seconds(3))
+            checkSchedules()
+        }
+    }
+
+    func checkSchedules() {
+        guard let store, rootOverride == nil, !isWorking else { return }
+        lastScheduleCheck = Date()
+        guard schedules.contains(where: \.isEnabled) else { return }
+
+        Task {
+            let outcomes = await Task.detached(priority: .utility) { () -> [ScheduleRunner.Outcome] in
+                let outcomes = ScheduleRunner.runDue(store: store)
+                ScheduleNotifier.post(outcomes)
+                return outcomes
+            }.value
+            if !outcomes.isEmpty {
+                changeCount += 1
+                scanIsStale = true
+                reload()
+            }
+        }
     }
 
     // MARK: - Measuring the folder

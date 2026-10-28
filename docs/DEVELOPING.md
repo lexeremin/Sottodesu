@@ -35,7 +35,7 @@ The project signs ad hoc, which is fine for running locally. macOS may ask for D
 | `Components.swift`, `Theme.swift` | Shared views, colours, formatting |
 | `Localization.swift` | Looks strings up in every shipped language |
 | `DemoMode.swift` | Made-up data for screenshots (`--demo`) |
-| `Schedule.swift`, `ScheduleRunner.swift`, `ScheduleView.swift` | Schedules, the headless run (`--run-schedules`) and the login-item agent (`Agent/*.plist`, registered with `SMAppService`) |
+| `Schedule.swift`, `ScheduleRunner.swift`, `ScheduleView.swift` | Schedules, the in-app timer that runs them, the menu bar icon and *Open at login* (`SMAppService.mainApp`). `Agent/*.plist` is only kept so a test version's launchd item can be removed. |
 | `PreviewSheet.swift` | The preview shown before a sort (`Sorter.plan`) |
 | `Uninstaller.swift`, `AppPaths.swift` | Clean removal; every path the app touches |
 | `Localizable.xcstrings`, `InfoPlist.xcstrings` | All translations |
@@ -102,12 +102,8 @@ Scripts/build-dmg.sh 1.2.3
 
 `NOTARY_PROFILE` is created once with `xcrun notarytool store-credentials`. Making the GitHub workflow do this needs the certificate and notary credentials stored as repository secrets — not set up yet.
 
-## Testing schedules by hand
+## Why schedules run inside the app
 
-The background item starts the app with `--run-schedules`. To run every switched-on schedule right now, without waiting for its time:
+An earlier version used a launchd background item (`SMAppService.agent`). On current macOS, launchd refuses to start anything for an app that is only ad-hoc signed: the process is killed at launch with *Launch Constraint Violation*, even when the item just runs `/usr/bin/open`. So the app checks for due schedules itself, every minute and after waking from sleep, and stays alive in the menu bar. If the app is ever signed with a Developer ID, a real background agent can be reconsidered.
 
-```sh
-open -n -g -j -a /Applications/Sottodesu.app --args --run-schedules --now
-```
-
-Nothing appears on screen. Look at the History on the *Sort* tab (the run is marked *Scheduled*) and at the notification. Files newer than ten minutes are skipped on purpose.
+To test a schedule quickly, set its time a minute or two ahead with the app open, or use **Run Now** on its card.

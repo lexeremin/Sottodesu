@@ -8,7 +8,7 @@
     <array>
         <string>dev.sottodesu.app</string>
     </array>
-    <!-- Starts the app the normal way (through Launch Services) as a hidden, new instance. macOS refuses
+    <!-- Not used any more: kept only so a test version's registration can be removed. Starts the app the normal way (through Launch Services) as a hidden, new instance. macOS refuses
          to let launchd start an ad-hoc signed app's executable directly. The app notices the run-schedules argument,
          sorts what is due and quits before any window or Dock icon appears. -->
     <key>ProgramArguments</key>
