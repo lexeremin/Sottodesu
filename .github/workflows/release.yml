@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   release:
-    runs-on: macos-15
+    runs-on: macos-26
     # Optional: add these repository secrets to sign and notarize the app (needs a paid Apple Developer account).
     # Without them the release is still built, just ad-hoc signed.
     env:

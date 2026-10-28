@@ -4,7 +4,7 @@ A small SwiftUI app for macOS 15+. One dependency: [GRDB.swift](https://github.c
 
 ## Build and run
 
-You need Xcode 16 or newer and [XcodeGen](https://github.com/yonaskolb/XcodeGen). The Xcode project is generated from `project.yml` and is not checked in.
+You need Xcode 26 or newer (release builds use it, so the app gets the current macOS look) and [XcodeGen](https://github.com/yonaskolb/XcodeGen). The Xcode project is generated from `project.yml` and is not checked in.
 
 ```sh
 brew install xcodegen
