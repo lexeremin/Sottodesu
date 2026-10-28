@@ -26,7 +26,7 @@ final class SottodesuTests: XCTestCase {
         fm.createFile(atPath: root.appendingPathComponent(name).path, contents: Data(contents.utf8))
     }
 
-    private func dir(_ category: Category) -> String { category.folderName }
+    private func dir(_ category: FileCategory) -> String { category.folderName }
 
     private func exists(_ relativePath: String) -> Bool {
         fm.fileExists(atPath: root.appendingPathComponent(relativePath).path)
@@ -42,29 +42,32 @@ final class SottodesuTests: XCTestCase {
     // MARK: - Tests
 
     func testCategoriesByExtension() {
-        XCTAssertEqual(Category.of(extension: "JPG"), .images)
-        XCTAssertEqual(Category.of(extension: "arw"), .images)
-        XCTAssertEqual(Category.of(extension: "mp3"), .audio)
-        XCTAssertEqual(Category.of(extension: "pdf"), .documents)
-        XCTAssertEqual(Category.of(extension: "md"), .documents)
-        XCTAssertEqual(Category.of(extension: "epub"), .books)
-        XCTAssertEqual(Category.of(extension: "mobi"), .books)
-        XCTAssertEqual(Category.of(extension: "dmg"), .installers)
-        XCTAssertEqual(Category.of(extension: "stl"), .models3D)
-        XCTAssertEqual(Category.of(extension: "3mf"), .models3D)
-        XCTAssertEqual(Category.of(extension: "apkg"), .anki)
-        XCTAssertEqual(Category.of(extension: "ovpn"), .config)
-        XCTAssertEqual(Category.of(extension: "mobileconfig"), .config)
-        XCTAssertEqual(Category.of(extension: "py"), .code)
-        XCTAssertEqual(Category.of(extension: "ttf"), .fonts)
-        XCTAssertEqual(Category.of(extension: "psd"), .design)
-        XCTAssertEqual(Category.of(extension: ""), .other)
-        XCTAssertEqual(Category.of(extension: "xyz"), .other)
+        XCTAssertEqual(FileCategory.of(extension: "JPG"), .images)
+        XCTAssertEqual(FileCategory.of(extension: "arw"), .images)
+        XCTAssertEqual(FileCategory.of(extension: "mp3"), .audio)
+        XCTAssertEqual(FileCategory.of(extension: "pdf"), .documents)
+        XCTAssertEqual(FileCategory.of(extension: "md"), .documents)
+        XCTAssertEqual(FileCategory.of(extension: "epub"), .books)
+        XCTAssertEqual(FileCategory.of(extension: "mobi"), .books)
+        XCTAssertEqual(FileCategory.of(extension: "dmg"), .installers)
+        XCTAssertEqual(FileCategory.of(extension: "stl"), .models3D)
+        XCTAssertEqual(FileCategory.of(extension: "3mf"), .models3D)
+        XCTAssertEqual(FileCategory.of(extension: "apkg"), .anki)
+        XCTAssertEqual(FileCategory.of(extension: "ovpn"), .config)
+        XCTAssertEqual(FileCategory.of(extension: "pem"), .secrets)
+        XCTAssertEqual(FileCategory.of(extension: "cert"), .secrets)
+        XCTAssertEqual(FileCategory.of(extension: "env"), .secrets)
+        XCTAssertEqual(FileCategory.of(extension: "mobileconfig"), .config)
+        XCTAssertEqual(FileCategory.of(extension: "py"), .code)
+        XCTAssertEqual(FileCategory.of(extension: "ttf"), .fonts)
+        XCTAssertEqual(FileCategory.of(extension: "psd"), .design)
+        XCTAssertEqual(FileCategory.of(extension: ""), .other)
+        XCTAssertEqual(FileCategory.of(extension: "xyz"), .other)
     }
 
     func testExtensionsBelongToOnlyOneCategory() {
-        var seen: [String: Category] = [:]
-        for category in Category.allCases {
+        var seen: [String: FileCategory] = [:]
+        for category in FileCategory.allCases {
             for ext in category.extensions {
                 XCTAssertNil(seen[ext], "\(ext) is listed in both \(seen[ext]!.rawValue) and \(category.rawValue)")
                 seen[ext] = category
@@ -72,7 +75,7 @@ final class SottodesuTests: XCTestCase {
         }
     }
 
-    func testSortsIntoFoldersAndSkipsHiddenAndPartialFiles() throws {
+    func testSortsIntoFoldersAndSkipsSystemHiddenAndPartialFiles() throws {
         touch("photo.jpg")
         touch("song.mp3")
         touch("report.pdf")
@@ -80,11 +83,12 @@ final class SottodesuTests: XCTestCase {
         touch("mystery.xyz")
         touch("noextension")
         touch(".hidden")
+        touch(".DS_Store")
         touch("movie.mp4.crdownload")
 
         let result = try sortAll()
 
-        XCTAssertEqual(result.summary.moved, 6)
+        XCTAssertEqual(result.summary.moved, 7)
         XCTAssertEqual(result.summary.skipped, 1)
         XCTAssertTrue(exists("\(dir(.images))/photo.jpg"))
         XCTAssertTrue(exists("\(dir(.audio))/song.mp3"))
@@ -92,7 +96,8 @@ final class SottodesuTests: XCTestCase {
         XCTAssertTrue(exists("\(dir(.books))/novel.epub"))
         XCTAssertTrue(exists("\(dir(.other))/mystery.xyz"))
         XCTAssertTrue(exists("\(dir(.other))/noextension"))
-        XCTAssertTrue(exists(".hidden"))
+        XCTAssertTrue(exists("\(dir(.config))/.hidden"))
+        XCTAssertTrue(exists(".DS_Store"))
         XCTAssertTrue(exists("movie.mp4.crdownload"))
     }
 
@@ -313,14 +318,14 @@ final class SottodesuTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(Localized.languageBundles.count, 5)
 
         for bundle in Localized.languageBundles {
-            let names = Category.allCases.map { Localized.string($0.rawValue, in: bundle) }
+            let names = FileCategory.allCases.map { Localized.string($0.rawValue, in: bundle) }
             XCTAssertEqual(Set(names).count, names.count, "Two categories share a folder name in \(bundle.bundlePath)")
             XCTAssertFalse(names.contains { $0.isEmpty || $0.contains("/") || $0.contains(":") })
         }
     }
 
     func testExistingFolderInAnotherLanguageIsReused() throws {
-        guard let other = Category.images.knownFolderNames.first(where: { $0 != Category.images.folderName }) else {
+        guard let other = FileCategory.images.knownFolderNames.first(where: { $0 != FileCategory.images.folderName }) else {
             throw XCTSkip("Only one spelling of the Images folder is available")
         }
         try fm.createDirectory(at: root.appendingPathComponent(other), withIntermediateDirectories: true)
@@ -334,7 +339,7 @@ final class SottodesuTests: XCTestCase {
     }
 
     func testCategoryFoldersInAnyLanguageAreLeftAlone() throws {
-        let spellings = Category.documents.knownFolderNames
+        let spellings = FileCategory.documents.knownFolderNames
         for name in spellings {
             try fm.createDirectory(at: root.appendingPathComponent(name), withIntermediateDirectories: true)
         }
@@ -346,16 +351,63 @@ final class SottodesuTests: XCTestCase {
     }
 
     func testFolderNamesResolveBackToCategories() {
-        for category in Category.allCases {
+        for category in FileCategory.allCases {
             for name in category.knownFolderNames {
-                XCTAssertEqual(Category.fromFolderName(name), category, "\(name)")
+                XCTAssertEqual(FileCategory.fromFolderName(name), category, "\(name)")
             }
         }
-        XCTAssertNil(Category.fromFolderName("my-project"))
+        XCTAssertNil(FileCategory.fromFolderName("my-project"))
     }
 
     func testBreakdownUsesDisplayNames() {
         let text = CategoryCount.describe([CategoryCount(name: "Images", count: 2), CategoryCount(name: "Code", count: 1)])
-        XCTAssertEqual(text, "\(Category.images.displayName) (2) · \(Category.code.displayName) (1)")
+        XCTAssertEqual(text, "\(FileCategory.images.displayName) (2) · \(FileCategory.code.displayName) (1)")
+    }
+
+    // MARK: - Hidden files and secrets
+
+    func testClassifiesByWholeFileName() {
+        XCTAssertEqual(FileCategory.of(fileName: ".gitignore"), .config)
+        XCTAssertEqual(FileCategory.of(fileName: ".zshrc"), .config)
+        XCTAssertEqual(FileCategory.of(fileName: ".env"), .secrets)
+        XCTAssertEqual(FileCategory.of(fileName: ".env.local"), .secrets)
+        XCTAssertEqual(FileCategory.of(fileName: ".env.example"), .config)
+        XCTAssertEqual(FileCategory.of(fileName: ".cert"), .secrets)
+        XCTAssertEqual(FileCategory.of(fileName: ".npmrc"), .secrets)
+        XCTAssertEqual(FileCategory.of(fileName: "server.cert"), .secrets)
+        XCTAssertEqual(FileCategory.of(fileName: "production.env"), .secrets)
+        XCTAssertEqual(FileCategory.of(fileName: "id_ed25519"), .secrets)
+        XCTAssertEqual(FileCategory.of(fileName: "id_ed25519.pub"), .other)
+        XCTAssertEqual(FileCategory.of(fileName: "vpn.ovpn"), .config)
+        XCTAssertEqual(FileCategory.of(fileName: "Photo.JPG"), .images)
+    }
+
+    func testDotfilesGoToConfigAndSecretsToTheirOwnPrivateFolder() throws {
+        touch(".gitignore")
+        touch(".env")
+        touch(".env.production")
+        touch("server.cert")
+        touch("ca.pem")
+        touch("vpn.ovpn")
+        try fm.createDirectory(at: root.appendingPathComponent(".ssh"), withIntermediateDirectories: true)
+        touch(".DS_Store")
+        touch(".localized")
+        touch("._photo.jpg")
+        touch(".com.google.Chrome.abc123")
+
+        let result = try sortAll()
+
+        XCTAssertEqual(result.summary.moved, 6)
+        XCTAssertTrue(exists("\(dir(.config))/.gitignore"))
+        XCTAssertTrue(exists("\(dir(.config))/vpn.ovpn"))
+        for name in [".env", ".env.production", "server.cert", "ca.pem"] {
+            XCTAssertTrue(exists("\(dir(.secrets))/\(name)"), name)
+        }
+        for name in [".ssh", ".DS_Store", ".localized", "._photo.jpg", ".com.google.Chrome.abc123"] {
+            XCTAssertTrue(exists(name), "\(name) should stay where it is")
+        }
+
+        let attributes = try fm.attributesOfItem(atPath: root.appendingPathComponent(dir(.secrets)).path)
+        XCTAssertEqual((attributes[.posixPermissions] as? NSNumber)?.intValue, 0o700)
     }
 }

@@ -32,22 +32,34 @@ The project signs ad hoc, which is fine for running locally. macOS may ask for D
 | `ContentView.swift`, `ReportView.swift`, `LargestFilesView.swift` | The three tabs |
 | `Components.swift`, `Theme.swift` | Shared views, colours, formatting |
 | `Localization.swift` | Looks strings up in every shipped language |
+| `DemoMode.swift` | Made-up data for screenshots (`--demo`) |
 | `Uninstaller.swift`, `AppPaths.swift` | Clean removal; every path the app touches |
 | `Localizable.xcstrings`, `InfoPlist.xcstrings` | All translations |
 | `Tools/make_icon.py` | Draws the app icon set (needs Pillow) |
 | `Scripts/build-dmg.sh` | Builds the installer disk image |
+| `Scripts/take-screenshots.sh` | Takes the README screenshots in demo mode |
 
 ### Design rules worth keeping
 
 - **Footprint:** the app writes one file (the history database) and nothing else — no preferences, no saved window state, no caches. Keep it that way; `AppPaths.swift` lists every location.
 - **Never overwrite, never delete.** Sorting and undo only move files, and they skip rather than clobber.
-- **The database stores stable English category identifiers** (`Category.rawValue`, e.g. `"Images"`), never translated names, so changing language never breaks the history. Translate only for display (`Localized.string(id)`) and for folder names on disk.
+- **The database stores stable English category identifiers** (`FileCategory.rawValue`, e.g. `"Images"`), never translated names, so changing language never breaks the history. Translate only for display (`Localized.string(id)`) and for folder names on disk.
+
+## Screenshots
+
+The images in `docs/screenshots/` are generated, not hand-made, so they can be refreshed whenever the UI changes:
+
+```sh
+Scripts/take-screenshots.sh
+```
+
+It builds the app, launches it in **demo mode** (`Sottodesu --demo --tab sort|report|largest`, which uses invented data in a temporary folder and never touches your real Downloads or history) in light and dark appearance and in every language, and saves the window with `screencapture`. The first run asks for Screen Recording permission for your terminal. Don't touch the keyboard or mouse while it runs. Commit the updated PNGs.
 
 ## Languages
 
 Shipped: English (source), Русский (`ru`), 简体中文 (`zh-Hans`), 한국어 (`ko`), 日本語 (`ja`), Français (`fr`).
 
-Folder names on disk follow the system language. To keep existing folders working after a language change, the app treats a folder in **any** shipped language as that category's folder (`Category.knownFolderNames`) and reuses whichever exists.
+Folder names on disk follow the system language. The **Keys & Secrets** folder is created with owner-only permissions (0700). To keep existing folders working after a language change, the app treats a folder in **any** shipped language as that category's folder (`FileCategory.knownFolderNames`) and reuses whichever exists.
 
 ### Adding or fixing a translation
 

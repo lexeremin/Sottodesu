@@ -2,7 +2,7 @@ import Foundation
 import GRDB
 
 struct CategoryStat: Identifiable, Equatable {
-    /// The category's stable identifier (`Category.rawValue`).
+    /// The category's stable identifier (`FileCategory.rawValue`).
     let name: String
     let count: Int
     let bytes: Int64

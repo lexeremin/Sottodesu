@@ -4,7 +4,7 @@ import Foundation
 ///
 /// The raw value is a stable English identifier (it is what the history database stores).
 /// The folder created on disk is named in the system language; see `folderName`.
-enum Category: String, CaseIterable {
+enum FileCategory: String, CaseIterable {
     case images = "Images"
     case videos = "Videos"
     case audio = "Audio"
@@ -15,6 +15,7 @@ enum Category: String, CaseIterable {
     case models3D = "3D Models"
     case anki = "Anki"
     case config = "Config & VPN"
+    case secrets = "Keys & Secrets"
     case code = "Code"
     case fonts = "Fonts"
     case design = "Design"
@@ -45,8 +46,10 @@ enum Category: String, CaseIterable {
         case .anki:
             return ["apkg", "colpkg"]
         case .config:
-            return ["ovpn", "conf", "mobileconfig", "json", "yaml", "yml", "toml", "ini", "cfg", "plist",
-                    "pem", "crt", "cer", "p12", "pfx"]
+            return ["ovpn", "conf", "mobileconfig", "json", "yaml", "yml", "toml", "ini", "cfg", "plist"]
+        case .secrets:
+            return ["env", "pem", "crt", "cer", "cert", "csr", "p12", "pfx", "p8", "ppk", "jks", "keystore",
+                    "kdbx", "gpg"]
         case .code:
             return ["py", "js", "ts", "tsx", "jsx", "swift", "c", "h", "cpp", "hpp", "rs", "go", "java",
                     "rb", "php", "lua", "sh", "ipynb", "sql"]
@@ -71,7 +74,8 @@ enum Category: String, CaseIterable {
         case .installers: return "shippingbox"
         case .models3D: return "cube"
         case .anki: return "rectangle.stack"
-        case .config: return "lock.shield"
+        case .config: return "gearshape"
+        case .secrets: return "key.fill"
         case .code: return "chevron.left.forwardslash.chevron.right"
         case .fonts: return "textformat"
         case .design: return "paintpalette"
@@ -80,12 +84,39 @@ enum Category: String, CaseIterable {
         }
     }
 
-    static func of(extension ext: String) -> Category {
+    static func of(extension ext: String) -> FileCategory {
         let lowered = ext.lowercased()
         for category in allCases where category.extensions.contains(lowered) {
             return category
         }
         return .other
+    }
+
+    /// The category for a file, judged by its whole name: dotfiles are configuration (or secrets),
+    /// SSH private keys have no extension, and everything else goes by extension.
+    static func of(fileName: String) -> FileCategory {
+        let lower = fileName.lowercased()
+        if lower.hasPrefix(".") {
+            return isSecretDotfile(lower) ? .secrets : .config
+        }
+        if secretNamePrefixes.contains(where: { lower.hasPrefix($0) }) && !lower.hasSuffix(".pub") {
+            return .secrets
+        }
+        return of(extension: (fileName as NSString).pathExtension)
+    }
+
+    private static let secretNamePrefixes = ["id_rsa", "id_dsa", "id_ecdsa", "id_ed25519"]
+
+    /// Dotfiles that usually hold credentials.
+    private static let secretDotfiles: Set<String> = [
+        ".netrc", ".npmrc", ".pgpass", ".htpasswd", ".git-credentials", ".pypirc", ".dockercfg", ".s3cfg", ".boto",
+    ]
+
+    private static func isSecretDotfile(_ lower: String) -> Bool {
+        // Templates such as ".env.example" hold no real secrets.
+        if [".example", ".sample", ".template"].contains(where: { lower.hasSuffix($0) }) { return false }
+        if lower == ".env" || lower.hasPrefix(".env.") || secretDotfiles.contains(lower) { return true }
+        return FileCategory.secrets.extensions.contains { lower.hasSuffix("." + $0) }
     }
 
     // MARK: Names
@@ -98,10 +129,10 @@ enum Category: String, CaseIterable {
 
     /// Every name this category's folder may have had, in any supported language. The current
     /// language comes first. Names are Unicode-normalised so they compare reliably with disk names.
-    var knownFolderNames: [String] { Category.variants[self] ?? [Category.normalize(rawValue)] }
+    var knownFolderNames: [String] { FileCategory.variants[self] ?? [FileCategory.normalize(rawValue)] }
 
     /// Which category a folder name belongs to, in any supported language.
-    static func fromFolderName(_ name: String) -> Category? { byFolderName[normalize(name)] }
+    static func fromFolderName(_ name: String) -> FileCategory? { byFolderName[normalize(name)] }
 
     static func isCategoryFolderName(_ name: String) -> Bool { fromFolderName(name) != nil }
 
@@ -110,14 +141,14 @@ enum Category: String, CaseIterable {
     }
 
     static func symbol(for name: String) -> String {
-        Category(rawValue: name)?.symbol ?? "tray"
+        FileCategory(rawValue: name)?.symbol ?? "tray"
     }
 
     static func normalize(_ name: String) -> String { name.precomposedStringWithCanonicalMapping }
 
-    private static let variants: [Category: [String]] = {
-        var result: [Category: [String]] = [:]
-        for category in Category.allCases {
+    private static let variants: [FileCategory: [String]] = {
+        var result: [FileCategory: [String]] = [:]
+        for category in FileCategory.allCases {
             var names = [category.displayName]
             for bundle in Localized.languageBundles {
                 names.append(Localized.string(category.rawValue, in: bundle))
@@ -129,9 +160,9 @@ enum Category: String, CaseIterable {
         return result
     }()
 
-    private static let byFolderName: [String: Category] = {
-        var result: [String: Category] = [:]
-        for category in Category.allCases {
+    private static let byFolderName: [String: FileCategory] = {
+        var result: [String: FileCategory] = [:]
+        for category in FileCategory.allCases {
             for name in category.knownFolderNames where result[name] == nil {
                 result[name] = category
             }
@@ -142,14 +173,14 @@ enum Category: String, CaseIterable {
 
 /// A category name with how many items went into it.
 struct CategoryCount: Equatable, Hashable {
-    /// The category's stable identifier (`Category.rawValue`).
+    /// The category's stable identifier (`FileCategory.rawValue`).
     let name: String
     let count: Int
 
     /// Orders counts the same way the folders are listed above.
     static func sorted(_ counts: [CategoryCount]) -> [CategoryCount] {
         counts.sorted {
-            let (a, b) = (Category.order(of: $0.name), Category.order(of: $1.name))
+            let (a, b) = (FileCategory.order(of: $0.name), FileCategory.order(of: $1.name))
             return a == b ? $0.name < $1.name : a < b
         }
     }
@@ -198,6 +229,17 @@ struct Sorter {
     /// Items modified more recently than this (in seconds) are left alone, in case they are still downloading.
     var minimumAge: TimeInterval = 5
 
+    /// Hidden files that macOS and apps create on their own. They are never moved.
+    static func isSystemHiddenName(_ name: String) -> Bool {
+        if systemHiddenNames.contains(name) { return true }
+        return ["._", ".com.", ".~"].contains { name.hasPrefix($0) }
+    }
+
+    private static let systemHiddenNames: Set<String> = [
+        ".DS_Store", ".localized", ".Trashes", ".fseventsd", ".Spotlight-V100", ".TemporaryItems",
+        ".DocumentRevisions-V100", ".VolumeIcon.icns", ".apdisk",
+    ]
+
     static let partialExtensions: Set<String> = ["crdownload", "download", "part", "opdownload", "partial", "tmp"]
 
     /// Moves items one at a time and calls `onMoved` after each successful move, so the history never
@@ -206,7 +248,7 @@ struct Sorter {
         let fm = FileManager.default
         let keys: [URLResourceKey] = [.isRegularFileKey, .isDirectoryKey, .isPackageKey, .isSymbolicLinkKey,
                                       .contentModificationDateKey, .fileSizeKey]
-        let items = try fm.contentsOfDirectory(at: root, includingPropertiesForKeys: keys, options: [.skipsHiddenFiles])
+        let items = try fm.contentsOfDirectory(at: root, includingPropertiesForKeys: keys, options: [])
         var summary = SortSummary()
 
         for item in items.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
@@ -214,13 +256,18 @@ struct Sorter {
             if values.isSymbolicLink == true { continue }
 
             let isFolder = values.isDirectory == true
-            let category: Category
+            let name = item.lastPathComponent
+            // Hidden files are sorted like any other file, but hidden folders and the hidden
+            // clutter macOS creates (.DS_Store, .localized, ._*) are left alone.
+            if name.hasPrefix("."), isFolder || Sorter.isSystemHiddenName(name) { continue }
+
+            let category: FileCategory
             if isFolder {
                 // Our own folders (in any language) and app bundles stay put; everything else is a loose project.
-                if values.isPackage == true || Category.isCategoryFolderName(item.lastPathComponent) { continue }
+                if values.isPackage == true || FileCategory.isCategoryFolderName(item.lastPathComponent) { continue }
                 category = .projects
             } else if values.isRegularFile == true {
-                category = Category.of(extension: item.pathExtension)
+                category = FileCategory.of(fileName: name)
             } else {
                 continue
             }
@@ -259,7 +306,7 @@ struct Sorter {
     /// Reuses the category's folder if it already exists in any supported language, so changing the
     /// system language never splits your files across "Images" and "Изображения".
     /// Otherwise creates it, named in the current language.
-    private func destinationFolder(for category: Category) throws -> (url: URL, created: Bool) {
+    private func destinationFolder(for category: FileCategory) throws -> (url: URL, created: Bool) {
         let fm = FileManager.default
         var isDirectory: ObjCBool = false
 
@@ -272,7 +319,9 @@ struct Sorter {
 
         let url = root.appendingPathComponent(category.folderName, isDirectory: true)
         if fm.fileExists(atPath: url.path) { throw SorterError.folderBlockedByFile(category.folderName) }
-        try fm.createDirectory(at: url, withIntermediateDirectories: false)
+        // Credentials and keys get a folder only you can open.
+        let attributes: [FileAttributeKey: Any]? = category == .secrets ? [.posixPermissions: 0o700] : nil
+        try fm.createDirectory(at: url, withIntermediateDirectories: false, attributes: attributes)
         return (url, true)
     }
 

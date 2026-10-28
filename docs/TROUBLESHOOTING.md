@@ -39,12 +39,18 @@ That means there was nothing to move. Common reasons:
 
 - Your Downloads folder is already sorted.
 - The files are **still downloading** or were **added in the last few seconds**. Wait a moment and press Sort again.
-- The only things left are **apps**, **hidden files** or **symbolic links**. Sottodesu leaves those alone.
+- The only things left are **apps**, **hidden folders**, **symbolic links** or macOS's own hidden files (`.DS_Store`, `.localized`). Sottodesu leaves those alone.
 - Sottodesu sorts what is **directly inside** Downloads. It doesn't reach into folders it didn't create — but it does move those whole folders into **Projects**.
 
 ## A file didn't move
 
 See the list above. Also: Sottodesu skips anything that is still being written (`.crdownload`, `.download`, `.part` and similar). Once the download finishes, sort again.
+
+## Where did my hidden files (like `.env` or `.gitignore`) go?
+
+Sottodesu sorts hidden "dot" files too: into **Config & VPN**, or into **Keys & Secrets** if they hold credentials (`.env`, `.npmrc`, certificates, SSH keys…). They stay hidden after they move — press **⌘⇧.** (Command-Shift-Period) in Finder to show hidden files. Open the **History** card of the sort to see exactly where each one went, and **Undo** puts them back.
+
+Hidden *folders* (like `.git` or `.ssh`) are never moved.
 
 ## Undo says some items "couldn't be restored"
 

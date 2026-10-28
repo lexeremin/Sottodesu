@@ -13,7 +13,7 @@ extension Color {
 
 /// Muted, paper-and-ink colours for the charts. The interface itself stays black and white;
 /// colour is only used to tell categories apart, and vermilion is reserved for "needs attention".
-extension Category {
+extension FileCategory {
     var color: Color {
         switch self {
         case .images: return Color(hex: 0x5B7DB1)
@@ -26,6 +26,7 @@ extension Category {
         case .models3D: return Color(hex: 0x4F9A8F)
         case .anki: return Color(hex: 0x7DA55C)
         case .config: return Color(hex: 0x4F7A9E)
+        case .secrets: return Color(hex: 0x8A3B4A)
         case .code: return Color(hex: 0x3E8E6A)
         case .fonts: return Color(hex: 0xC77B5A)
         case .design: return Color(hex: 0xB9658F)
@@ -39,8 +40,8 @@ enum Theme {
     /// Colour for a category folder name or a scan group name.
     static func color(forGroup name: String) -> Color {
         if name == ScanGroup.unsorted { return .accentColor }
-        if name == ScanGroup.loose { return Category.projects.color }
-        return Category(rawValue: name)?.color ?? Color(hex: 0xB8B8B8)
+        if name == ScanGroup.loose { return FileCategory.projects.color }
+        return FileCategory(rawValue: name)?.color ?? Color(hex: 0xB8B8B8)
     }
 }
 

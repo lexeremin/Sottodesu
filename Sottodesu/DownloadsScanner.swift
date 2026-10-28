@@ -1,7 +1,7 @@
 import Foundation
 
 /// Group identifiers for what is found in Downloads. A category folder's group is the category's
-/// stable identifier (`Category.rawValue`); these two are the rest. All of them are also string
+/// stable identifier (`FileCategory.rawValue`); these two are the rest. All of them are also string
 /// catalog keys, so `Localized.string(id)` gives the name to show.
 enum ScanGroup {
     /// Files sitting directly in Downloads.
@@ -101,7 +101,7 @@ enum DownloadsScanner {
     private static func group(for url: URL, rootDepth: Int) -> String {
         let parts = url.pathComponents
         if parts.count <= rootDepth + 1 { return ScanGroup.unsorted }
-        return Category.fromFolderName(parts[rootDepth])?.rawValue ?? ScanGroup.loose
+        return FileCategory.fromFolderName(parts[rootDepth])?.rawValue ?? ScanGroup.loose
     }
 
     private static func packageSize(_ url: URL) -> Int64 {

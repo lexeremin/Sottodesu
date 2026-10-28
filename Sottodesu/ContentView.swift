@@ -216,7 +216,7 @@ private struct RunCard: View {
                         Label {
                             Text(verbatim: "\(Localized.string(group.name)) · \(group.moves.count)")
                         } icon: {
-                            Image(systemName: Category.symbol(for: group.name))
+                            Image(systemName: FileCategory.symbol(for: group.name))
                                 .foregroundStyle(Theme.color(forGroup: group.name))
                         }
                         .font(.callout.weight(.semibold))
@@ -261,7 +261,7 @@ private struct RunCard: View {
         Dictionary(grouping: moves, by: \.category)
             .map { MoveGroup(name: $0.key, moves: $0.value) }
             .sorted {
-                let (a, b) = (Category.order(of: $0.name), Category.order(of: $1.name))
+                let (a, b) = (FileCategory.order(of: $0.name), FileCategory.order(of: $1.name))
                 return a == b ? $0.name < $1.name : a < b
             }
     }

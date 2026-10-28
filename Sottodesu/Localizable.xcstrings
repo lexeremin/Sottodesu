@@ -2124,6 +2124,41 @@
         }
       }
     },
+    "Keys & Secrets" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clés et secrets"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鍵と機密情報"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "키 및 보안 정보"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ключи и секреты"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密钥与机密"
+          }
+        }
+      }
+    },
     "Largest file" : {
       "extractionState" : "stale",
       "localizations" : {

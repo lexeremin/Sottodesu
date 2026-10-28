@@ -30,18 +30,30 @@ final class AppModel {
     private(set) var lastSortRunID: Int64?
 
     private let store: HistoryStore?
-    private let downloads = AppPaths.downloads
+    private let downloads: URL
     private var scanIsStale = true
     /// Bumped whenever files move, so a scan that was already running can tell it is out of date.
     private var changeCount = 0
 
     init() {
+        downloads = AppPaths.downloads
         do {
             store = try HistoryStore(databaseURL: AppPaths.database)
         } catch {
             store = nil
             status = String(localized: "Couldn’t open the history: \(error.localizedDescription)")
         }
+        reload()
+    }
+
+    /// For screenshots only (see DemoMode.swift): a made-up history and Downloads folder.
+    init(demoStore: HistoryStore, downloads: URL, scan: ScanResult, status: String, lastSortRunID: Int64?) {
+        self.store = demoStore
+        self.downloads = downloads
+        self.scan = scan
+        self.status = status
+        self.lastSortRunID = lastSortRunID
+        scanIsStale = false
         reload()
     }
 

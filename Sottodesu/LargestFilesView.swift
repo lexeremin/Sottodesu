@@ -1,5 +1,6 @@
 import AppKit
 import SwiftUI
+import UniformTypeIdentifiers
 
 private let allLocations = "All locations"
 
@@ -87,7 +88,7 @@ struct LargestFilesView: View {
         return Table(items, selection: $selection, sortOrder: $sortOrder) {
             TableColumn("Name", value: \.name) { item in
                 HStack(spacing: 8) {
-                    Image(nsImage: NSWorkspace.shared.icon(forFile: item.url.path))
+                    Image(nsImage: fileIcon(for: item.url))
                         .resizable()
                         .frame(width: 18, height: 18)
                     Text(item.name)
@@ -163,4 +164,12 @@ struct LargestFilesView: View {
             }
             .sorted(using: sortOrder)
     }
+}
+
+/// The file's own icon, or the icon for its type if the file isn't on disk (as in demo mode).
+private func fileIcon(for url: URL) -> NSImage {
+    if FileManager.default.fileExists(atPath: url.path) {
+        return NSWorkspace.shared.icon(forFile: url.path)
+    }
+    return NSWorkspace.shared.icon(for: UTType(filenameExtension: url.pathExtension) ?? .data)
 }

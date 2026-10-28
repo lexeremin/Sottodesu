@@ -3,7 +3,7 @@ import SwiftUI
 @main
 struct SottodesuApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    @State private var model = AppModel()
+    @State private var model = DemoMode.isActive ? (DemoMode.makeModel() ?? AppModel()) : AppModel()
 
     var body: some Scene {
         Window("Sottodesu", id: "main") {
