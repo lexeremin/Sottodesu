@@ -647,10 +647,12 @@ final class SottodesuTests: XCTestCase {
 
     func testSortingOnlyTheApprovedPaths() throws {
         touch("a.jpg"); touch("b.jpg"); touch("c.pdf")
-        let approved: Set<String> = [root.appendingPathComponent("a.jpg").path]
+        // Take the path the way the sorter reports it (macOS may spell /var as /private/var).
+        let sorter = Sorter(root: root, minimumAge: 0)
+        let first = try XCTUnwrap(try sorter.plan().candidates.first { $0.url.lastPathComponent == "a.jpg" })
+        let approved: Set<String> = [first.url.path]
         let runID = try store.beginRun()
-        let summary = try Sorter(root: root, minimumAge: 0)
-            .sort(only: approved) { try self.store.record($0, runID: runID) }
+        let summary = try sorter.sort(only: approved) { try self.store.record($0, runID: runID) }
         XCTAssertEqual(summary.moved, 1)
         XCTAssertTrue(exists("\(dir(.images))/a.jpg"))
         XCTAssertTrue(exists("b.jpg"))
