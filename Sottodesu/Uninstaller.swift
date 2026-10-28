@@ -7,10 +7,10 @@ enum Uninstaller {
     static func confirmAndRun() {
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.messageText = "Uninstall Sottodesu?"
-        alert.informativeText = "This deletes Sottodesu’s history and moves the app to the Trash. Files that are already sorted stay where they are, and you won’t be able to undo past sorts."
-        alert.addButton(withTitle: "Uninstall")
-        alert.addButton(withTitle: "Cancel")
+        alert.messageText = String(localized: "Uninstall Sottodesu?")
+        alert.informativeText = String(localized: "This deletes Sottodesu’s history and moves the app to the Trash. Files that are already sorted stay where they are, and you won’t be able to undo past sorts.")
+        alert.addButton(withTitle: String(localized: "Uninstall"))
+        alert.addButton(withTitle: String(localized: "Cancel"))
         guard alert.runModal() == .alertFirstButtonReturn else { return }
 
         let fm = FileManager.default
@@ -22,8 +22,8 @@ enum Uninstaller {
             DispatchQueue.main.async {
                 if error != nil {
                     let failure = NSAlert()
-                    failure.messageText = "Data removed, but the app couldn’t be moved to the Trash."
-                    failure.informativeText = "You can drag Sottodesu to the Trash yourself."
+                    failure.messageText = String(localized: "Data removed, but the app couldn’t be moved to the Trash.")
+                    failure.informativeText = String(localized: "You can drag Sottodesu to the Trash yourself.")
                     failure.runModal()
                 }
                 NSApp.terminate(nil)

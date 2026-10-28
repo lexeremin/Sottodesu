@@ -10,14 +10,26 @@ struct SottodesuApp: App {
             ContentView()
                 .environment(model)
         }
-        .defaultSize(width: 480, height: 560)
+        .defaultSize(width: 860, height: 660)
         .windowResizability(.contentMinSize)
+        .windowToolbarStyle(.unified(showsTitle: false))
         // Don't write "saved application state" files to ~/Library.
         .restorationBehavior(.disabled)
         .commands {
             CommandGroup(after: .appInfo) {
                 Divider()
                 Button("Uninstall Sottodesu…") { Uninstaller.confirmAndRun() }
+            }
+            CommandMenu("Go") {
+                Button("Sort") { model.tab = .sort }
+                    .keyboardShortcut("1")
+                Button("Report") { model.tab = .report }
+                    .keyboardShortcut("2")
+                Button("Largest Files") { model.tab = .largest }
+                    .keyboardShortcut("3")
+                Divider()
+                Button("Rescan Downloads") { model.rescan() }
+                    .keyboardShortcut("r")
             }
         }
     }

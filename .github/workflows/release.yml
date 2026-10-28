@@ -1,0 +1,34 @@
+name: Release
+
+# Publishes a GitHub release with the installer attached whenever you push a version tag:
+#   git tag v1.0.0 && git push origin v1.0.0
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Build the disk image
+        run: Scripts/build-dmg.sh "${GITHUB_REF_NAME#v}"
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            build/Sottodesu-*.dmg build/Sottodesu-*.dmg.sha256 \
+            --title "Sottodesu ${GITHUB_REF_NAME#v}" \
+            --notes-file .github/release-notes.md \
+            --generate-notes \
+            --verify-tag

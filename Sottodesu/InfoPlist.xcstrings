@@ -1,0 +1,46 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "NSDownloadsFolderUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottodesu sorts the files in your Downloads folder into subfolders by type."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottodesu раскладывает файлы из папки «Загрузки» по подпапкам по типу."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottodesu 会按类型将“下载”文件夹中的文件整理到子文件夹中。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottodesu는 다운로드 폴더의 파일을 종류별 하위 폴더로 정리해요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottodesu は「ダウンロード」フォルダ内のファイルを種類ごとのサブフォルダに整理します。"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sottodesu range les fichiers de votre dossier Téléchargements dans des sous-dossiers selon leur type."
+          }
+        }
+      }
+    }
+  }
+}

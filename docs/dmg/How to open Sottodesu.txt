@@ -1,0 +1,17 @@
+Sottodesu - how to install
+==========================
+
+1. Drag "Sottodesu" onto the "Applications" folder next to it.
+2. Open Sottodesu from your Applications folder (or Launchpad).
+
+If macOS says Sottodesu "cannot be opened" or "could not be verified":
+   a. Click "Done" (do not move it to the Trash).
+   b. Open System Settings > Privacy & Security.
+   c. Scroll down to the Security section and click "Open Anyway" next to Sottodesu.
+   d. Confirm with your password or Touch ID, then click "Open".
+You only have to do this once.
+
+Why does this happen? Sottodesu is free and open source and is not yet registered with Apple.
+It never connects to the internet and only touches your Downloads folder.
+
+Help and the source code: https://github.com/lexeremin/Sottodesu
