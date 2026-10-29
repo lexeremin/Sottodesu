@@ -626,15 +626,51 @@ private struct TimeField: View {
                     .font(.callout)
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text(String(format: "%02d", minute))
-                    .font(.callout.weight(.semibold))
-                    .monospacedDigit()
+                MinuteEntry(minute: $minute) { showMinutes = false }
                 Stepper("Minute", value: $minute, in: 0...59)
                     .labelsHidden()
             }
         }
         .padding(16)
         .frame(width: 6 * 38 + 5 * 8 + 32)
+    }
+}
+
+/// A small field for typing the exact minute (0 to 59). Return confirms and closes the popup.
+private struct MinuteEntry: View {
+    @Binding var minute: Int
+    let done: () -> Void
+    @State private var text = ""
+    @FocusState private var focused: Bool
+
+    var body: some View {
+        TextField("", text: $text)
+            .textFieldStyle(.roundedBorder)
+            .multilineTextAlignment(.center)
+            .font(.callout.weight(.semibold))
+            .monospacedDigit()
+            .frame(width: 52)
+            .focused($focused)
+            .accessibilityLabel(Text("Minute"))
+            .onAppear {
+                text = String(format: "%02d", minute)
+                focused = true
+            }
+            .onChange(of: text) { _, newValue in
+                // Digits only, at most two of them; a valid number applies straight away.
+                let digits = String(newValue.filter(\.isNumber).prefix(2))
+                if digits != newValue { text = digits }
+                if let value = Int(digits), (0...59).contains(value) { minute = value }
+            }
+            .onChange(of: minute) { _, newValue in
+                // The arrows or a preset moved the minute: show it, unless the person is mid-typing it.
+                if Int(text) != newValue { text = String(format: "%02d", newValue) }
+            }
+            .onSubmit {
+                if let value = Int(text) { minute = min(max(value, 0), 59) }
+                text = String(format: "%02d", minute)
+                done()
+            }
     }
 }
 
